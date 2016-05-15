@@ -35,7 +35,8 @@ public class PlayerController : MonoBehaviour
         }
 
         // is a gamepad connected?
-        if (Input.GetJoystickNames().Length > 0)
+        var joysticks = Input.GetJoystickNames();
+        if (joysticks.Length > 0 && !string.IsNullOrEmpty(joysticks[0]))
         {
             // get aim from right thumbstick
             float xAim = Input.GetAxis("HorizontalAim");
@@ -50,6 +51,18 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            // perform raycast to calculate world position of mouse cursor
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            var plane = new Plane(Vector3.forward, Vector3.zero);
+            float distance = 0.0f;
+            if (plane.Raycast(ray, out distance))
+            {
+                Vector3 mousePos = ray.GetPoint(distance);
+
+                // calculate rotation based on direction to mouse cursor
+                Vector3 directionToMouse = mousePos - transform.position;
+                playerRotation = Mathf.Atan2(directionToMouse.y, directionToMouse.x) * Mathf.Rad2Deg;
+            }
         }
 
         // set the player rotation
