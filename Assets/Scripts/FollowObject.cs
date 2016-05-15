@@ -4,6 +4,7 @@ using System.Collections;
 public class FollowObject : MonoBehaviour
 {
     public Transform target;
+    public float Stickiness = 1.0f;
 
     void Start()
     {
@@ -14,8 +15,10 @@ public class FollowObject : MonoBehaviour
     {
         if (target != null)
         {
-            // set the X and Y ordinates to the target's
-            transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
+            // calculate target position
+            Vector3 targetPosition = new Vector3(target.position.x, target.position.y, transform.position.z);
+            // interpolate to the target position based on the stickiness factor
+            transform.position = Vector3.Lerp(transform.position, targetPosition, Stickiness);
         }
     }
 }
