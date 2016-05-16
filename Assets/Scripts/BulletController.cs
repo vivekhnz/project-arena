@@ -20,7 +20,7 @@ public class BulletController : PooledObject
         spriteBounds = renderer.sprite.bounds;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // move the bullet in the direction it is facing
         transform.Translate(Vector3.right * Speed);
