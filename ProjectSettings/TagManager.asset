@@ -45,11 +45,11 @@ TagManager:
   - name: Ground
     uniqueID: 2310549163
     locked: 0
-  - name: Terrain
-    uniqueID: 642678989
-    locked: 0
   - name: Bullets
     uniqueID: 3956441747
+    locked: 0
+  - name: Terrain
+    uniqueID: 642678989
     locked: 0
   - name: Player
     uniqueID: 1696760447

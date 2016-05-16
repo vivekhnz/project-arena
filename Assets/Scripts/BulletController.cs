@@ -40,4 +40,12 @@ public class BulletController : PooledObject
         transform.position = position;
         transform.rotation = Quaternion.AngleAxis(aim, Vector3.forward);
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Terrain")
+        {
+            Recycle();
+        }
+    }
 }
