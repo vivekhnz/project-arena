@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     public float MovementSpeed = 0.3f;
+    public GameObject Bullet;
 
     void Start()
     {
@@ -47,6 +48,9 @@ public class PlayerController : MonoBehaviour
             {
                 // calculate the rotation based on the player's aim direction
                 playerRotation = Mathf.Atan2(yAim, xAim) * Mathf.Rad2Deg;
+
+                // fire the player's weapon
+                Fire();
             }
         }
         else
@@ -67,5 +71,22 @@ public class PlayerController : MonoBehaviour
 
         // set the player rotation
         transform.rotation = Quaternion.Euler(0.0f, 0.0f, playerRotation);
+
+        // fire the player's weapon if the fire button is pressed
+        if (Input.GetButton("Fire"))
+        {
+            Fire();
+        }
+    }
+    
+    void Fire()
+    {
+        if (Bullet != null)
+        {
+            // instantiate a bullet
+            var bullet = Instantiate(Bullet);
+            var controller = bullet.GetComponent<BulletController>();
+            controller.Initialize(this.transform.position, this.transform.rotation);
+        }
     }
 }
