@@ -11,11 +11,13 @@ public class PlayerController : MonoBehaviour
     public float BloomResetDurationSeconds = 1.5f;
     public AnimationCurve BloomCurve;
     public AnimationCurve BloomResetCurve;
+    public float RateOfFire = 60.0f; // bullets per minute
 
     private float currentBloom = 0.0f;
     private float startFireTime = 0.0f;
     private float releaseFireTime = 0.0f;
     private bool wasFiring = false;
+    private float bulletFiredTime = 0.0f;
 
     void Start()
     {
@@ -129,13 +131,19 @@ public class PlayerController : MonoBehaviour
     {
         if (Bullet != null)
         {
-            // fetch a bullet instance from the object pool
-            var bullet = Bullet.Fetch<BulletController>();
-            // calculate bullet spread based on current bloom value
-            float currentBulletSpread = Mathf.Lerp(MinBulletSpread, MaxBulletSpread, currentBloom);
-            // calculate aim direction based on bullet spread
-            float aim = transform.rotation.eulerAngles.z + Random.Range(-currentBulletSpread, currentBulletSpread);
-            bullet.Initialize(this.transform.position, aim);
+            float timeBetweenBullets = 60.0f / RateOfFire;
+            if (Time.time - bulletFiredTime > timeBetweenBullets)
+            {
+                // fetch a bullet instance from the object pool
+                var bullet = Bullet.Fetch<BulletController>();
+                // calculate bullet spread based on current bloom value
+                float currentBulletSpread = Mathf.Lerp(MinBulletSpread, MaxBulletSpread, currentBloom);
+                // calculate aim direction based on bullet spread
+                float aim = transform.rotation.eulerAngles.z + Random.Range(-currentBulletSpread, currentBulletSpread);
+                bullet.Initialize(this.transform.position, aim);
+                // store the current time for rate of fire calculation
+                bulletFiredTime = Time.time;
+            }
         }
     }
 
