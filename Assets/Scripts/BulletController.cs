@@ -32,9 +32,9 @@ public class BulletController : MonoBehaviour
         }
     }
 
-    public void Initialize(Vector3 position, Quaternion rotation)
+    public void Initialize(Vector3 position, float aim)
     {
         transform.position = position;
-        transform.rotation = rotation;
+        transform.rotation = Quaternion.AngleAxis(aim, Vector3.forward);
     }
 }

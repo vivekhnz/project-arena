@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     public float MovementSpeed = 0.3f;
     public GameObject Bullet;
+    public float MaxBulletSpread = 10.0f;
 
     void Start()
     {
@@ -86,7 +87,29 @@ public class PlayerController : MonoBehaviour
             // instantiate a bullet
             var bullet = Instantiate(Bullet);
             var controller = bullet.GetComponent<BulletController>();
-            controller.Initialize(this.transform.position, this.transform.rotation);
+
+            // calculate aim direction based on bullet spread
+            float aim = transform.rotation.eulerAngles.z + Random.Range(-MaxBulletSpread, MaxBulletSpread);
+            controller.Initialize(this.transform.position, aim);
         }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        // draw aim cone in Unity editor
+        Gizmos.color = new Color(0.8f, 0.8f, 0.8f);
+        DrawAimSpread(MaxBulletSpread);
+    }
+
+    void DrawAimSpread(float spread)
+    {
+        float rayLength = 10.0f;
+
+        Gizmos.DrawRay(transform.position, new Vector3(
+            Mathf.Cos((transform.rotation.eulerAngles.z + spread) * Mathf.Deg2Rad) * rayLength,
+            Mathf.Sin((transform.rotation.eulerAngles.z + spread) * Mathf.Deg2Rad) * rayLength, 0.0f));
+        Gizmos.DrawRay(transform.position, new Vector3(
+            Mathf.Cos((transform.rotation.eulerAngles.z - spread) * Mathf.Deg2Rad) * rayLength,
+            Mathf.Sin((transform.rotation.eulerAngles.z - spread) * Mathf.Deg2Rad) * rayLength, 0.0f));
     }
 }
