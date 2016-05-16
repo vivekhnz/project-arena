@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     {
     }
 
-    void Update()
+    void FixedUpdate()
     {
         bool isFiring = false;
         ManageInput(out isFiring);

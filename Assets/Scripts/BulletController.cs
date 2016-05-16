@@ -20,7 +20,7 @@ public class BulletController : PooledObject
         spriteBounds = renderer.sprite.bounds;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // move the bullet in the direction it is facing
         transform.Translate(Vector3.right * Speed);
@@ -39,5 +39,13 @@ public class BulletController : PooledObject
     {
         transform.position = position;
         transform.rotation = Quaternion.AngleAxis(aim, Vector3.forward);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Terrain")
+        {
+            Recycle();
+        }
     }
 }
