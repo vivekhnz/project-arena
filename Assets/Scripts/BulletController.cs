@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class BulletController : MonoBehaviour
+public class BulletController : PooledObject
 {
     public float Speed = 1.0f;
 
@@ -22,13 +22,16 @@ public class BulletController : MonoBehaviour
 
     void Update()
     {
+        // move the bullet in the direction it is facing
         transform.Translate(Vector3.right * Speed);
+
+        // recycle the object if it leaves the world bounds
         if (spriteBounds.min.x + transform.position.x > worldBounds.xMax
             || spriteBounds.max.x + transform.position.x < worldBounds.xMin
             || spriteBounds.min.y + transform.position.y > worldBounds.yMax
             || spriteBounds.max.y + transform.position.y < worldBounds.yMin)
         {
-            Destroy(gameObject);
+            Recycle();
         }
     }
 

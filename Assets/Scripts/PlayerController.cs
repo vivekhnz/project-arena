@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     public float MovementSpeed = 0.3f;
-    public GameObject Bullet;
+    public BulletController Bullet;
     public float MaxBulletSpread = 10.0f;
     public float MinBulletSpread = 0.0f;
     public float BloomDurationSeconds = 3.0f;
@@ -129,15 +129,13 @@ public class PlayerController : MonoBehaviour
     {
         if (Bullet != null)
         {
-            // instantiate a bullet
-            var bullet = Instantiate(Bullet);
-            var controller = bullet.GetComponent<BulletController>();
-
+            // fetch a bullet instance from the object pool
+            var bullet = Bullet.Fetch<BulletController>();
             // calculate bullet spread based on current bloom value
             float currentBulletSpread = Mathf.Lerp(MinBulletSpread, MaxBulletSpread, currentBloom);
             // calculate aim direction based on bullet spread
             float aim = transform.rotation.eulerAngles.z + Random.Range(-currentBulletSpread, currentBulletSpread);
-            controller.Initialize(this.transform.position, aim);
+            bullet.Initialize(this.transform.position, aim);
         }
     }
 
