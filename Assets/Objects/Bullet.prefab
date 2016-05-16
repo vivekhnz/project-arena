@@ -11,7 +11,7 @@ GameObject:
   - 212: {fileID: 21251960}
   - 114: {fileID: 11458758}
   - 61: {fileID: 6184484}
-  - 50: {fileID: 5034928}
+  - 50: {fileID: 5038446}
   m_Layer: 8
   m_Name: Bullet
   m_TagString: Bullet
@@ -31,7 +31,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!50 &5034928
+--- !u!50 &5038446
 Rigidbody2D:
   serializedVersion: 2
   m_ObjectHideFlags: 1
@@ -138,6 +138,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: Bullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -43,9 +43,28 @@ public class BulletController : PooledObject
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Terrain")
+        ManageCollisions(collision);
+    }
+
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        ManageCollisions(collision);
+    }
+
+    private void ManageCollisions(Collision2D collision)
+    {
+        string[] tags = collision.gameObject.tag.Split('|');
+        foreach (string tag in tags)
         {
-            Recycle();
+            switch (tag)
+            {
+                case "Terrain":
+                    Recycle();
+                    break;
+                case "Damageable":
+                    DamageableObject.DamageObject(collision.gameObject, 1);
+                    break;
+            }
         }
     }
 }

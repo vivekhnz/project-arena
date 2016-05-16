@@ -3,30 +3,30 @@ using System.Collections;
 
 public class ShieldGeneratorController : PooledObject
 {
-    public int MaxHealth = 100;
-
-    private int currentHealth = 100;
     private SpriteRenderer spriteRenderer;
+    private Animator animator;
+    private DamageableObject damageComponent;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        currentHealth = MaxHealth;
+        animator = GetComponent<Animator>();
+
+        damageComponent = GetComponent<DamageableObject>();
+        if (damageComponent != null)
+        {
+            // subscribe to the damaged event
+            damageComponent.Damaged += OnDamaged;
+        }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnDamaged(object sender, System.EventArgs e)
     {
-        if (collision.gameObject.tag == "Bullet")
-        {
-            currentHealth--;
-            if (currentHealth <= 0)
-            {
-                Recycle();
-            }
-            else
-            {
-                spriteRenderer.color = Color.Lerp(Color.red, Color.white, currentHealth / (float)MaxHealth);
-            }
-        }
+        // tint sprite red based on how much damage has been taken
+        spriteRenderer.color = Color.Lerp(Color.red, Color.white,
+            damageComponent.CurrentHealth / (float)damageComponent.MaxHealth);
+
+        // play the damaged animation
+        animator.SetTrigger("OnDamaged");
     }
 }
