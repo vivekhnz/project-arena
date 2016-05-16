@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementSpeed: 0.15
-  Bullet: {fileID: 0}
+  Bullet: {fileID: 11458758, guid: cdb8c6cb9a9f59a4bacbc4c351ec1a9b, type: 2}
   MaxBulletSpread: 40
   MinBulletSpread: 0
   BloomDurationSeconds: 5
@@ -111,7 +111,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
-  RateOfFire: 60
+  RateOfFire: 900
 --- !u!212 &21222648
 SpriteRenderer:
   m_ObjectHideFlags: 1

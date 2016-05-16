@@ -246,6 +246,7 @@ Transform:
   - {fileID: 701711800}
   - {fileID: 47894295}
   - {fileID: 1162566111}
+  - {fileID: 1657189464}
   m_Father: {fileID: 0}
   m_RootOrder: 2
 --- !u!4 &510337777 stripped
@@ -583,7 +584,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Name
-      value: Terrain Block (1)
+      value: Terrain Block
       objectReference: {fileID: 0}
     - target: {fileID: 475034, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_LocalScale.y
@@ -795,7 +796,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Name
-      value: Terrain Block (2)
+      value: Terrain Block
       objectReference: {fileID: 0}
     - target: {fileID: 475034, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_LocalScale.y
@@ -821,7 +822,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 503575977}
     m_Modifications:
     - target: {fileID: 475034, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_LocalPosition.x
@@ -853,11 +854,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 475034, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Name
-      value: Terrain Block (8)
+      value: Terrain Block
       objectReference: {fileID: 0}
     - target: {fileID: 475034, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_LocalScale.x
@@ -870,6 +871,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &1657189464 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 475034, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
+  m_PrefabInternal: {fileID: 1657189463}
 --- !u!1 &1751349180
 GameObject:
   m_ObjectHideFlags: 0
@@ -1184,15 +1189,6 @@ Prefab:
     - target: {fileID: 491340, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
       propertyPath: m_RootOrder
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11497410, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
-      propertyPath: Bullet
-      value: 
-      objectReference: {fileID: 11458758, guid: cdb8c6cb9a9f59a4bacbc4c351ec1a9b,
-        type: 2}
-    - target: {fileID: 11497410, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
-      propertyPath: RateOfFire
-      value: 900
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
