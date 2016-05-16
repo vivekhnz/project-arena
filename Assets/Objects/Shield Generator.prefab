@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 406464}
   - 212: {fileID: 21262920}
   - 58: {fileID: 5845148}
+  - 114: {fileID: 11486316}
   m_Layer: 0
   m_Name: Shield Generator
   m_TagString: Terrain
@@ -43,6 +44,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1
+--- !u!114 &11486316
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 161538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab91ef47cc28db341b7fd49fcb8d1188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 50
 --- !u!212 &21262920
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -87,6 +100,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: MaxHealth
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
