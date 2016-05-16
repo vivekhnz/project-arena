@@ -6,18 +6,29 @@ public class PlayerController : MonoBehaviour
     public float MovementSpeed = 0.3f;
     public GameObject Bullet;
     public float MaxBulletSpread = 10.0f;
+    public float MinBulletSpread = 0.0f;
+    public float BloomDurationSeconds = 3.0f;
+    public float BloomResetDurationSeconds = 1.5f;
+    public AnimationCurve BloomCurve;
+    public AnimationCurve BloomResetCurve;
+
+    private float currentBloom = 0.0f;
+    private float startFireTime = 0.0f;
+    private float releaseFireTime = 0.0f;
+    private bool wasFiring = false;
 
     void Start()
     {
-
     }
 
     void Update()
     {
-        ManageInput();
+        bool isFiring = false;
+        ManageInput(out isFiring);
+        UpdateBloom(isFiring);
     }
 
-    private void ManageInput()
+    private void ManageInput(out bool isFiring)
     {
         float xMove = Input.GetAxis("Horizontal");
         float yMove = Input.GetAxis("Vertical");
@@ -49,9 +60,6 @@ public class PlayerController : MonoBehaviour
             {
                 // calculate the rotation based on the player's aim direction
                 playerRotation = Mathf.Atan2(yAim, xAim) * Mathf.Rad2Deg;
-
-                // fire the player's weapon
-                Fire();
             }
         }
         else
@@ -74,12 +82,49 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0.0f, 0.0f, playerRotation);
 
         // fire the player's weapon if the fire button is pressed
-        if (Input.GetButton("Fire"))
+        if (Input.GetButton("Fire") || Input.GetAxis("FireAxis") > 0.0f)
         {
             Fire();
+            isFiring = true;
+        }
+        else
+        {
+            isFiring = false;
         }
     }
-    
+
+    private void UpdateBloom(bool isFiring)
+    {
+        if (isFiring && !wasFiring)
+        {
+            // Player has just started firing
+            // Calculate the starting fire time based on the current bloom value
+            // This value will be the current time if bloom has fully reset since the last time fired
+            startFireTime = Time.time - (GetCurveTimeForValue(BloomCurve, currentBloom, 10) * BloomDurationSeconds);
+            wasFiring = true;
+        }
+        else if (!isFiring && wasFiring)
+        {
+            // Player just stopped firing
+            // Store the time the player stopped firing
+            releaseFireTime = Time.time;
+            wasFiring = false;
+        }
+
+        if (isFiring)
+        {
+            // increase bloom the longer the player fires
+            currentBloom = BloomCurve.Evaluate((Time.time - startFireTime) / BloomDurationSeconds);
+        }
+        else
+        {
+            // calculate the bloom at the time of release
+            float bloomAtRelease = BloomCurve.Evaluate((releaseFireTime - startFireTime) / BloomDurationSeconds);
+            // reset bloom over time
+            currentBloom = bloomAtRelease * BloomResetCurve.Evaluate((Time.time - releaseFireTime) / BloomResetDurationSeconds);
+        }
+    }
+
     void Fire()
     {
         if (Bullet != null)
@@ -88,17 +133,21 @@ public class PlayerController : MonoBehaviour
             var bullet = Instantiate(Bullet);
             var controller = bullet.GetComponent<BulletController>();
 
+            // calculate bullet spread based on current bloom value
+            float currentBulletSpread = Mathf.Lerp(MinBulletSpread, MaxBulletSpread, currentBloom);
             // calculate aim direction based on bullet spread
-            float aim = transform.rotation.eulerAngles.z + Random.Range(-MaxBulletSpread, MaxBulletSpread);
+            float aim = transform.rotation.eulerAngles.z + Random.Range(-currentBulletSpread, currentBulletSpread);
             controller.Initialize(this.transform.position, aim);
         }
     }
 
     void OnDrawGizmosSelected()
     {
-        // draw aim cone in Unity editor
-        Gizmos.color = new Color(0.8f, 0.8f, 0.8f);
+        // draw aim cones in Unity editor
+        Gizmos.color = new Color(0.9f, 0.9f, 0.9f);
         DrawAimSpread(MaxBulletSpread);
+        Gizmos.color = Color.red;
+        DrawAimSpread(Mathf.Lerp(MinBulletSpread, MaxBulletSpread, currentBloom));
     }
 
     void DrawAimSpread(float spread)
@@ -111,5 +160,35 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawRay(transform.position, new Vector3(
             Mathf.Cos((transform.rotation.eulerAngles.z - spread) * Mathf.Deg2Rad) * rayLength,
             Mathf.Sin((transform.rotation.eulerAngles.z - spread) * Mathf.Deg2Rad) * rayLength, 0.0f));
+    }
+
+    // calculates the time from a given value on a curve (reverse evaluate)
+    // based on: http://stackoverflow.com/questions/25527855/animationcurve-evaluate-get-time-by-value
+    public float GetCurveTimeForValue(AnimationCurve curve, float value, int accuracy)
+    {
+        float startTime = curve.keys[0].time;
+        float endTime = curve.keys[curve.length - 1].time;
+
+        float nearestTime = startTime;
+        float step = endTime - startTime;
+
+        for (int i = 0; i < accuracy; i++)
+        {
+            float valueAtNearestTime = curve.Evaluate(nearestTime);
+            float distanceToValueAtNearestTime = Mathf.Abs(value - valueAtNearestTime);
+
+            float timeToCompare = nearestTime + step;
+            float valueAtTimeToCompare = curve.Evaluate(timeToCompare);
+            float distanceToValueAtTimeToCompare = Mathf.Abs(value - valueAtTimeToCompare);
+
+            if (distanceToValueAtTimeToCompare < distanceToValueAtNearestTime)
+            {
+                nearestTime = timeToCompare;
+                valueAtNearestTime = valueAtTimeToCompare;
+            }
+            step = Mathf.Abs(step * 0.5f) * Mathf.Sign(value - valueAtNearestTime);
+        }
+
+        return nearestTime;
     }
 }

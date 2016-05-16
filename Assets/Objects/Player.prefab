@@ -43,6 +43,41 @@ MonoBehaviour:
   MovementSpeed: 0.15
   Bullet: {fileID: 153482, guid: cdb8c6cb9a9f59a4bacbc4c351ec1a9b, type: 2}
   MaxBulletSpread: 40
+  MinBulletSpread: 0
+  BloomDurationSeconds: 5
+  BloomResetDurationSeconds: 1
+  BloomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0.07896528
+      outSlope: 0.07896528
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 2.596565
+      outSlope: 2.596565
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  BloomResetCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1.0029498
+      inSlope: -0.08345973
+      outSlope: -0.08345973
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: -2.8793437
+      outSlope: -2.8793437
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!212 &21222648
 SpriteRenderer:
   m_ObjectHideFlags: 1
