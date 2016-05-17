@@ -34,7 +34,7 @@ public class DamageableObject : MonoBehaviour
     private void Damage(int damage)
     {
         // reduce health
-        CurrentHealth--;
+        CurrentHealth -= damage;
         if (CurrentHealth <= 0)
         {
             // is this object poolable?

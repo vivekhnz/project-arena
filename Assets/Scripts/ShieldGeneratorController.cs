@@ -3,20 +3,26 @@ using System.Collections;
 
 public class ShieldGeneratorController : PooledObject
 {
+    public GameObject Core;
+
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private DamageableObject damageComponent;
 
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
-
-        damageComponent = GetComponent<DamageableObject>();
-        if (damageComponent != null)
+        if (Core != null)
         {
-            // subscribe to the damaged event
-            damageComponent.Damaged += OnDamaged;
+            spriteRenderer = Core.GetComponent<SpriteRenderer>();
+            animator = Core.GetComponent<Animator>();
+
+            damageComponent = Core.GetComponent<DamageableObject>();
+            if (damageComponent != null)
+            {
+                // subscribe to the damaged and destroyed events
+                damageComponent.Damaged += OnDamaged;
+                damageComponent.Destroyed += OnDestroyed;
+            }
         }
     }
 
@@ -28,5 +34,10 @@ public class ShieldGeneratorController : PooledObject
 
         // play the damaged animation
         animator.SetTrigger("OnDamaged");
+    }
+
+    private void OnDestroyed(object sender, System.EventArgs e)
+    {
+        Recycle();
     }
 }
