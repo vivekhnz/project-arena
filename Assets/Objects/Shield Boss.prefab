@@ -213,6 +213,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TurnSpeed: 0.1
+  EnemyBomb: {fileID: 0}
+  TimeBetweenBursts: 4
+  RateOfFire: 0.2
+  BombsPerBurst: 6
+  ProjectileSpawnOffsets:
+  - {x: 4.5, y: -5.5}
+  - {x: 4.5, y: 5.5}
 --- !u!114 &11496476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -264,6 +271,10 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: ProjectileSpawnOffsets.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
@@ -279,6 +290,34 @@ Prefab:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 889611d71ce668c43910d2c1ecd67afb, type: 2}
+    - target: {fileID: 0}
+      propertyPath: RateOfFire
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ProjectileSpawnOffsets.Array.data[0].x
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ProjectileSpawnOffsets.Array.data[0].y
+      value: -5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ProjectileSpawnOffsets.Array.data[1].x
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ProjectileSpawnOffsets.Array.data[1].y
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: TimeBetweenBursts
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: BombsPerBurst
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 105992}

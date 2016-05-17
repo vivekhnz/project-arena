@@ -270,6 +270,10 @@ Prefab:
       propertyPath: m_Name
       value: Cover
       objectReference: {fileID: 0}
+    - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
+      propertyPath: m_TagString
+      value: Solid
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
   m_IsPrefabParent: 0
@@ -339,6 +343,10 @@ Prefab:
     - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Name
       value: Outer Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
+      propertyPath: m_TagString
+      value: Solid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
@@ -649,6 +657,10 @@ Prefab:
       propertyPath: m_Name
       value: Outer Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
+      propertyPath: m_TagString
+      value: Solid
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
   m_IsPrefabParent: 0
@@ -702,6 +714,10 @@ Prefab:
     - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Name
       value: Cover
+      objectReference: {fileID: 0}
+    - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
+      propertyPath: m_TagString
+      value: Solid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
@@ -843,8 +859,17 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 105992, guid: c0f08b8a4d845de479ee1ba8b343c484, type: 2}
       propertyPath: m_Layer
-      value: 0
+      value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 105992, guid: c0f08b8a4d845de479ee1ba8b343c484, type: 2}
+      propertyPath: m_TagString
+      value: Solid|Damageable
+      objectReference: {fileID: 0}
+    - target: {fileID: 11409762, guid: c0f08b8a4d845de479ee1ba8b343c484, type: 2}
+      propertyPath: EnemyBomb
+      value: 
+      objectReference: {fileID: 11423048, guid: 4412f6c0e1dbb604a833bc6241c349ac,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c0f08b8a4d845de479ee1ba8b343c484, type: 2}
   m_IsPrefabParent: 0
@@ -898,6 +923,10 @@ Prefab:
     - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Name
       value: Cover
+      objectReference: {fileID: 0}
+    - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
+      propertyPath: m_TagString
+      value: Solid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
@@ -1003,6 +1032,10 @@ Prefab:
       propertyPath: m_Name
       value: Outer Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
+      propertyPath: m_TagString
+      value: Solid
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
   m_IsPrefabParent: 0
@@ -1076,6 +1109,10 @@ Prefab:
     - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Name
       value: Outer Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
+      propertyPath: m_TagString
+      value: Solid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
@@ -1222,6 +1259,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
+      propertyPath: m_TagString
+      value: Solid
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
   m_IsPrefabParent: 0
@@ -1279,6 +1320,10 @@ Prefab:
     - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Name
       value: Cover
+      objectReference: {fileID: 0}
+    - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
+      propertyPath: m_TagString
+      value: Solid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
@@ -1408,6 +1453,10 @@ Prefab:
     - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Name
       value: Cover
+      objectReference: {fileID: 0}
+    - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
+      propertyPath: m_TagString
+      value: Solid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
@@ -1653,6 +1702,10 @@ Prefab:
     - target: {fileID: 475034, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
+      propertyPath: m_TagString
+      value: Solid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
@@ -2054,6 +2107,10 @@ Prefab:
     - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Name
       value: Cover
+      objectReference: {fileID: 0}
+    - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
+      propertyPath: m_TagString
+      value: Solid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}

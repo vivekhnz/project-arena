@@ -58,7 +58,10 @@ public class BulletController : PooledObject
         {
             switch (tag)
             {
-                case "Terrain":
+                case "Solid":
+                    Recycle();
+                    break;
+                case "Player":
                     Recycle();
                     break;
                 case "Damageable":

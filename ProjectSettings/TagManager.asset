@@ -4,11 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Terrain
+  - Solid
   - Bullet
   - Damageable
-  - Terrain|Damageable
+  - Solid|Damageable
   - ShieldGeneratorSpawnPoint
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
@@ -21,8 +22,8 @@ TagManager:
   - Bullets
   - Player
   - Terrain
-  - 
-  - 
+  - EnemyBullets
+  - Enemy
   - 
   - 
   - 
