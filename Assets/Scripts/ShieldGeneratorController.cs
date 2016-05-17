@@ -11,10 +11,10 @@ public class ShieldGeneratorController : PooledObject
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         if (Core != null)
         {
             spriteRenderer = Core.GetComponent<SpriteRenderer>();
-            animator = Core.GetComponent<Animator>();
 
             damageComponent = Core.GetComponent<DamageableObject>();
             if (damageComponent != null)

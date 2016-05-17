@@ -36,7 +36,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: 
+    path: Shield Generator Core
   m_FloatCurves: []
   m_PPtrCurves: []
   m_SampleRate: 60
@@ -46,7 +46,7 @@ AnimationClip:
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
     genericBindings:
-    - path: 0
+    - path: 1420752090
       attribute: 3
       script: {fileID: 0}
       classID: 4
@@ -96,7 +96,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.x
-    path: 
+    path: Shield Generator Core
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -121,7 +121,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.y
-    path: 
+    path: Shield Generator Core
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -146,7 +146,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.z
-    path: 
+    path: Shield Generator Core
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves: []
