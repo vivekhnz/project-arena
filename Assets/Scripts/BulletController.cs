@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.SceneManagement;
 
 public class BulletController : PooledObject
 {
@@ -58,8 +59,12 @@ public class BulletController : PooledObject
         {
             switch (tag)
             {
-                case "Terrain":
+                case "Solid":
                     Recycle();
+                    break;
+                case "Player":
+                    Recycle();
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                     break;
                 case "Damageable":
                     DamageableObject.DamageObject(collision.gameObject, 1);
