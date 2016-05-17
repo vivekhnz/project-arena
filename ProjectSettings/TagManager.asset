@@ -55,6 +55,9 @@ TagManager:
   - name: Terrain
     uniqueID: 642678989
     locked: 0
+  - name: Boss
+    uniqueID: 910359771
+    locked: 0
   - name: Player
     uniqueID: 1696760447
     locked: 0
