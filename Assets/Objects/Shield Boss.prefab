@@ -11,6 +11,8 @@ GameObject:
   - 212: {fileID: 21209700}
   - 114: {fileID: 11409762}
   - 60: {fileID: 6032952}
+  - 114: {fileID: 11496476}
+  - 95: {fileID: 9524408}
   m_Layer: 0
   m_Name: Shield Boss
   m_TagString: Terrain|Damageable
@@ -182,6 +184,23 @@ PolygonCollider2D:
       - {x: 0.52, y: -2.2}
       - {x: 1.2099999, y: -2.07}
       - {x: 1.3199999, y: -2.06}
+--- !u!95 &9524408
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105992}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 889611d71ce668c43910d2c1ecd67afb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11409762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -193,6 +212,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 260451b8f92fb3e4c98f91864fba52aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TurnSpeed: 0.1
+--- !u!114 &11496476
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19d94d0db5b651c469eed74920a59dda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 100
+  DestroyObjectOnDeath: 1
 --- !u!212 &21209700
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -242,6 +275,10 @@ Prefab:
       propertyPath: m_TagString
       value: Terrain|Damageable
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 889611d71ce668c43910d2c1ecd67afb, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 105992}
