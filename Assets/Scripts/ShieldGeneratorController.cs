@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class ShieldGeneratorController : PooledObject
 {
     public GameObject Core;
+
+    public event EventHandler Destroyed;
 
     private SpriteRenderer spriteRenderer;
     private Animator animator;
@@ -19,14 +22,28 @@ public class ShieldGeneratorController : PooledObject
             damageComponent = Core.GetComponent<DamageableObject>();
             if (damageComponent != null)
             {
-                // subscribe to the damaged and destroyed events
-                damageComponent.Damaged += OnDamaged;
+                // subscribe to the health changed and destroyed events
+                damageComponent.HealthChanged += OnHealthChanged;
                 damageComponent.Destroyed += OnDestroyed;
             }
         }
     }
 
-    private void OnDamaged(object sender, System.EventArgs e)
+    public override void ResetInstance()
+    {
+        if (damageComponent == null)
+        {
+            damageComponent = Core.GetComponent<DamageableObject>();
+        }
+        if (damageComponent != null)
+        {
+            damageComponent.ResetHealth();
+        }
+
+        base.ResetInstance();
+    }
+
+    private void OnHealthChanged(object sender, System.EventArgs e)
     {
         // tint sprite red based on how much damage has been taken
         spriteRenderer.color = Color.Lerp(Color.red, Color.white,
@@ -38,6 +55,10 @@ public class ShieldGeneratorController : PooledObject
 
     private void OnDestroyed(object sender, System.EventArgs e)
     {
+        if (Destroyed != null)
+        {
+            Destroyed(this, EventArgs.Empty);
+        }
         Recycle();
     }
 }

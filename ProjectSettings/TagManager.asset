@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - Damageable
   - Terrain|Damageable
+  - ShieldGeneratorSpawnPoint
   layers:
   - Default
   - TransparentFX
