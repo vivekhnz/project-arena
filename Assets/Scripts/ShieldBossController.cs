@@ -30,6 +30,8 @@ public class ShieldBossController : MonoBehaviour
             // subscribe to the health changed event
             damageComponent.HealthChanged += OnHealthChanged;
         }
+
+        burstTime = Time.time;
     }
 
     void FixedUpdate ()
