@@ -190,6 +190,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 485334, guid: 202dc042ca3a08e46955c49a59249b83, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 485334, guid: 202dc042ca3a08e46955c49a59249b83, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 485334, guid: 202dc042ca3a08e46955c49a59249b83, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11440040, guid: 202dc042ca3a08e46955c49a59249b83, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 202dc042ca3a08e46955c49a59249b83, type: 2}
@@ -1162,6 +1174,10 @@ Prefab:
     - target: {fileID: 192622, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11497410, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
+      propertyPath: BloomResetDurationSeconds
+      value: 0.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}

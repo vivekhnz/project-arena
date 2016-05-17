@@ -78,7 +78,7 @@ MonoBehaviour:
   MaxBulletSpread: 40
   MinBulletSpread: 0
   BloomDurationSeconds: 5
-  BloomResetDurationSeconds: 1
+  BloomResetDurationSeconds: 0.75
   BloomCurve:
     serializedVersion: 2
     m_Curve:
@@ -160,6 +160,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: MovementSpeed
       value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: BloomResetDurationSeconds
+      value: 0.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
