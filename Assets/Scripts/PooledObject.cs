@@ -31,4 +31,9 @@ public class PooledObject : MonoBehaviour
         obj.ResetInstance();
         return obj;
     }
+
+    void OnLevelWasLoaded()
+    {
+        Recycle();
+    }
 }

@@ -63,6 +63,7 @@ public class ObjectPool : MonoBehaviour
 
         // create a new object pool for the given prefab
         obj = new GameObject(string.Format("{0} Pool", prefab.name));
+        DontDestroyOnLoad(obj);
         pool = obj.AddComponent<ObjectPool>();
         pool.prefab = prefab;
         return pool;
