@@ -7,8 +7,10 @@ public class ShieldBossController : MonoBehaviour
     public float TurnSpeed = 0.1f;
     public BulletController EnemyBomb;
     public float TimeBetweenBursts = 5.0f;
-    public float RateOfFire = 0.5f;
-    public int BombsPerBurst = 4;
+    public float MinRateOfFire = 0.15f;
+    public float MaxRateOfFire = 0.3f;
+    public int MinBombsPerBurst = 4;
+    public int MaxBombsPerBurst = 8;
     public List<Vector2> ProjectileSpawnOffsets;
 
     private GameObject player;
@@ -53,7 +55,9 @@ public class ShieldBossController : MonoBehaviour
 
         if (Time.time - burstTime > TimeBetweenBursts)
         {
-            if (projectilesFiredInBurst < BombsPerBurst)
+            int bombsPerBurst = (int)Mathf.Ceil(Mathf.Lerp(MaxBombsPerBurst, MinBombsPerBurst,
+                damageComponent.CurrentHealth / (float)damageComponent.MaxHealth));
+            if (projectilesFiredInBurst < bombsPerBurst)
             {
                 Fire();
             }
@@ -89,8 +93,10 @@ public class ShieldBossController : MonoBehaviour
 
     private void Fire()
     {
+        float rateOfFire = Mathf.Lerp(MinRateOfFire, MaxRateOfFire,
+            damageComponent.CurrentHealth / (float)damageComponent.MaxHealth);
         if (EnemyBomb != null && ProjectileSpawnOffsets.Count > 0
-            && Time.time - fireTime > RateOfFire)
+            && Time.time - fireTime > rateOfFire)
         {
             // fetch a bullet instance from the object pool
             var bullet = EnemyBomb.Fetch<BulletController>();
