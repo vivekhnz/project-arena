@@ -6,6 +6,8 @@ using System;
 public class PooledObject : MonoBehaviour
 {
     public ObjectPool Pool { get; set; }
+    
+    public virtual void ResetInstance() { }
 
     public void Recycle()
     {
@@ -25,6 +27,8 @@ public class PooledObject : MonoBehaviour
         {
             Pool = ObjectPool.GetPool(this);
         }
-        return (T)Pool.Fetch();
+        var obj = (T)Pool.Fetch();
+        obj.ResetInstance();
+        return obj;
     }
 }

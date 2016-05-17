@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Terrain
+  - Bullet
+  - Damageable
+  - Terrain|Damageable
+  - ShieldGeneratorSpawnPoint
   layers:
   - Default
   - TransparentFX
