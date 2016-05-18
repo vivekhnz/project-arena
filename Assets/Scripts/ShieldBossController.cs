@@ -13,6 +13,7 @@ public class ShieldBossController : MonoBehaviour
     public int MinBombsPerBurst = 4;
     public int MaxBombsPerBurst = 8;
     public List<Vector2> ProjectileSpawnOffsets;
+    public ShieldGeneratorManager ShieldGeneratorManager;
 
     private GameObject player;
     private DamageableObject damageComponent;
@@ -34,13 +35,17 @@ public class ShieldBossController : MonoBehaviour
             damageComponent.HealthChanged += OnHealthChanged;
             damageComponent.Destroyed += OnDestroyed;
         }
+        if (ShieldGeneratorManager != null)
+        {
+            ShieldGeneratorManager.ShieldDisabled += OnShieldDisabled;
+        }
+        SetShieldState(true);
 
-        burstTime = Time.time;
+       burstTime = Time.time;
     }
 
     void FixedUpdate ()
     {
-        bool isShielded = false;
         if (player != null)
         {
             Vector2 direction;
@@ -51,8 +56,6 @@ public class ShieldBossController : MonoBehaviour
             {
                 lastSightedPlayerPosition = player.transform.position;
             }
-
-            isShielded = hit.collider.gameObject.tag == "Player";
 
             direction = lastSightedPlayerPosition - transform.position;
             RotateTo(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
@@ -73,9 +76,6 @@ public class ShieldBossController : MonoBehaviour
                 projectileSpawnLocationIndex = 0;
             }
         }
-
-        animator.SetBool("IsShielded", isShielded);
-        damageComponent.IsInvincible = isShielded;
     }
 
     void RotateTo(float targetRotation)
@@ -124,6 +124,17 @@ public class ShieldBossController : MonoBehaviour
     private void OnDestroyed(object sender, System.EventArgs e)
     {
         SceneManager.LoadScene("VictoryScene");
+    }
+
+    private void SetShieldState(bool isShielded)
+    {
+        animator.SetBool("IsShielded", isShielded);
+        damageComponent.IsInvincible = isShielded;
+    }
+
+    private void OnShieldDisabled(object sender, System.EventArgs e)
+    {
+        SetShieldState(false);
     }
 
     void OnDrawGizmos()

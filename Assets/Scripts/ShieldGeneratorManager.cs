@@ -2,12 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 public class ShieldGeneratorManager : MonoBehaviour
 {
     public ShieldGeneratorController ShieldGenerator;
     public float SpawnIntervalSeconds = 10;
     public int MaxGeneratorCount = 3;
+
+    public event EventHandler ShieldDisabled;
 
     private int generatorCount = 0;
     private float spawnTime;
@@ -49,7 +52,7 @@ public class ShieldGeneratorManager : MonoBehaviour
         {
             // create a new shield generator at a random available spawn point
             var generator = ShieldGenerator.Fetch<ShieldGeneratorController>();
-            Vector3 spawnPos = availableSpawnPoints[Random.Range(0, availableSpawnPoints.Count)];
+            Vector3 spawnPos = availableSpawnPoints[UnityEngine.Random.Range(0, availableSpawnPoints.Count)];
             generator.transform.position = spawnPos;
             // mark the spawn point as unavailable
             spawnPoints[spawnPos] = false;
@@ -72,6 +75,12 @@ public class ShieldGeneratorManager : MonoBehaviour
             spawnTime = Time.time;
         }
         generatorCount--;
+        
+        // disable shield if zero generators are active
+        if (generatorCount <= 0 && ShieldDisabled != null)
+        {
+            ShieldDisabled(this, EventArgs.Empty);
+        }
     }
 
     private List<Vector3> GetAvailableSpawnPoints()

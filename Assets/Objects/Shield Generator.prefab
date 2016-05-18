@@ -191,6 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 50
   DestroyObjectOnDeath: 0
+  IsInvincible: 0
 --- !u!114 &11415810
 MonoBehaviour:
   m_ObjectHideFlags: 1
