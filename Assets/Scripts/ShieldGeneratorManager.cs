@@ -15,6 +15,7 @@ public class ShieldGeneratorManager : MonoBehaviour
     private int generatorCount = 0;
     private float spawnTime;
     private Dictionary<Vector3, bool> spawnPoints;
+    private bool canSpawnGenerators = true;
 
     void Start()
     {
@@ -22,24 +23,23 @@ public class ShieldGeneratorManager : MonoBehaviour
         var spawnPointObjects = GameObject.FindGameObjectsWithTag("ShieldGeneratorSpawnPoint");
         spawnPoints = spawnPointObjects.ToDictionary(p => p.transform.position, p => true);
 
-        // spawn the maximum number of shield generators at the beginning
-        for (int i = 0; i < MaxGeneratorCount; i++)
-        {
-            SpawnShieldGenerator();
-        }
+        ResetGeneratorSpawns();
     }
 
     public void FixedUpdate()
     {
-        // if there are fewer than the maximum number of generators, spawn generators at a certain interval
-        if (generatorCount < MaxGeneratorCount && Time.time - spawnTime > SpawnIntervalSeconds)
+        if (canSpawnGenerators)
         {
-            SpawnShieldGenerator();
-
-            // if there are still fewer than the max, reset the spawn timer
-            if (generatorCount < MaxGeneratorCount)
+            // if there are fewer than the maximum number of generators, spawn generators at a certain interval
+            if (generatorCount < MaxGeneratorCount && Time.time - spawnTime > SpawnIntervalSeconds)
             {
-                spawnTime = Time.time;
+                SpawnShieldGenerator();
+
+                // if there are still fewer than the max, reset the spawn timer
+                if (generatorCount < MaxGeneratorCount)
+                {
+                    spawnTime = Time.time;
+                }
             }
         }
     }
@@ -66,6 +66,8 @@ public class ShieldGeneratorManager : MonoBehaviour
     private void OnGeneratorDestroyed(object sender, System.EventArgs e)
     {
         var generator = sender as ShieldGeneratorController;
+        // unhook the destroyed event so we don't get duplicate destroy notifications when this object is pooled
+        generator.Destroyed -= OnGeneratorDestroyed;
         // mark the spawn point as available
         spawnPoints[generator.transform.position] = true;
 
@@ -80,6 +82,7 @@ public class ShieldGeneratorManager : MonoBehaviour
         if (generatorCount <= 0 && ShieldDisabled != null)
         {
             ShieldDisabled(this, EventArgs.Empty);
+            canSpawnGenerators = false;
         }
     }
 
@@ -88,5 +91,17 @@ public class ShieldGeneratorManager : MonoBehaviour
         return (from spawnKVP in spawnPoints
                 where spawnKVP.Value
                 select spawnKVP.Key).ToList();
+    }
+
+    public void ResetGeneratorSpawns()
+    {
+        // spawn the maximum number of shield generators
+        for (int i = 0; i < MaxGeneratorCount; i++)
+        {
+            SpawnShieldGenerator();
+        }
+        canSpawnGenerators = true;
+
+        spawnTime = Time.time;
     }
 }

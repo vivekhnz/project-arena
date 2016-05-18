@@ -55,6 +55,7 @@ public class ShieldBossController : MonoBehaviour
             {
                 isShieldDisabled = false;
                 SetShieldState(true);
+                ShieldGeneratorManager.ResetGeneratorSpawns();
             }
         }
         else
