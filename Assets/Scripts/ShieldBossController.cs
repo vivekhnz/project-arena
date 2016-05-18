@@ -13,6 +13,8 @@ public class ShieldBossController : MonoBehaviour
     public int MinBombsPerBurst = 4;
     public int MaxBombsPerBurst = 8;
     public List<Vector2> ProjectileSpawnOffsets;
+    public ShieldGeneratorManager ShieldGeneratorManager;
+    public float DisableShieldDuration = 5.0f;
 
     private GameObject player;
     private DamageableObject damageComponent;
@@ -22,6 +24,8 @@ public class ShieldBossController : MonoBehaviour
     private float fireTime;
     private int projectilesFiredInBurst = 0;
     private int projectileSpawnLocationIndex = 0;
+    private bool isShieldDisabled = false;
+    private float shieldDisableTime;
 
     void Start ()
     {
@@ -34,40 +38,57 @@ public class ShieldBossController : MonoBehaviour
             damageComponent.HealthChanged += OnHealthChanged;
             damageComponent.Destroyed += OnDestroyed;
         }
+        if (ShieldGeneratorManager != null)
+        {
+            ShieldGeneratorManager.ShieldDisabled += OnShieldDisabled;
+        }
+        SetShieldState(true);
 
-        burstTime = Time.time;
+       burstTime = Time.time;
     }
 
     void FixedUpdate ()
     {
-        if (player != null)
+        if (isShieldDisabled)
         {
-            Vector2 direction;
-            var hit = RaycastLineOfSight(out direction);
-            
-            // if we have line of sight with the player, rotate to face the player
-            if (hit.collider.gameObject.tag == "Player")
+            if (Time.time - shieldDisableTime > DisableShieldDuration)
             {
-                lastSightedPlayerPosition = player.transform.position;
+                isShieldDisabled = false;
+                SetShieldState(true);
+                ShieldGeneratorManager.ResetGeneratorSpawns();
             }
-
-            direction = lastSightedPlayerPosition - transform.position;
-            RotateTo(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
         }
-
-        if (Time.time - burstTime > TimeBetweenBursts)
+        else
         {
-            int bombsPerBurst = (int)Mathf.Ceil(Mathf.Lerp(MaxBombsPerBurst, MinBombsPerBurst,
-                damageComponent.CurrentHealth / (float)damageComponent.MaxHealth));
-            if (projectilesFiredInBurst < bombsPerBurst)
+            if (player != null)
             {
-                Fire();
+                Vector2 direction;
+                var hit = RaycastLineOfSight(out direction);
+
+                // if we have line of sight with the player, rotate to face the player
+                if (hit.collider.gameObject.tag == "Player")
+                {
+                    lastSightedPlayerPosition = player.transform.position;
+                }
+
+                direction = lastSightedPlayerPosition - transform.position;
+                RotateTo(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
             }
-            else
+
+            if (Time.time - burstTime > TimeBetweenBursts)
             {
-                burstTime = Time.time;
-                projectilesFiredInBurst = 0;
-                projectileSpawnLocationIndex = 0;
+                int bombsPerBurst = (int)Mathf.Ceil(Mathf.Lerp(MaxBombsPerBurst, MinBombsPerBurst,
+                    damageComponent.CurrentHealth / (float)damageComponent.MaxHealth));
+                if (projectilesFiredInBurst < bombsPerBurst)
+                {
+                    Fire();
+                }
+                else
+                {
+                    burstTime = Time.time;
+                    projectilesFiredInBurst = 0;
+                    projectileSpawnLocationIndex = 0;
+                }
             }
         }
     }
@@ -118,6 +139,19 @@ public class ShieldBossController : MonoBehaviour
     private void OnDestroyed(object sender, System.EventArgs e)
     {
         SceneManager.LoadScene("VictoryScene");
+    }
+
+    private void SetShieldState(bool isShielded)
+    {
+        animator.SetBool("IsShielded", isShielded);
+        damageComponent.IsInvincible = isShielded;
+    }
+
+    private void OnShieldDisabled(object sender, System.EventArgs e)
+    {
+        SetShieldState(false);
+        isShieldDisabled = true;
+        shieldDisableTime = Time.time;
     }
 
     void OnDrawGizmos()
