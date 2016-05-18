@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using UnityEngine.UI;
 
 public class ShieldGeneratorManager : MonoBehaviour
 {
     public ShieldGeneratorController ShieldGenerator;
     public float SpawnIntervalSeconds = 10;
     public int MaxGeneratorCount = 3;
+    public Slider ShieldBar;
 
     public event EventHandler ShieldDisabled;
 
@@ -24,6 +26,7 @@ public class ShieldGeneratorManager : MonoBehaviour
         spawnPoints = spawnPointObjects.ToDictionary(p => p.transform.position, p => true);
 
         ResetGeneratorSpawns();
+        SetGeneratorCount(MaxGeneratorCount);
     }
 
     public void FixedUpdate()
@@ -58,8 +61,8 @@ public class ShieldGeneratorManager : MonoBehaviour
             spawnPoints[spawnPos] = false;
             // subscribe to the generator's Destroyed event so we can mark the spawn point as available after it is destroyed
             generator.Destroyed += OnGeneratorDestroyed;
-
-            generatorCount++;
+            
+            SetGeneratorCount(generatorCount + 1);
         }
     }
 
@@ -76,7 +79,7 @@ public class ShieldGeneratorManager : MonoBehaviour
         {
             spawnTime = Time.time;
         }
-        generatorCount--;
+        SetGeneratorCount(generatorCount - 1);
         
         // disable shield if zero generators are active
         if (generatorCount <= 0 && ShieldDisabled != null)
@@ -103,5 +106,16 @@ public class ShieldGeneratorManager : MonoBehaviour
         canSpawnGenerators = true;
 
         spawnTime = Time.time;
+    }
+
+    private void SetGeneratorCount(int count)
+    {
+        generatorCount = count;
+        if (ShieldBar != null)
+        {
+            ShieldBar.maxValue = MaxGeneratorCount;
+            ShieldBar.minValue = 0;
+            ShieldBar.value = generatorCount;
+        }
     }
 }
