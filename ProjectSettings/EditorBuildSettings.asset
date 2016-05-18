@@ -9,3 +9,5 @@ EditorBuildSettings:
     path: Assets/Scenes/LaunchScene.unity
   - enabled: 1
     path: Assets/Scenes/ShieldBossScene.unity
+  - enabled: 1
+    path: Assets/Scenes/DefeatScene.unity
