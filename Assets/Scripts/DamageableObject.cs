@@ -6,6 +6,7 @@ public class DamageableObject : MonoBehaviour
 {
     public int MaxHealth = 100;
     public bool DestroyObjectOnDeath = true;
+    public bool IsInvincible = false;
     public event EventHandler Destroyed;
     public event EventHandler HealthChanged;
 
@@ -49,30 +50,33 @@ public class DamageableObject : MonoBehaviour
 
     private void Damage(int damage)
     {
-        // reduce health
-        CurrentHealth -= damage;
-        if (CurrentHealth <= 0)
+        if (!IsInvincible)
         {
-            if (DestroyObjectOnDeath)
+            // reduce health
+            CurrentHealth -= damage;
+            if (CurrentHealth <= 0)
             {
-                // is this object poolable?
-                var poolable = gameObject.GetComponent<PooledObject>();
-                if (poolable == null)
+                if (DestroyObjectOnDeath)
                 {
-                    // if not, destroy the object
-                    Destroy(gameObject);
+                    // is this object poolable?
+                    var poolable = gameObject.GetComponent<PooledObject>();
+                    if (poolable == null)
+                    {
+                        // if not, destroy the object
+                        Destroy(gameObject);
+                    }
+                    else
+                    {
+                        // recycle a poolable instance
+                        poolable.Recycle();
+                    }
                 }
-                else
-                {
-                    // recycle a poolable instance
-                    poolable.Recycle();
-                }
-            }
 
-            // notify subscribers that the object has been destroyed
-            if (Destroyed != null)
-            {
-                Destroyed(this, EventArgs.Empty);
+                // notify subscribers that the object has been destroyed
+                if (Destroyed != null)
+                {
+                    Destroyed(this, EventArgs.Empty);
+                }
             }
         }
     }
