@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.SceneManagement;
 
 public class BulletController : PooledObject
 {
@@ -43,9 +44,31 @@ public class BulletController : PooledObject
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Terrain")
+        ManageCollisions(collision);
+    }
+
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        ManageCollisions(collision);
+    }
+
+    private void ManageCollisions(Collision2D collision)
+    {
+        string[] tags = collision.gameObject.tag.Split('|');
+        foreach (string tag in tags)
         {
-            Recycle();
+            switch (tag)
+            {
+                case "Solid":
+                    Recycle();
+                    break;
+                case "Player":
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                    break;
+                case "Damageable":
+                    DamageableObject.DamageObject(collision.gameObject, 1);
+                    break;
+            }
         }
     }
 }
