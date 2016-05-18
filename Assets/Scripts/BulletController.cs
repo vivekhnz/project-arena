@@ -63,7 +63,7 @@ public class BulletController : PooledObject
                     Recycle();
                     break;
                 case "Player":
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                    SceneManager.LoadScene("DefeatScene");
                     break;
                 case "Damageable":
                     DamageableObject.DamageObject(collision.gameObject, 1);

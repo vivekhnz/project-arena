@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class ShieldBossController : MonoBehaviour
 {
@@ -29,8 +30,9 @@ public class ShieldBossController : MonoBehaviour
         damageComponent = GetComponent<DamageableObject>();
         if (damageComponent != null)
         {
-            // subscribe to the health changed event
+            // subscribe to the health changed and destroyed events
             damageComponent.HealthChanged += OnHealthChanged;
+            damageComponent.Destroyed += OnDestroyed;
         }
 
         burstTime = Time.time;
@@ -111,6 +113,11 @@ public class ShieldBossController : MonoBehaviour
             projectileSpawnLocationIndex = (projectileSpawnLocationIndex + 1) % ProjectileSpawnOffsets.Count;
             fireTime = Time.time;
         }
+    }
+
+    private void OnDestroyed(object sender, System.EventArgs e)
+    {
+        SceneManager.LoadScene("VictoryScene");
     }
 
     void OnDrawGizmos()
