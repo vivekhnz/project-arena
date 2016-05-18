@@ -807,7 +807,7 @@ GameObject:
   - 114: {fileID: 645003867}
   - 114: {fileID: 645003868}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1145,9 +1145,8 @@ GameObject:
   m_Component:
   - 224: {fileID: 777205068}
   - 114: {fileID: 777205070}
-  - 114: {fileID: 777205069}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: ShieldBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1172,18 +1171,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 72}
   m_SizeDelta: {x: -100, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &777205069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 777205067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1846b1d04c8a07d49bc90c1ba9cbac7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Target: {fileID: 553918489}
 --- !u!114 &777205070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1825,6 +1812,7 @@ MonoBehaviour:
   ShieldGenerator: {fileID: 11415810, guid: 202dc042ca3a08e46955c49a59249b83, type: 2}
   SpawnIntervalSeconds: 30
   MaxGeneratorCount: 3
+  ShieldBar: {fileID: 777205070}
 --- !u!4 &1573237828
 Transform:
   m_ObjectHideFlags: 0
