@@ -40,6 +40,7 @@ public class ShieldBossController : MonoBehaviour
 
     void FixedUpdate ()
     {
+        bool isShielded = false;
         if (player != null)
         {
             Vector2 direction;
@@ -50,6 +51,8 @@ public class ShieldBossController : MonoBehaviour
             {
                 lastSightedPlayerPosition = player.transform.position;
             }
+
+            isShielded = hit.collider.gameObject.tag == "Player";
 
             direction = lastSightedPlayerPosition - transform.position;
             RotateTo(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
@@ -70,6 +73,9 @@ public class ShieldBossController : MonoBehaviour
                 projectileSpawnLocationIndex = 0;
             }
         }
+
+        animator.SetBool("IsShielded", isShielded);
+        damageComponent.IsInvincible = isShielded;
     }
 
     void RotateTo(float targetRotation)
