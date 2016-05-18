@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Solid
+  - Bullet
+  - Damageable
+  - Solid|Damageable
+  - ShieldGeneratorSpawnPoint
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
@@ -13,11 +19,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Bullets
+  - Player
+  - Terrain
+  - EnemyBullets
+  - Enemy
   - 
   - 
   - 
@@ -40,4 +46,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 2310549163
+    locked: 0
+  - name: Bullets
+    uniqueID: 3956441747
+    locked: 0
+  - name: Terrain
+    uniqueID: 642678989
+    locked: 0
+  - name: Boss
+    uniqueID: 910359771
+    locked: 0
+  - name: Player
+    uniqueID: 1696760447
     locked: 0
