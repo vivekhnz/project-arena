@@ -134,11 +134,11 @@ Material:
       data:
         first:
           name: RepeatX
-        second: 15
+        second: 10
       data:
         first:
           name: RepeatY
-        second: 15
+        second: 10
     m_Colors:
       data:
         first:
