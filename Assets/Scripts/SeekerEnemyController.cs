@@ -40,7 +40,7 @@ public class SeekerEnemyController : MonoBehaviour
             transform.position.x + velocity.x,
             transform.position.y + velocity.y,
             transform.position.z);
-        velocity *= 0.5f;
+        velocity *= 0.9f;
     }
 
     void RotateTo(float targetRotation, float turnSpeed)
@@ -52,6 +52,6 @@ public class SeekerEnemyController : MonoBehaviour
 
     public void AddForce(Vector2 direction)
     {
-        velocity += direction * 0.05f;
+        velocity += direction * 0.01f;
     }
 }

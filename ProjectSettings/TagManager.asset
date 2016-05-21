@@ -10,7 +10,6 @@ TagManager:
   - Solid|Damageable
   - ShieldGeneratorSpawnPoint
   - EnemyBullet
-  - Terrain
   layers:
   - Default
   - TransparentFX
