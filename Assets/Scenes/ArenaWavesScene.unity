@@ -663,7 +663,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 528559324}
-  Stickiness: 0.05
+  Stickiness: 0.1
   Bounds:
     serializedVersion: 2
     x: -45
@@ -711,7 +711,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 25
+  orthographic size: 20
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -779,6 +779,22 @@ Prefab:
     - target: {fileID: 192622, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11497410, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
+      propertyPath: MovementSpeed
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11497410, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
+      propertyPath: RateOfFire
+      value: 1800
+      objectReference: {fileID: 0}
+    - target: {fileID: 11497410, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
+      propertyPath: MinBulletSpread
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11497410, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
+      propertyPath: MaxBulletSpread
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
