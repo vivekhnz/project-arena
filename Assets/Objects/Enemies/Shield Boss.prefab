@@ -251,6 +251,8 @@ MonoBehaviour:
   ProjectileSpawnOffsets:
   - {x: 4.5, y: -5.5}
   - {x: 4.5, y: 5.5}
+  ShieldGeneratorManager: {fileID: 0}
+  DisableShieldDuration: 5
 --- !u!114 &11496476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -264,6 +266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 100
   DestroyObjectOnDeath: 1
+  IsInvincible: 0
 --- !u!212 &21209700
 SpriteRenderer:
   m_ObjectHideFlags: 1
