@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TurnSpeed: 0.1
-  MovementSpeed: 0.1
+  MovementSpeed: 0.15
   FollowTarget: {fileID: 0}
 --- !u!114 &11480564
 MonoBehaviour:
@@ -206,7 +206,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: MovementSpeed
-      value: 0.1
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_GravityScale

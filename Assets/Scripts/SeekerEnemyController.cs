@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SeekerEnemyController : MonoBehaviour
+public class SeekerEnemyController : PooledObject
 {
     public float TurnSpeed = 0.05f;
     public float MovementSpeed = 0.5f;
@@ -9,28 +9,36 @@ public class SeekerEnemyController : MonoBehaviour
 
     private GameObject player;
     private float startTime;
+    private DamageableObject damageComponent;
 
     private Vector2 velocity;
 
     void Start()
     {
+    }
+
+    public override void ResetInstance()
+    {
         startTime = Time.time;
         player = GameObject.FindGameObjectWithTag("Player");
+
+        if (damageComponent == null)
+        {
+            damageComponent = GetComponent<DamageableObject>();
+        }
+        if (damageComponent != null)
+        {
+            damageComponent.ResetHealth();
+        }
+
+        RotateToTarget(1.0f);
+
+        base.ResetInstance();
     }
 
     void FixedUpdate()
     {
-        if (FollowTarget == null)
-        {
-            FollowTarget = GameObject.FindGameObjectWithTag("Player");
-        }
-        GameObject target = FollowTarget ?? player;
-        if (target != null)
-        {
-            // rotate to face the player
-            Vector2 direction = target.transform.position - transform.position;
-            RotateTo(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg, TurnSpeed);
-        }
+        RotateToTarget(TurnSpeed);
 
         // move the enemy in the direction it is facing
         transform.Translate(Vector3.right * MovementSpeed);
@@ -41,6 +49,21 @@ public class SeekerEnemyController : MonoBehaviour
             transform.position.y + velocity.y,
             transform.position.z);
         velocity *= 0.9f;
+    }
+
+    private void RotateToTarget(float turnSpeed)
+    {
+        if (FollowTarget == null)
+        {
+            FollowTarget = GameObject.FindGameObjectWithTag("Player");
+        }
+        GameObject target = FollowTarget ?? player;
+        if (target != null)
+        {
+            // rotate to face the player
+            Vector2 direction = target.transform.position - transform.position;
+            RotateTo(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg, turnSpeed);
+        }
     }
 
     void RotateTo(float targetRotation, float turnSpeed)
