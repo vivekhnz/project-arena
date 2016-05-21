@@ -10,6 +10,8 @@ public class SeekerEnemyController : MonoBehaviour
     private GameObject player;
     private float startTime;
 
+    private Vector2 velocity;
+
     void Start()
     {
         startTime = Time.time;
@@ -32,6 +34,13 @@ public class SeekerEnemyController : MonoBehaviour
 
         // move the enemy in the direction it is facing
         transform.Translate(Vector3.right * MovementSpeed);
+
+        // apply velocity
+        transform.position = new Vector3(
+            transform.position.x + velocity.x,
+            transform.position.y + velocity.y,
+            transform.position.z);
+        velocity *= 0.5f;
     }
 
     void RotateTo(float targetRotation, float turnSpeed)
@@ -39,5 +48,10 @@ public class SeekerEnemyController : MonoBehaviour
         // interpolate towards the target rotation
         Quaternion target = Quaternion.Euler(0.0f, 0.0f, targetRotation);
         transform.rotation = Quaternion.Lerp(transform.rotation, target, turnSpeed);
+    }
+
+    public void AddForce(Vector2 direction)
+    {
+        velocity += direction * 0.05f;
     }
 }
