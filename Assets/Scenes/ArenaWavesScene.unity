@@ -171,15 +171,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 21281952, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Color.r
-      value: 0.1435986
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 21281952, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Color.g
-      value: 0.1518196
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 21281952, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Color.b
-      value: 0.2352941
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_IsActive
@@ -249,15 +249,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 21281952, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Color.r
-      value: 0.1435986
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 21281952, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Color.g
-      value: 0.1518196
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 21281952, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Color.b
-      value: 0.2352941
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_IsActive
@@ -331,15 +331,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 21281952, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Color.r
-      value: 0.1435986
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 21281952, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Color.g
-      value: 0.1518196
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 21281952, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Color.b
-      value: 0.2352941
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_IsActive
@@ -409,15 +409,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 21281952, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Color.r
-      value: 0.1435986
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 21281952, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Color.g
-      value: 0.1518196
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 21281952, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Color.b
-      value: 0.2352941
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_IsActive
@@ -511,7 +511,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.04146841, g: 0.062515, b: 0.09558821, a: 0.019607844}
+  m_BackGroundColor: {r: 0.8088235, g: 0.8088235, b: 0.8088235, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -755,15 +755,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 21281952, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Color.r
-      value: 0.1435986
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 21281952, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Color.g
-      value: 0.1518196
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 21281952, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_Color.b
-      value: 0.2352941
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198942, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
       propertyPath: m_IsActive
@@ -839,6 +839,18 @@ Prefab:
       propertyPath: m_TagString
       value: Solid
       objectReference: {fileID: 0}
+    - target: {fileID: 21281952, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 21281952, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 21281952, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 272f5d6d62a6bfc49b08a8d2bbcab380, type: 2}
   m_IsPrefabParent: 0
@@ -912,8 +924,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1604061290}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: -2, z: 0}
-  m_LocalScale: {x: 80, y: 80, z: 1}
+  m_LocalPosition: {x: -1, y: -1, z: 0}
+  m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 11268882}
   m_RootOrder: 2
@@ -929,7 +941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Camera: {fileID: 431991710}
-  ParallaxMultiplier: 0.2
+  ParallaxMultiplier: 0.25
 --- !u!212 &1604061293
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -955,9 +967,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1984418133
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: e26030a2a42a3454a9449c0a9c43bd2d, type: 3}
-  m_Color: {r: 0.25259516, g: 0.31334865, b: 0.53676474, a: 0.5019608}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.2509804}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!1 &1743798755
@@ -984,8 +996,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1743798755}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: 4, z: 0}
-  m_LocalScale: {x: 80, y: 80, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 11268882}
   m_RootOrder: 3
@@ -1027,9 +1039,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1984418133
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e26030a2a42a3454a9449c0a9c43bd2d, type: 3}
-  m_Color: {r: 0.25259516, g: 0.31334865, b: 0.53676474, a: 0.2509804}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!1 &1963165109
@@ -1056,8 +1068,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1963165109}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 80, y: 80, z: 1}
+  m_LocalPosition: {x: 2, y: 2, z: 0}
+  m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 11268882}
   m_RootOrder: 0
@@ -1086,9 +1098,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1984418133
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: e26030a2a42a3454a9449c0a9c43bd2d, type: 3}
-  m_Color: {r: 0.25259516, g: 0.31334865, b: 0.53676474, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.1254902}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!114 &1963165112
@@ -1103,7 +1115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Camera: {fileID: 431991710}
-  ParallaxMultiplier: 0.3
+  ParallaxMultiplier: 0.5
 --- !u!1 &2036765347
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,8 +1140,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2036765347}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 2, z: 0}
-  m_LocalScale: {x: 80, y: 80, z: 1}
+  m_LocalPosition: {x: 1, y: 1, z: 0}
+  m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 11268882}
   m_RootOrder: 1
@@ -1158,9 +1170,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1984418133
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: e26030a2a42a3454a9449c0a9c43bd2d, type: 3}
-  m_Color: {r: 0.25259516, g: 0.31334865, b: 0.53676474, a: 0.5019608}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.2509804}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!114 &2036765350
@@ -1175,4 +1187,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Camera: {fileID: 431991710}
-  ParallaxMultiplier: 0.2
+  ParallaxMultiplier: 0.25
