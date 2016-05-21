@@ -190,10 +190,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e86dd9b3b69ba6646838ccd166d92fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialTurnSpeed: 0.05
-  FinalTurnSpeed: 0.05
-  TurnSpeedTransitionDurationSeconds: 10
+  TurnSpeed: 0.05
   MovementSpeed: 0.15
+  FollowTarget: {fileID: 0}
 --- !u!212 &21202232
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -274,6 +273,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: TurnSpeedTransitionDurationSeconds
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: FollowRadius
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
