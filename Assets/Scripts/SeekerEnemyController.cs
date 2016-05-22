@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class SeekerEnemyController : PooledObject
 {
@@ -76,5 +77,29 @@ public class SeekerEnemyController : PooledObject
     public void AddForce(Vector2 direction)
     {
         velocity += direction * 0.01f;
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        ManageCollisions(collision);
+    }
+
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        ManageCollisions(collision);
+    }
+
+    private void ManageCollisions(Collision2D collision)
+    {
+        string[] tags = collision.gameObject.tag.Split('|');
+        foreach (string tag in tags)
+        {
+            switch (tag)
+            {
+                case "Player":
+                    SceneManager.LoadScene("DefeatScene");
+                    break;
+            }
+        }
     }
 }
