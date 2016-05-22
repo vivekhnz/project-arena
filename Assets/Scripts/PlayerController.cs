@@ -90,7 +90,12 @@ public class PlayerController : MonoBehaviour
                 var bullet = Bullet.Fetch<BulletController>();
                 // calculate aim direction based on bullet spread
                 float aim = transform.rotation.eulerAngles.z + Random.Range(-BulletSpread, BulletSpread);
-                bullet.Initialize(this.transform.position, aim);
+                // calculate offset
+                Vector3 offset = new Vector3(
+                    Mathf.Cos(transform.rotation.eulerAngles.z * Mathf.Deg2Rad),
+                    Mathf.Sin(transform.rotation.eulerAngles.z * Mathf.Deg2Rad),
+                    0) * transform.localScale.x;
+                bullet.Initialize(this.transform.position + offset, aim);
                 // store the current time for rate of fire calculation
                 bulletFiredTime = Time.time;
             }
