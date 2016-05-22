@@ -477,26 +477,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 192622, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11497410, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
-      propertyPath: MovementSpeed
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11497410, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
-      propertyPath: RateOfFire
-      value: 1800
-      objectReference: {fileID: 0}
-    - target: {fileID: 11497410, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
-      propertyPath: MinBulletSpread
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11497410, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
-      propertyPath: MaxBulletSpread
-      value: 20
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
   m_IsPrefabParent: 0
