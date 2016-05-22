@@ -497,6 +497,14 @@ Prefab:
       propertyPath: MaxBulletSpread
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 5802608, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5802608, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
   m_IsPrefabParent: 0

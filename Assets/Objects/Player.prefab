@@ -61,7 +61,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.5
 --- !u!114 &11497410
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -73,10 +73,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1eb4f4da090ed7449224e70368f5f72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 0.15
+  MovementSpeed: 0.2
   Bullet: {fileID: 11458758, guid: cdb8c6cb9a9f59a4bacbc4c351ec1a9b, type: 2}
-  MaxBulletSpread: 40
-  MinBulletSpread: 0
+  MaxBulletSpread: 20
+  MinBulletSpread: 5
   BloomDurationSeconds: 5
   BloomResetDurationSeconds: 0.75
   BloomCurve:
@@ -111,7 +111,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
-  RateOfFire: 900
+  RateOfFire: 1800
 --- !u!212 &21222648
 SpriteRenderer:
   m_ObjectHideFlags: 1
