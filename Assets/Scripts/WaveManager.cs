@@ -8,16 +8,16 @@ public class WaveManager : MonoBehaviour
     public float SpawnerCreationInterval = 1.0f;
     public int SpawnersPerWave = 5;
     public float ArenaRadius = 10.0f;
+    public int CurrentWave = 0;
 
     private float waveTime;
     private float spawnerTime;
     private bool isCurrentlySpawning = false;
     private int spawnersCreated = 0;
-    private int currentWave = 0;
 
     void Start()
     {
-        waveTime = Time.time;
+        waveTime = Time.time - WaveDuration;
         spawnerTime = Time.time;
     }
 
@@ -36,7 +36,7 @@ public class WaveManager : MonoBehaviour
             {
                 isCurrentlySpawning = true;
                 spawnersCreated = 0;
-                currentWave++;
+                CurrentWave++;
                 CreateSpawner();
             }
         }
@@ -53,8 +53,6 @@ public class WaveManager : MonoBehaviour
 
         spawnersCreated++;
         spawnerTime = Time.time;
-
-        print(string.Format("wave {0}: {1} / {2}", currentWave, spawnersCreated, SpawnersPerWave));
 
         if (spawnersCreated >= SpawnersPerWave)
         {
