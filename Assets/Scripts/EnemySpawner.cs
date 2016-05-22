@@ -1,41 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : PooledObject
 {
     public SeekerEnemyController Enemy;
-    public float TimeBetweenSpawns = 5.0f;
     public float EnemySpawnInterval = 1.0f;
     public int EnemiesPerSpawn = 5;
-
-    private float spawnTime;
+    
     private float enemySpawnTime;
-    private bool isCurrentlySpawning = false;
     private int enemiesSpawned = 0;
 
-	void Start ()
+    public override void ResetInstance()
     {
-        spawnTime = Time.time;
         enemySpawnTime = Time.time;
-	}
+        enemiesSpawned = 0;
 
-	void Update ()
+        base.ResetInstance();
+    }
+
+    void Update ()
     {
-        if (Enemy != null)
+        if (Enemy != null && Time.time - enemySpawnTime > EnemySpawnInterval)
         {
-            if (isCurrentlySpawning)
-            {
-                if (Time.time - enemySpawnTime > EnemySpawnInterval)
-                {
-                    SpawnEnemy();
-                }
-            }
-            else if (Time.time - spawnTime > TimeBetweenSpawns)
-            {
-                isCurrentlySpawning = true;
-                enemiesSpawned = 0;
-                SpawnEnemy();
-            }
+            SpawnEnemy();
         }
 	}
 
@@ -49,8 +36,7 @@ public class EnemySpawner : MonoBehaviour
 
         if (enemiesSpawned >= EnemiesPerSpawn)
         {
-            isCurrentlySpawning = false;
-            spawnTime = Time.time;
+            Recycle();
         }
     }
 }

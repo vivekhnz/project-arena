@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\ShieldBossController.cs" />
     <Compile Include="Assets\Scripts\ShieldGeneratorController.cs" />
     <Compile Include="Assets\Scripts\ShieldGeneratorManager.cs" />
+    <Compile Include="Assets\Scripts\WaveManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Materials\TiledSpriteShader.shader" />
