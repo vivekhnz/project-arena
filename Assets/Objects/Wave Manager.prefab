@@ -41,9 +41,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemySpawner: {fileID: 11429122, guid: c71232b3c5ba2264095cd405393d2953, type: 2}
   WaveDuration: 10
-  SpawnerCreationInterval: 1
-  SpawnersPerWave: 3
-  ArenaRadius: 45
+  SpawnerCreationInterval: 2
+  SpawnersPerWave: 5
+  ArenaRadius: 46
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
