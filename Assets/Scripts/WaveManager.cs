@@ -27,6 +27,7 @@ public class WaveManager : MonoBehaviour
         {
             if (isCurrentlySpawning)
             {
+                // create spawners within wave
                 if (Time.time - spawnerTime > SpawnerCreationInterval)
                 {
                     CreateSpawner();
@@ -34,6 +35,7 @@ public class WaveManager : MonoBehaviour
             }
             else if (Time.time - waveTime > WaveDuration)
             {
+                // start wave spawn
                 isCurrentlySpawning = true;
                 spawnersCreated = 0;
                 CurrentWave++;
@@ -49,13 +51,16 @@ public class WaveManager : MonoBehaviour
         // calculate spawner position around edge of arena
         float angle = Random.Range(0.0f, 360.0f) * Mathf.Deg2Rad;
         Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-        enemy.transform.position = direction * ArenaRadius;
+
+        // create spawner and associate enemies with current wave
+        enemy.Initialize(direction * ArenaRadius, CurrentWave);
 
         spawnersCreated++;
         spawnerTime = Time.time;
 
         if (spawnersCreated >= SpawnersPerWave)
         {
+            // stop creating spawners
             isCurrentlySpawning = false;
             waveTime = Time.time;
         }

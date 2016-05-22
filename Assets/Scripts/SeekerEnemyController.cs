@@ -11,11 +11,13 @@ public class SeekerEnemyController : PooledObject
     private GameObject player;
     private float startTime;
     private DamageableObject damageComponent;
-
     private Vector2 velocity;
+    private int wave;
 
-    void Start()
+    public void Initialize(Vector3 position, int wave)
     {
+        transform.position = position;
+        this.wave = wave;
     }
 
     public override void ResetInstance()
@@ -54,14 +56,16 @@ public class SeekerEnemyController : PooledObject
 
     private void RotateToTarget(float turnSpeed)
     {
+        // target the player if no target has been explicitly specified
         if (FollowTarget == null)
         {
             FollowTarget = GameObject.FindGameObjectWithTag("Player");
         }
         GameObject target = FollowTarget ?? player;
+
         if (target != null)
         {
-            // rotate to face the player
+            // rotate to face the target
             Vector2 direction = target.transform.position - transform.position;
             RotateTo(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg, turnSpeed);
         }
@@ -97,6 +101,7 @@ public class SeekerEnemyController : PooledObject
             switch (tag)
             {
                 case "Player":
+                    // navigate to the Defeat scene if an enemy collides with the player
                     SceneManager.LoadScene("DefeatScene");
                     break;
             }
