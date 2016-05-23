@@ -8,6 +8,7 @@ public class PooledObject : MonoBehaviour
     public ObjectPool Pool { get; set; }
     
     public virtual void ResetInstance() { }
+    public virtual void CleanupInstance() { }
 
     public void Recycle()
     {
@@ -19,6 +20,7 @@ public class PooledObject : MonoBehaviour
         {
             Pool.Recycle(this);
         }
+        CleanupInstance();
     }
 
     public T Fetch<T>() where T : PooledObject

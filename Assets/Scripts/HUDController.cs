@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Text;
 
 public class HUDController : MonoBehaviour
 {
@@ -9,6 +10,12 @@ public class HUDController : MonoBehaviour
 	
 	void Update ()
     {
-        WaveText.text = string.Format("WAVE {0}", WaveManager.CurrentWave);
-	}
+        StringBuilder sbWaveText = new StringBuilder();
+        foreach (var wave in WaveManager.Waves)
+        {
+            sbWaveText.AppendLine(string.Format("WAVE {0}: {1} / {2}",
+                wave.WaveNumber, wave.EnemiesDestroyed, wave.TotalEnemyCount));
+        }
+        WaveText.text = sbWaveText.ToString();
+    }
 }
