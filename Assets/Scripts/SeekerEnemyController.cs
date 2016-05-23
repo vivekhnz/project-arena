@@ -16,6 +16,7 @@ public class SeekerEnemyController : PooledObject
     private int wave;
     private bool isEscaping;
     private float escapeAngle;
+    private bool escaped;
 
     public void Initialize(Vector3 position, int wave)
     {
@@ -29,6 +30,7 @@ public class SeekerEnemyController : PooledObject
     {
         player = GameObject.FindGameObjectWithTag("Player");
         isEscaping = false;
+        escaped = false;
 
         if (damageComponent == null)
         {
@@ -90,9 +92,11 @@ public class SeekerEnemyController : PooledObject
     {
         if (isEscaping)
         {
-            if (transform.position.magnitude > waveManager.ArenaRadius)
+            if (!escaped && transform.position.magnitude > waveManager.ArenaRadius)
             {
+                waveManager.NotifyEnemyEscaped(wave);
                 Recycle();
+                escaped = true;
             }
             else
             {
@@ -153,10 +157,10 @@ public class SeekerEnemyController : PooledObject
             }
         }
     }
-
-    private void OnWaveChanged(object sender, System.EventArgs e)
+    
+    private void OnWaveChanged(object sender, WaveManager.WaveChangedEventArgs e)
     {
-        if (!isEscaping && waveManager.CurrentWave.WaveNumber > wave)
+        if (!isEscaping && e.PreviousWave.WaveNumber >= wave)
         {
             // attempt to escape the arena
             isEscaping = true;

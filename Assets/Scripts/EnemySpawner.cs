@@ -11,6 +11,11 @@ public class EnemySpawner : PooledObject
     private int enemiesSpawned = 0;
     private int wave;
 
+    public float Lifetime
+    {
+        get { return EnemySpawnInterval * EnemiesPerSpawn; }
+    }
+
     public void Initialize(Vector3 position, int wave)
     {
         transform.position = position;
