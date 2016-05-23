@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public class WaveManager : MonoBehaviour
 {
@@ -9,7 +11,12 @@ public class WaveManager : MonoBehaviour
     public float SpawnerCreationInterval = 1.0f;
     public int SpawnersPerWave = 5;
     public float ArenaRadius = 10.0f;
-    public int CurrentWave = 0;
+
+    public List<Wave> Waves = new List<Wave>();
+    public Wave CurrentWave
+    {
+        get { return Waves.LastOrDefault(); }
+    }
 
     public event EventHandler WaveChanged;
 
@@ -22,6 +29,8 @@ public class WaveManager : MonoBehaviour
     {
         waveTime = Time.time - WaveDuration;
         spawnerTime = Time.time;
+        
+        Waves = new List<Wave>();
     }
 
     void Update()
@@ -41,9 +50,9 @@ public class WaveManager : MonoBehaviour
                 // start wave spawn
                 isCurrentlySpawning = true;
                 spawnersCreated = 0;
-
-                // update the current wave
-                CurrentWave++;
+                
+                // create a new wave
+                Waves.Add(new Wave(CurrentWave == null ? 1 : CurrentWave.WaveNumber + 1));
                 if (WaveChanged != null)
                 {
                     WaveChanged(this, EventArgs.Empty);
@@ -64,7 +73,7 @@ public class WaveManager : MonoBehaviour
         Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
         // create spawner and associate enemies with current wave
-        enemy.Initialize(direction * ArenaRadius, CurrentWave);
+        enemy.Initialize(direction * ArenaRadius, CurrentWave.WaveNumber);
 
         spawnersCreated++;
         spawnerTime = Time.time;
@@ -75,6 +84,16 @@ public class WaveManager : MonoBehaviour
             isCurrentlySpawning = false;
             waveTime = Time.time;
         }
+    }
+
+    public void NotifyEnemyCreated(int wave)
+    {
+        Waves[wave - 1].TotalEnemyCount++;
+    }
+
+    public void NotifyEnemyDestroyed(int wave)
+    {
+        Waves[wave - 1].EnemiesDestroyed++;
     }
 
     void OnDrawGizmosSelected()

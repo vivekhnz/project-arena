@@ -10,6 +10,8 @@ public class DamageableObject : MonoBehaviour
     public event EventHandler Destroyed;
     public event EventHandler HealthChanged;
 
+    private bool isDestroyed = false;
+
     private int currentHealth;
     public int CurrentHealth
     {
@@ -35,6 +37,7 @@ public class DamageableObject : MonoBehaviour
     public void ResetHealth()
     {
         CurrentHealth = MaxHealth;
+        isDestroyed = false;
     }
 
     public static void DamageObject(GameObject obj, int damage)
@@ -54,8 +57,14 @@ public class DamageableObject : MonoBehaviour
         {
             // reduce health
             CurrentHealth -= damage;
-            if (CurrentHealth <= 0)
+            if (!isDestroyed && CurrentHealth <= 0)
             {
+                // notify subscribers that the object has been destroyed
+                if (Destroyed != null)
+                {
+                    Destroyed(this, EventArgs.Empty);
+                }
+
                 if (DestroyObjectOnDeath)
                 {
                     // is this object poolable?
@@ -72,11 +81,7 @@ public class DamageableObject : MonoBehaviour
                     }
                 }
 
-                // notify subscribers that the object has been destroyed
-                if (Destroyed != null)
-                {
-                    Destroyed(this, EventArgs.Empty);
-                }
+                isDestroyed = true;
             }
         }
     }

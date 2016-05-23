@@ -12,7 +12,6 @@ public class PooledObject : MonoBehaviour
 
     public void Recycle()
     {
-        CleanupInstance();
         if (Pool == null)
         {
             Destroy(gameObject);
@@ -21,6 +20,7 @@ public class PooledObject : MonoBehaviour
         {
             Pool.Recycle(this);
         }
+        CleanupInstance();
     }
 
     public T Fetch<T>() where T : PooledObject

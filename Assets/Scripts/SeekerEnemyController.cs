@@ -21,6 +21,8 @@ public class SeekerEnemyController : PooledObject
     {
         transform.position = position;
         this.wave = wave;
+
+        waveManager.NotifyEnemyCreated(wave);
     }
 
     public override void ResetInstance()
@@ -35,6 +37,7 @@ public class SeekerEnemyController : PooledObject
         if (damageComponent != null)
         {
             damageComponent.ResetHealth();
+            damageComponent.Destroyed += OnDestroyed;
         }
 
         // subscribe to wave changed event so we are notified when this enemy's wave has ended
@@ -55,10 +58,14 @@ public class SeekerEnemyController : PooledObject
 
     public override void CleanupInstance()
     {
-        // unhook from wave changed events so we don't get duplicate notifications when this object is pooled
+        // unhook from events so we don't get duplicate notifications when this object is pooled
         if (waveManager != null)
         {
             waveManager.WaveChanged -= OnWaveChanged;
+        }
+        if (damageComponent != null)
+        {
+            damageComponent.Destroyed -= OnDestroyed;
         }
 
         base.CleanupInstance();
@@ -149,7 +156,7 @@ public class SeekerEnemyController : PooledObject
 
     private void OnWaveChanged(object sender, System.EventArgs e)
     {
-        if (!isEscaping && waveManager.CurrentWave > wave)
+        if (!isEscaping && waveManager.CurrentWave.WaveNumber > wave)
         {
             // attempt to escape the arena
             isEscaping = true;
@@ -158,5 +165,10 @@ public class SeekerEnemyController : PooledObject
             Vector2 direction = ((Vector2)transform.position).normalized;
             escapeAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         }
+    }
+
+    private void OnDestroyed(object sender, System.EventArgs e)
+    {
+        waveManager.NotifyEnemyDestroyed(wave);
     }
 }
