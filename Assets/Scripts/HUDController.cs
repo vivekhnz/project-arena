@@ -22,7 +22,7 @@ public class HUDController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    void Update ()
+    private void OnRoundCompleted(object sender, System.EventArgs e)
     {
         StringBuilder sbWaveNamesText = new StringBuilder();
         StringBuilder sbWaveScoresText = new StringBuilder();
@@ -37,10 +37,7 @@ public class HUDController : MonoBehaviour
         WaveNamesText.text = sbWaveNamesText.ToString();
         WaveScoresText.text = sbWaveScoresText.ToString();
         CurrentRoundText.text = string.Format("ROUND {0}", WaveManager.CurrentRound);
-    }
 
-    private void OnRoundCompleted(object sender, System.EventArgs e)
-    {
         animator.SetBool("IsRoundOverlayVisible", true);
     }
 
