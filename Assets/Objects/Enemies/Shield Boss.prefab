@@ -220,7 +220,7 @@ MonoBehaviour:
   TimeBetweenBursts: 4
   MinRateOfFire: 0.05
   MaxRateOfFire: 0.2
-  MinBombsPerBurst: 40
+  MinBombsPerBurst: 20
   MaxBombsPerBurst: 80
   ProjectileSpawnOffsets:
   - {x: 4.2, y: -4.1}
@@ -238,7 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d94d0db5b651c469eed74920a59dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 100
+  MaxHealth: 400
   DestroyObjectOnDeath: 1
   IsInvincible: 0
 --- !u!212 &21209700
@@ -370,7 +370,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: MinBombsPerBurst
-      value: 40
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: MaxHealth
+      value: 400
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
