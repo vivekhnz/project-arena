@@ -49,8 +49,11 @@ public class ShieldGeneratorController : PooledObject
         spriteRenderer.color = Color.Lerp(Color.red, Color.white,
             damageComponent.CurrentHealth / (float)damageComponent.MaxHealth);
 
-        // play the damaged animation
-        animator.SetTrigger("OnDamaged");
+        if (animator != null)
+        {
+            // play the damaged animation
+            animator.SetTrigger("OnDamaged");
+        }
     }
 
     private void OnDestroyed(object sender, System.EventArgs e)

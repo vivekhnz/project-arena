@@ -110,8 +110,11 @@ public class ShieldBossController : MonoBehaviour
 
     private void OnHealthChanged(object sender, System.EventArgs e)
     {
-        // play the damaged animation
-        animator.SetTrigger("OnDamaged");
+        if (animator != null)
+        {
+            // play the damaged animation
+            animator.SetTrigger("OnDamaged");
+        }
     }
 
     private void Fire()
@@ -143,7 +146,10 @@ public class ShieldBossController : MonoBehaviour
 
     private void SetShieldState(bool isShielded)
     {
-        animator.SetBool("IsShielded", isShielded);
+        if (animator != null)
+        {
+            animator.SetBool("IsShielded", isShielded);
+        }
         damageComponent.IsInvincible = isShielded;
     }
 
