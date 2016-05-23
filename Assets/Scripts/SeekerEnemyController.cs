@@ -9,12 +9,13 @@ public class SeekerEnemyController : PooledObject
     public GameObject FollowTarget;
 
     private GameObject player;
-    private float startTime;
     private DamageableObject damageComponent;
     private Vector2 velocity;
 
     private WaveManager waveManager;
     private int wave;
+    private bool isEscaping;
+    private float escapeAngle;
 
     public void Initialize(Vector3 position, int wave)
     {
@@ -24,8 +25,8 @@ public class SeekerEnemyController : PooledObject
 
     public override void ResetInstance()
     {
-        startTime = Time.time;
         player = GameObject.FindGameObjectWithTag("Player");
+        isEscaping = false;
 
         if (damageComponent == null)
         {
@@ -80,18 +81,32 @@ public class SeekerEnemyController : PooledObject
 
     private void RotateToTarget(float turnSpeed)
     {
-        // target the player if no target has been explicitly specified
-        if (FollowTarget == null)
+        if (isEscaping)
         {
-            FollowTarget = GameObject.FindGameObjectWithTag("Player");
+            if (transform.position.magnitude > waveManager.ArenaRadius)
+            {
+                Recycle();
+            }
+            else
+            {
+                RotateTo(escapeAngle, turnSpeed);
+            }
         }
-        GameObject target = FollowTarget ?? player;
-
-        if (target != null)
+        else
         {
-            // rotate to face the target
-            Vector2 direction = target.transform.position - transform.position;
-            RotateTo(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg, turnSpeed);
+            // target the player if no target has been explicitly specified
+            if (FollowTarget == null)
+            {
+                FollowTarget = GameObject.FindGameObjectWithTag("Player");
+            }
+            GameObject target = FollowTarget ?? player;
+
+            if (target != null)
+            {
+                // rotate to face the target
+                Vector2 direction = target.transform.position - transform.position;
+                RotateTo(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg, turnSpeed);
+            }
         }
     }
 
@@ -134,9 +149,14 @@ public class SeekerEnemyController : PooledObject
 
     private void OnWaveChanged(object sender, System.EventArgs e)
     {
-        if (waveManager.CurrentWave > wave)
+        if (!isEscaping && waveManager.CurrentWave > wave)
         {
-            Recycle();
+            // attempt to escape the arena
+            isEscaping = true;
+
+            // calculate the angle to the nearest point on the edge of the arena
+            Vector2 direction = ((Vector2)transform.position).normalized;
+            escapeAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         }
     }
 }
