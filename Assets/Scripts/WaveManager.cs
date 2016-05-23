@@ -19,6 +19,7 @@ public class WaveManager : MonoBehaviour
     {
         get { return Waves.LastOrDefault(); }
     }
+    public int CurrentRound { get; private set; }
 
     public class WaveChangedEventArgs : EventArgs
     {
@@ -33,36 +34,62 @@ public class WaveManager : MonoBehaviour
     }
     public event EventHandler<WaveChangedEventArgs> WaveChanged;
 
+    public event EventHandler RoundCompleted;
+    public event EventHandler RoundStarted;
+
     private float waveTime;
     private float spawnerTime;
     private bool isCurrentlySpawning = false;
     private int spawnersCreated = 0;
+
     private bool isEndOfRound = false;
+    private bool isRoundTransitioning = false;
+    private float roundTime;
 
     void Start()
     {
         waveTime = Time.time - WaveDuration;
         spawnerTime = Time.time;
+        roundTime = Time.time;
         
         Waves = new List<Wave>();
+        CurrentRound = 1;
     }
 
     void Update()
     {
         if (isEndOfRound)
         {
-            bool allEnemiesInactive = true;
-            foreach (var wave in Waves)
+            if (isRoundTransitioning)
             {
-                if (!wave.AllEnemiesInactive)
+                // start a new round after the intermission is complete
+                if (Time.time - roundTime > RoundIntermissionDuration)
                 {
-                    allEnemiesInactive = false;
-                    break;
+                    StartNewRound();
                 }
             }
-            if (allEnemiesInactive)
+            else
             {
-                print("round end!");
+                // wait until all enemies are destroyed before starting the intermission
+                bool allEnemiesInactive = true;
+                foreach (var wave in Waves)
+                {
+                    if (!wave.AllEnemiesInactive)
+                    {
+                        allEnemiesInactive = false;
+                        break;
+                    }
+                }
+                if (allEnemiesInactive)
+                {
+                    // start the round intermission
+                    isRoundTransitioning = true;
+                    roundTime = Time.time;
+                    if (RoundCompleted != null)
+                    {
+                        RoundCompleted(this, EventArgs.Empty);
+                    }
+                }
             }
         }
         else if (EnemySpawner != null)
@@ -77,33 +104,68 @@ public class WaveManager : MonoBehaviour
             }
             else if (Time.time - waveTime > WaveDuration)
             {
+                // if this is the final wave, finish the round
                 if (CurrentWave != null && CurrentWave.WaveNumber >= WavesPerRound)
                 {
-                    isEndOfRound = true;
-                    if (WaveChanged != null)
-                    {
-                        WaveChanged(this, new WaveChangedEventArgs(CurrentWave, null));
-                    }
+                    FinishRound();
                 }
                 else
                 {
-                    // start wave spawn
-                    isCurrentlySpawning = true;
-                    spawnersCreated = 0;
-
-                    // create a new wave
-                    Wave newWave = new Wave(CurrentWave == null ? 1 : CurrentWave.WaveNumber + 1);
-                    if (WaveChanged != null)
-                    {
-                        WaveChanged(this, new WaveChangedEventArgs(CurrentWave, newWave));
-                    }
-                    Waves.Add(newWave);
-
-                    // create the first spawner
-                    CreateSpawner();
+                    // otherwise, start a new wave
+                    StartNewWave();
                 }
             }
         }
+    }
+
+    private void FinishRound()
+    {
+        isEndOfRound = true;
+        isRoundTransitioning = false;
+        if (WaveChanged != null)
+        {
+            WaveChanged(this, new WaveChangedEventArgs(CurrentWave, null));
+        }
+    }
+
+    private void StartNewRound()
+    {
+        // clear existing waves and notify the UI that a new round has started
+        Waves.Clear();
+        if (RoundStarted != null)
+        {
+            RoundStarted(this, EventArgs.Empty);
+        }
+
+        // notify that a new wave has started
+        isEndOfRound = false;
+        if (WaveChanged != null)
+        {
+            WaveChanged(this, new WaveChangedEventArgs(CurrentWave, null));
+        }
+
+        CurrentRound++;
+
+        // start a new wave
+        StartNewWave();
+    }
+
+    private void StartNewWave()
+    {
+        // start wave spawn
+        isCurrentlySpawning = true;
+        spawnersCreated = 0;
+
+        // create a new wave
+        Wave newWave = new Wave(CurrentWave == null ? 1 : CurrentWave.WaveNumber + 1);
+        if (WaveChanged != null)
+        {
+            WaveChanged(this, new WaveChangedEventArgs(CurrentWave, newWave));
+        }
+        Waves.Add(newWave);
+
+        // create the first spawner
+        CreateSpawner();
     }
 
     void CreateSpawner()

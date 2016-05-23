@@ -8,6 +8,19 @@ public class HUDController : MonoBehaviour
     public WaveManager WaveManager;
     public Text WaveNamesText;
     public Text WaveScoresText;
+    public Text CurrentRoundText;
+
+    private Animator animator;
+
+    void Start()
+    {
+        if (WaveManager != null)
+        {
+            WaveManager.RoundCompleted += OnRoundCompleted;
+            WaveManager.RoundStarted += OnRoundStarted;
+        }
+        animator = GetComponent<Animator>();
+    }
 
     void Update ()
     {
@@ -23,5 +36,16 @@ public class HUDController : MonoBehaviour
 
         WaveNamesText.text = sbWaveNamesText.ToString();
         WaveScoresText.text = sbWaveScoresText.ToString();
+        CurrentRoundText.text = string.Format("ROUND {0}", WaveManager.CurrentRound);
+    }
+
+    private void OnRoundCompleted(object sender, System.EventArgs e)
+    {
+        animator.SetBool("IsRoundOverlayVisible", true);
+    }
+
+    private void OnRoundStarted(object sender, System.EventArgs e)
+    {
+        animator.SetBool("IsRoundOverlayVisible", false);
     }
 }

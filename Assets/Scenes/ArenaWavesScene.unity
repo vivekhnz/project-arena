@@ -496,8 +496,9 @@ GameObject:
   - 114: {fileID: 553174346}
   - 114: {fileID: 553174345}
   - 114: {fileID: 553174349}
+  - 95: {fileID: 553174350}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: HUDCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -590,6 +591,24 @@ MonoBehaviour:
   WaveManager: {fileID: 447777599}
   WaveNamesText: {fileID: 1781895285}
   WaveScoresText: {fileID: 976432906}
+  CurrentRoundText: {fileID: 1583064914}
+--- !u!95 &553174350
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 553174344}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d783beda901e8c7438537832cad24a21, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &609455442
 GameObject:
   m_ObjectHideFlags: 0
@@ -915,7 +934,7 @@ GameObject:
   - 222: {fileID: 1583064915}
   - 114: {fileID: 1583064914}
   m_Layer: 5
-  m_Name: RoundCompleteText
+  m_Name: RoundText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1343,12 +1362,12 @@ GameObject:
   - 222: {fileID: 1969057745}
   - 114: {fileID: 1969057744}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: RoundOverlayUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1969057743
 RectTransform:
   m_ObjectHideFlags: 0
