@@ -10,6 +10,7 @@ TagManager:
   - Solid|Damageable
   - ShieldGeneratorSpawnPoint
   - EnemyBullet
+  - WaveManager
   layers:
   - Default
   - TransparentFX

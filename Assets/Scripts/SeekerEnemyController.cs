@@ -12,6 +12,8 @@ public class SeekerEnemyController : PooledObject
     private float startTime;
     private DamageableObject damageComponent;
     private Vector2 velocity;
+
+    private WaveManager waveManager;
     private int wave;
 
     public void Initialize(Vector3 position, int wave)
@@ -34,9 +36,31 @@ public class SeekerEnemyController : PooledObject
             damageComponent.ResetHealth();
         }
 
+        // subscribe to wave changed event so we are notified when this enemy's wave has ended
+        var waveManagerObj = GameObject.FindGameObjectWithTag("WaveManager");
+        if (waveManagerObj != null)
+        {
+            waveManager = waveManagerObj.GetComponent<WaveManager>();
+            if (waveManager != null)
+            {
+                waveManager.WaveChanged += OnWaveChanged;
+            }
+        }
+
         RotateToTarget(1.0f);
 
         base.ResetInstance();
+    }
+
+    public override void CleanupInstance()
+    {
+        // unhook from wave changed events so we don't get duplicate notifications when this object is pooled
+        if (waveManager != null)
+        {
+            waveManager.WaveChanged -= OnWaveChanged;
+        }
+
+        base.CleanupInstance();
     }
 
     void FixedUpdate()
@@ -105,6 +129,14 @@ public class SeekerEnemyController : PooledObject
                     SceneManager.LoadScene("DefeatScene");
                     break;
             }
+        }
+    }
+
+    private void OnWaveChanged(object sender, System.EventArgs e)
+    {
+        if (waveManager.CurrentWave > wave)
+        {
+            Recycle();
         }
     }
 }

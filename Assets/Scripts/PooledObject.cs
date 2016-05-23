@@ -8,9 +8,11 @@ public class PooledObject : MonoBehaviour
     public ObjectPool Pool { get; set; }
     
     public virtual void ResetInstance() { }
+    public virtual void CleanupInstance() { }
 
     public void Recycle()
     {
+        CleanupInstance();
         if (Pool == null)
         {
             Destroy(gameObject);

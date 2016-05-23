@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class WaveManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class WaveManager : MonoBehaviour
     public int SpawnersPerWave = 5;
     public float ArenaRadius = 10.0f;
     public int CurrentWave = 0;
+
+    public event EventHandler WaveChanged;
 
     private float waveTime;
     private float spawnerTime;
@@ -38,7 +41,15 @@ public class WaveManager : MonoBehaviour
                 // start wave spawn
                 isCurrentlySpawning = true;
                 spawnersCreated = 0;
+
+                // update the current wave
                 CurrentWave++;
+                if (WaveChanged != null)
+                {
+                    WaveChanged(this, EventArgs.Empty);
+                }
+
+                // create the first spawner
                 CreateSpawner();
             }
         }
@@ -49,7 +60,7 @@ public class WaveManager : MonoBehaviour
         var enemy = EnemySpawner.Fetch<EnemySpawner>();
 
         // calculate spawner position around edge of arena
-        float angle = Random.Range(0.0f, 360.0f) * Mathf.Deg2Rad;
+        float angle = UnityEngine.Random.Range(0.0f, 360.0f) * Mathf.Deg2Rad;
         Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
         // create spawner and associate enemies with current wave
