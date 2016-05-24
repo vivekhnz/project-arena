@@ -39,8 +39,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04288ae2c5554694ab2f867003d2e693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemy: {fileID: 11437176, guid: aaff9b7fe58e64c458b55df0e856eb18, type: 2}
-  TimeBetweenSpawns: 5
+  Enemy: {fileID: 11432990, guid: aaff9b7fe58e64c458b55df0e856eb18, type: 2}
   EnemySpawnInterval: 0.5
   EnemiesPerSpawn: 5
 --- !u!1001 &100100000
@@ -54,6 +53,11 @@ Prefab:
       propertyPath: EnemySpawnInterval
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Enemy
+      value: 
+      objectReference: {fileID: 11432990, guid: aaff9b7fe58e64c458b55df0e856eb18,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 140422}

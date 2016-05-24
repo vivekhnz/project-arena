@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemySpawner : PooledObject
 {
-    public SeekerEnemyController Enemy;
+    public EnemyController Enemy;
     public float EnemySpawnInterval = 1.0f;
     public int EnemiesPerSpawn = 5;
     
@@ -42,7 +42,7 @@ public class EnemySpawner : PooledObject
     void SpawnEnemy()
     {
         // create enemy and associate it with the wave this spawner was created for
-        var enemy = Enemy.Fetch<SeekerEnemyController>();
+        var enemy = Enemy.Fetch<EnemyController>();
         enemy.Initialize(transform.position, wave);
 
         enemiesSpawned++;

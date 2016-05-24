@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemyBoundsController : MonoBehaviour
 {
-    public SeekerEnemyController Parent;
+    public EnemyController Parent;
 
     void OnCollisionEnter2D(Collision2D collision)
     {

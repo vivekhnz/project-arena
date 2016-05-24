@@ -31,6 +31,7 @@ GameObject:
   - 114: {fileID: 11437176}
   - 58: {fileID: 5819188}
   - 114: {fileID: 11487390}
+  - 114: {fileID: 11432990}
   m_Layer: 12
   m_Name: Seeker
   m_TagString: Solid|Damageable
@@ -122,6 +123,19 @@ MonoBehaviour:
   MaxHealth: 10
   DestroyObjectOnDeath: 1
   IsInvincible: 0
+--- !u!114 &11432990
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449b240f4e753904db45e978bc82638a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TurnSpeed: 0.1
+  MovementSpeed: 0.15
 --- !u!114 &11437176
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -133,8 +147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e86dd9b3b69ba6646838ccd166d92fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TurnSpeed: 0.1
-  MovementSpeed: 0.15
   FollowTarget: {fileID: 0}
 --- !u!114 &11480564
 MonoBehaviour:
@@ -147,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682fd62f10b514c4da65dfc14f06158c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Parent: {fileID: 11437176}
+  Parent: {fileID: 11432990}
 --- !u!114 &11487390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -283,7 +295,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: Parent
       value: 
-      objectReference: {fileID: 11437176}
+      objectReference: {fileID: 11432990}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 186406}
