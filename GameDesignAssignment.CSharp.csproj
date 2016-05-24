@@ -65,17 +65,31 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\ArenaManager.cs" />
     <Compile Include="Assets\Scripts\BulletController.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\DamageableObject.cs" />
+    <Compile Include="Assets\Scripts\EnemyBoundsController.cs" />
+    <Compile Include="Assets\Scripts\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\GoToScene.cs" />
+    <Compile Include="Assets\Scripts\HUDController.cs" />
     <Compile Include="Assets\Scripts\HealthBar.cs" />
     <Compile Include="Assets\Scripts\ObjectPool.cs" />
+    <Compile Include="Assets\Scripts\ParallaxScrolling.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PooledObject.cs" />
+    <Compile Include="Assets\Scripts\SeekerEnemyController.cs" />
     <Compile Include="Assets\Scripts\ShieldBossController.cs" />
     <Compile Include="Assets\Scripts\ShieldGeneratorController.cs" />
     <Compile Include="Assets\Scripts\ShieldGeneratorManager.cs" />
+    <Compile Include="Assets\Scripts\Wave.cs" />
+    <Compile Include="Assets\Scripts\WaveEnemyController.cs" />
+    <Compile Include="Assets\Scripts\WaveEnemySpawner.cs" />
+    <Compile Include="Assets\Scripts\WaveManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Materials\TiledSpriteShader.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
