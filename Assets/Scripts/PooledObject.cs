@@ -8,6 +8,10 @@ public class PooledObject : MonoBehaviour
     public ObjectPool Pool { get; set; }
     
     public virtual void ResetInstance() { }
+    public virtual void CleanupInstance() { }
+
+    public event EventHandler InstanceReset;
+    public event EventHandler InstanceRecycled;
 
     public void Recycle()
     {
@@ -17,8 +21,13 @@ public class PooledObject : MonoBehaviour
         }
         else
         {
+            if (InstanceRecycled != null)
+            {
+                InstanceRecycled(this, EventArgs.Empty);
+            }
             Pool.Recycle(this);
         }
+        CleanupInstance();
     }
 
     public T Fetch<T>() where T : PooledObject
@@ -28,6 +37,10 @@ public class PooledObject : MonoBehaviour
             Pool = ObjectPool.GetPool(this);
         }
         var obj = (T)Pool.Fetch();
+        if (obj.InstanceReset != null)
+        {
+            obj.InstanceReset(obj, EventArgs.Empty);
+        }
         obj.ResetInstance();
         return obj;
     }
