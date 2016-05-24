@@ -10,10 +10,9 @@ public class EnemyController : PooledObject
     private WaveManager waveManager;
     private DamageableObject damageComponent;
     private WaveEnemyController waveEnemyController;
-    private SeekerEnemyController seekerEnemyController;
     private Vector2 velocity;
 
-    private bool isEscaping;
+    public bool IsEscaping { get; private set; }
     private float escapeAngle;
     private bool escaped;
 
@@ -28,7 +27,7 @@ public class EnemyController : PooledObject
 
     public override void ResetInstance()
     {
-        isEscaping = false;
+        IsEscaping = false;
         escaped = false;
 
         if (damageComponent == null)
@@ -57,15 +56,6 @@ public class EnemyController : PooledObject
             waveEnemyController.WaveEnded += OnWaveEnded;
         }
 
-        if (seekerEnemyController == null)
-        {
-            seekerEnemyController = GetComponent<SeekerEnemyController>();
-        }
-        if (seekerEnemyController != null)
-        {
-            seekerEnemyController.Initialize(TurnSpeed, MovementSpeed);
-        }
-
         base.ResetInstance();
     }
 
@@ -87,7 +77,7 @@ public class EnemyController : PooledObject
 
     void FixedUpdate()
     {
-        if (isEscaping)
+        if (IsEscaping)
         {
             if (!escaped && transform.position.magnitude > waveManager.ArenaRadius)
             {
@@ -105,10 +95,6 @@ public class EnemyController : PooledObject
                 // move the enemy in the direction it is facing
                 transform.Translate(Vector3.right * MovementSpeed);
             }
-        }
-        else if (seekerEnemyController != null)
-        {
-            seekerEnemyController.UpdateAI();
         }
 
         // apply velocity
@@ -158,10 +144,10 @@ public class EnemyController : PooledObject
 
     private void OnWaveEnded(object sender, System.EventArgs e)
     {
-        if (!isEscaping)
+        if (!IsEscaping)
         {
             // attempt to escape the arena
-            isEscaping = true;
+            IsEscaping = true;
 
             // calculate the angle to the nearest point on the edge of the arena
             Vector2 direction = ((Vector2)transform.position).normalized;

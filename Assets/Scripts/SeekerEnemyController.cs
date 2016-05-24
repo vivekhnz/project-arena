@@ -1,32 +1,44 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(EnemyController))]
 public class SeekerEnemyController : MonoBehaviour
 {
     public GameObject FollowTarget;
 
+    private EnemyController enemyController;
     private GameObject player;
-    private float turnSpeed;
-    private float movementSpeed;
 
-    public void Initialize(float turnSpeed, float movementSpeed)
+    void Start()
     {
-        this.turnSpeed = turnSpeed;
-        this.movementSpeed = movementSpeed;
-        
+        enemyController = GetComponent<EnemyController>();
+        enemyController.InstanceReset += OnInstanceReset;
+
+        Initialize();
+    }
+
+    private void OnInstanceReset(object sender, System.EventArgs e)
+    {
+        Initialize();
+    }
+
+    private void Initialize()
+    {
         player = GameObject.FindGameObjectWithTag("Player");
         RotateToTarget(1.0f);
     }
 
-    public void UpdateAI()
+    void FixedUpdate()
     {
-        RotateToTarget(turnSpeed);
-
-        // move the enemy in the direction it is facing
-        transform.Translate(Vector3.right * movementSpeed);
+        if (!enemyController.IsEscaping)
+        {
+            // rotate and move towards the target
+            RotateToTarget(enemyController.TurnSpeed);
+            transform.Translate(Vector3.right * enemyController.MovementSpeed);
+        }
     }
 
-    public void RotateToTarget(float turnSpeed)
+    private void RotateToTarget(float turnSpeed)
     {
         // target the player if no target has been explicitly specified
         GameObject target = FollowTarget;
@@ -43,7 +55,7 @@ public class SeekerEnemyController : MonoBehaviour
         }
     }
 
-    void RotateTo(float targetRotation, float turnSpeed)
+    private void RotateTo(float targetRotation, float turnSpeed)
     {
         // interpolate towards the target rotation
         Quaternion target = Quaternion.Euler(0.0f, 0.0f, targetRotation);

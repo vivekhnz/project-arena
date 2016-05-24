@@ -10,6 +10,8 @@ public class PooledObject : MonoBehaviour
     public virtual void ResetInstance() { }
     public virtual void CleanupInstance() { }
 
+    public event EventHandler InstanceReset;
+
     public void Recycle()
     {
         if (Pool == null)
@@ -30,6 +32,10 @@ public class PooledObject : MonoBehaviour
             Pool = ObjectPool.GetPool(this);
         }
         var obj = (T)Pool.Fetch();
+        if (obj.InstanceReset != null)
+        {
+            obj.InstanceReset(obj, EventArgs.Empty);
+        }
         obj.ResetInstance();
         return obj;
     }

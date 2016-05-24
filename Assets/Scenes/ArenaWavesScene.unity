@@ -793,6 +793,8 @@ GameObject:
   - 114: {fileID: 553174345}
   - 114: {fileID: 553174349}
   - 95: {fileID: 553174350}
+  - 114: {fileID: 553174352}
+  - 114: {fileID: 553174351}
   m_Layer: 5
   m_Name: HUDCanvas
   m_TagString: Untagged
@@ -907,6 +909,31 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &553174351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 553174344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e86dd9b3b69ba6646838ccd166d92fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FollowTarget: {fileID: 0}
+--- !u!114 &553174352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 553174344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449b240f4e753904db45e978bc82638a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TurnSpeed: 0.1
+  MovementSpeed: 0.15
 --- !u!1001 &562545063
 Prefab:
   m_ObjectHideFlags: 0
@@ -1205,14 +1232,6 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 468096, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
       propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11490998, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
-      propertyPath: WavesPerRound
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11490998, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
-      propertyPath: SpawnersPerWave
       value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
