@@ -10,6 +10,8 @@ public class WaveEnemySpawner : MonoBehaviour
     void Start()
     {
         Spawner = GetComponent<EnemySpawner>();
+
+        // subscribe to enemy spawn events so we can associate new enemies with a wave
         Spawner.EnemySpawned += OnEnemySpawned;
     }
 
@@ -26,5 +28,11 @@ public class WaveEnemySpawner : MonoBehaviour
             // associate it with the wave this spawner was created for
             waveEnemyController.Initialize(wave);
         }
+    }
+
+    void OnDestroy()
+    {
+        // unhook from the enemy spawn event so we don't get duplicate notifications when the spawner is pooled
+        Spawner.EnemySpawned -= OnEnemySpawned;
     }
 }

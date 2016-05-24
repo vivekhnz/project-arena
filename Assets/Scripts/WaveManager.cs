@@ -6,7 +6,7 @@ using System.Linq;
 
 public class WaveManager : MonoBehaviour
 {
-    public WaveEnemySpawner EnemySpawner;
+    public EnemySpawner EnemySpawner;
     public float WaveDuration = 10.0f;
     public float SpawnerCreationInterval = 1.0f;
     public int SpawnersPerWave = 5;
@@ -172,7 +172,16 @@ public class WaveManager : MonoBehaviour
     {
         var enemyController = EnemySpawner.GetComponent<EnemySpawner>();
         var spawner = enemyController.Fetch<EnemySpawner>();
+
+        // add a WaveEnemySpawner component to this spawner if it does not have one already
         var wes = spawner.GetComponent<WaveEnemySpawner>();
+        if (wes == null)
+        {
+            wes = spawner.gameObject.AddComponent<WaveEnemySpawner>();
+        }
+
+        // remove the WaveEnemySpawner component from this spawner after it is recycled
+        spawner.InstanceRecycled += OnSpawnerRecycled;
 
         // calculate spawner position around edge of arena
         float angle = UnityEngine.Random.Range(0.0f, 360.0f) * Mathf.Deg2Rad;
@@ -191,6 +200,18 @@ public class WaveManager : MonoBehaviour
             isCurrentlySpawning = false;
             waveTime = Time.time + spawner.Lifetime;
         }
+    }
+
+    private void OnSpawnerRecycled(object sender, EventArgs e)
+    {
+        EnemySpawner spawner = sender as EnemySpawner;
+
+        // remove the WaveEnemySpawner component from the spawner
+        WaveEnemySpawner wes = spawner.GetComponent<WaveEnemySpawner>();
+        Destroy(wes);
+
+        // unhook the event
+        spawner.InstanceRecycled -= OnSpawnerRecycled;
     }
 
     public void NotifyEnemyCreated(int wave)

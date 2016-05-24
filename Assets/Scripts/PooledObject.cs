@@ -11,6 +11,7 @@ public class PooledObject : MonoBehaviour
     public virtual void CleanupInstance() { }
 
     public event EventHandler InstanceReset;
+    public event EventHandler InstanceRecycled;
 
     public void Recycle()
     {
@@ -20,6 +21,10 @@ public class PooledObject : MonoBehaviour
         }
         else
         {
+            if (InstanceRecycled != null)
+            {
+                InstanceRecycled(this, EventArgs.Empty);
+            }
             Pool.Recycle(this);
         }
         CleanupInstance();

@@ -39,7 +39,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0dabb335dc7020499f7feb64286531b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemySpawner: {fileID: 11465008, guid: c71232b3c5ba2264095cd405393d2953, type: 2}
+  EnemySpawner: {fileID: 11429122, guid: c71232b3c5ba2264095cd405393d2953, type: 2}
   WaveDuration: 8
   SpawnerCreationInterval: 2
   SpawnersPerWave: 5
@@ -64,7 +64,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: EnemySpawner
       value: 
-      objectReference: {fileID: 11465008, guid: c71232b3c5ba2264095cd405393d2953,
+      objectReference: {fileID: 11429122, guid: c71232b3c5ba2264095cd405393d2953,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
