@@ -12,7 +12,7 @@ public class EnemyController : PooledObject
     public event EventHandler EnemyDestroyed;
     public event EventHandler EnemyEscaped;
     
-    private WaveManager waveManager;
+    private ArenaManager arena;
     private DamageableObject damageComponent;
     private Vector2 velocity;
 
@@ -37,10 +37,10 @@ public class EnemyController : PooledObject
             damageComponent.Destroyed += OnDestroyed;
         }
 
-        var waveManagerObj = GameObject.FindGameObjectWithTag("WaveManager");
-        if (waveManagerObj != null)
+        var arenaManagerObj = GameObject.FindGameObjectWithTag("ArenaManager");
+        if (arenaManagerObj != null)
         {
-            waveManager = waveManagerObj.GetComponent<WaveManager>();
+            arena = arenaManagerObj.GetComponent<ArenaManager>();
         }
 
         base.ResetInstance();
@@ -61,7 +61,7 @@ public class EnemyController : PooledObject
     {
         if (IsEscaping)
         {
-            if (!escaped && transform.position.magnitude > waveManager.ArenaRadius)
+            if (!escaped && transform.position.magnitude > arena.ArenaRadius)
             {
                 if (EnemyEscaped != null)
                 {

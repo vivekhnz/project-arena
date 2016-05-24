@@ -11,6 +11,7 @@ TagManager:
   - ShieldGeneratorSpawnPoint
   - EnemyBullet
   - WaveManager
+  - ArenaManager
   layers:
   - Default
   - TransparentFX

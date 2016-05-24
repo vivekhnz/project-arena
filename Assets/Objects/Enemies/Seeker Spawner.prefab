@@ -12,7 +12,7 @@ GameObject:
   m_Layer: 0
   m_Name: Seeker Spawner
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2800000, guid: 936e65104d5766f4db081bc046de3476, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
