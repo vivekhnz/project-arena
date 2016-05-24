@@ -1,178 +1,64 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
 
-public class SeekerEnemyController : PooledObject
+[RequireComponent(typeof(EnemyController))]
+public class SeekerEnemyController : MonoBehaviour
 {
-    public float TurnSpeed = 0.05f;
-    public float MovementSpeed = 0.5f;
     public GameObject FollowTarget;
 
+    private EnemyController enemyController;
     private GameObject player;
-    private DamageableObject damageComponent;
-    private Vector2 velocity;
 
-    private WaveManager waveManager;
-    private int wave;
-    private bool isEscaping;
-    private float escapeAngle;
-    private bool escaped;
-
-    public void Initialize(Vector3 position, int wave)
+    void Start()
     {
-        transform.position = position;
-        this.wave = wave;
+        enemyController = GetComponent<EnemyController>();
+        enemyController.InstanceReset += OnInstanceReset;
 
-        waveManager.NotifyEnemyCreated(wave);
+        Initialize();
     }
 
-    public override void ResetInstance()
+    private void OnInstanceReset(object sender, System.EventArgs e)
+    {
+        Initialize();
+    }
+
+    private void Initialize()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        isEscaping = false;
-        escaped = false;
-
-        if (damageComponent == null)
-        {
-            damageComponent = GetComponent<DamageableObject>();
-        }
-        if (damageComponent != null)
-        {
-            damageComponent.ResetHealth();
-            damageComponent.Destroyed += OnDestroyed;
-        }
-
-        // subscribe to wave changed event so we are notified when this enemy's wave has ended
-        var waveManagerObj = GameObject.FindGameObjectWithTag("WaveManager");
-        if (waveManagerObj != null)
-        {
-            waveManager = waveManagerObj.GetComponent<WaveManager>();
-            if (waveManager != null)
-            {
-                waveManager.WaveChanged += OnWaveChanged;
-            }
-        }
-
         RotateToTarget(1.0f);
-
-        base.ResetInstance();
-    }
-
-    public override void CleanupInstance()
-    {
-        // unhook from events so we don't get duplicate notifications when this object is pooled
-        if (waveManager != null)
-        {
-            waveManager.WaveChanged -= OnWaveChanged;
-        }
-        if (damageComponent != null)
-        {
-            damageComponent.Destroyed -= OnDestroyed;
-        }
-
-        base.CleanupInstance();
     }
 
     void FixedUpdate()
     {
-        RotateToTarget(TurnSpeed);
-
-        // move the enemy in the direction it is facing
-        transform.Translate(Vector3.right * MovementSpeed);
-
-        // apply velocity
-        transform.position = new Vector3(
-            transform.position.x + velocity.x,
-            transform.position.y + velocity.y,
-            transform.position.z);
-        velocity *= 0.9f;
+        if (!enemyController.IsEscaping)
+        {
+            // rotate and move towards the target
+            RotateToTarget(enemyController.TurnSpeed);
+            transform.Translate(Vector3.right * enemyController.MovementSpeed);
+        }
     }
 
     private void RotateToTarget(float turnSpeed)
     {
-        if (isEscaping)
+        // target the player if no target has been explicitly specified
+        GameObject target = FollowTarget;
+        if (target == null)
         {
-            if (!escaped && transform.position.magnitude > waveManager.ArenaRadius)
-            {
-                waveManager.NotifyEnemyEscaped(wave);
-                Recycle();
-                escaped = true;
-            }
-            else
-            {
-                RotateTo(escapeAngle, turnSpeed);
-            }
+            target = player;
         }
-        else
-        {
-            // target the player if no target has been explicitly specified
-            if (FollowTarget == null)
-            {
-                FollowTarget = GameObject.FindGameObjectWithTag("Player");
-            }
-            GameObject target = FollowTarget ?? player;
 
-            if (target != null)
-            {
-                // rotate to face the target
-                Vector2 direction = target.transform.position - transform.position;
-                RotateTo(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg, turnSpeed);
-            }
+        if (target != null)
+        {
+            // rotate to face the target
+            Vector2 direction = target.transform.position - transform.position;
+            RotateTo(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg, turnSpeed);
         }
     }
 
-    void RotateTo(float targetRotation, float turnSpeed)
+    private void RotateTo(float targetRotation, float turnSpeed)
     {
         // interpolate towards the target rotation
         Quaternion target = Quaternion.Euler(0.0f, 0.0f, targetRotation);
         transform.rotation = Quaternion.Lerp(transform.rotation, target, turnSpeed);
-    }
-
-    public void AddForce(Vector2 direction)
-    {
-        velocity += direction * 0.01f;
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        ManageCollisions(collision);
-    }
-
-    void OnCollisionStay2D(Collision2D collision)
-    {
-        ManageCollisions(collision);
-    }
-
-    private void ManageCollisions(Collision2D collision)
-    {
-        string[] tags = collision.gameObject.tag.Split('|');
-        foreach (string tag in tags)
-        {
-            switch (tag)
-            {
-                case "Player":
-                    // navigate to the Defeat scene if an enemy collides with the player
-                    SceneManager.LoadScene("DefeatScene");
-                    break;
-            }
-        }
-    }
-    
-    private void OnWaveChanged(object sender, WaveManager.WaveChangedEventArgs e)
-    {
-        if (!isEscaping && e.PreviousWave.WaveNumber >= wave)
-        {
-            // attempt to escape the arena
-            isEscaping = true;
-
-            // calculate the angle to the nearest point on the edge of the arena
-            Vector2 direction = ((Vector2)transform.position).normalized;
-            escapeAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        }
-    }
-
-    private void OnDestroyed(object sender, System.EventArgs e)
-    {
-        waveManager.NotifyEnemyDestroyed(wave);
     }
 }

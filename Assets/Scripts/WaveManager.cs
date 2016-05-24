@@ -10,9 +10,9 @@ public class WaveManager : MonoBehaviour
     public float WaveDuration = 10.0f;
     public float SpawnerCreationInterval = 1.0f;
     public int SpawnersPerWave = 5;
-    public float ArenaRadius = 10.0f;
     public int WavesPerRound = 5;
     public float RoundIntermissionDuration = 10.0f;
+    public int NumberOfRounds = 3;
 
     public List<Wave> Waves = new List<Wave>();
     public Wave CurrentWave
@@ -37,6 +37,8 @@ public class WaveManager : MonoBehaviour
     public event EventHandler RoundCompleted;
     public event EventHandler RoundStarted;
 
+    private ArenaManager arena;
+
     private float waveTime;
     private float spawnerTime;
     private bool isCurrentlySpawning = false;
@@ -45,9 +47,20 @@ public class WaveManager : MonoBehaviour
     private bool isEndOfRound = false;
     private bool isRoundTransitioning = false;
     private float roundTime;
+    private bool allRoundsComplete = false;
 
     void Start()
     {
+        var arenaObj = GameObject.FindGameObjectWithTag("ArenaManager");
+        if (arenaObj == null)
+        {
+            throw new Exception("Could not find ArenaManager!");
+        }
+        else
+        {
+            arena = arenaObj.GetComponent<ArenaManager>();
+        }
+
         waveTime = Time.time - WaveDuration;
         spawnerTime = Time.time;
         roundTime = Time.time;
@@ -56,16 +69,32 @@ public class WaveManager : MonoBehaviour
         CurrentRound = 1;
     }
 
-    void Update()
+    void FixedUpdate()
     {
+        if (allRoundsComplete)
+        {
+            return;
+        }
         if (isEndOfRound)
         {
             if (isRoundTransitioning)
             {
-                // start a new round after the intermission is complete
+                // wait until the intermission is complete
                 if (Time.time - roundTime > RoundIntermissionDuration)
                 {
-                    StartNewRound();
+                    if (CurrentRound == NumberOfRounds)
+                    {
+                        // start the boss fight
+                        arena.StartBossFight();
+
+                        // don't progress to the next wave
+                        allRoundsComplete = true;
+                    }
+                    else
+                    {
+                        // start a new round
+                        StartNewRound();
+                    }
                 }
             }
             else
@@ -170,14 +199,26 @@ public class WaveManager : MonoBehaviour
 
     void CreateSpawner()
     {
-        var spawner = EnemySpawner.Fetch<EnemySpawner>();
+        var enemyController = EnemySpawner.GetComponent<EnemySpawner>();
+        var spawner = enemyController.Fetch<EnemySpawner>();
+
+        // add a WaveEnemySpawner component to this spawner if it does not have one already
+        var wes = spawner.GetComponent<WaveEnemySpawner>();
+        if (wes == null)
+        {
+            wes = spawner.gameObject.AddComponent<WaveEnemySpawner>();
+        }
+
+        // remove the WaveEnemySpawner component from this spawner after it is recycled
+        spawner.InstanceRecycled += OnSpawnerRecycled;
 
         // calculate spawner position around edge of arena
         float angle = UnityEngine.Random.Range(0.0f, 360.0f) * Mathf.Deg2Rad;
         Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
         // create spawner and associate enemies with current wave
-        spawner.Initialize(direction * ArenaRadius, CurrentWave.WaveNumber);
+        spawner.Initialize(direction * arena.ArenaRadius);
+        wes.Initialize(CurrentWave.WaveNumber);
 
         spawnersCreated++;
         spawnerTime = Time.time;
@@ -188,6 +229,18 @@ public class WaveManager : MonoBehaviour
             isCurrentlySpawning = false;
             waveTime = Time.time + spawner.Lifetime;
         }
+    }
+
+    private void OnSpawnerRecycled(object sender, EventArgs e)
+    {
+        EnemySpawner spawner = sender as EnemySpawner;
+
+        // remove the WaveEnemySpawner component from the spawner
+        WaveEnemySpawner wes = spawner.GetComponent<WaveEnemySpawner>();
+        Destroy(wes);
+
+        // unhook the event
+        spawner.InstanceRecycled -= OnSpawnerRecycled;
     }
 
     public void NotifyEnemyCreated(int wave)
@@ -203,12 +256,5 @@ public class WaveManager : MonoBehaviour
     public void NotifyEnemyEscaped(int wave)
     {
         Waves[wave - 1].EnemiesEscaped++;
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        // draw arena radius in the Unity editor
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(Vector3.zero, ArenaRadius);
     }
 }

@@ -12,7 +12,7 @@ public class ShieldGeneratorController : PooledObject
     private Animator animator;
     private DamageableObject damageComponent;
 
-    void Start()
+    public override void ResetInstance()
     {
         animator = GetComponent<Animator>();
         if (Core != null)
@@ -25,22 +25,23 @@ public class ShieldGeneratorController : PooledObject
                 // subscribe to the health changed and destroyed events
                 damageComponent.HealthChanged += OnHealthChanged;
                 damageComponent.Destroyed += OnDestroyed;
-            }
-        }
-    }
 
-    public override void ResetInstance()
-    {
-        if (damageComponent == null)
-        {
-            damageComponent = Core.GetComponent<DamageableObject>();
-        }
-        if (damageComponent != null)
-        {
-            damageComponent.ResetHealth();
+                damageComponent.ResetHealth();
+            }
         }
 
         base.ResetInstance();
+    }
+
+    public override void CleanupInstance()
+    {
+        if (damageComponent != null)
+        {
+            damageComponent.HealthChanged -= OnHealthChanged;
+            damageComponent.Destroyed -= OnDestroyed;
+        }
+
+        base.CleanupInstance();
     }
 
     private void OnHealthChanged(object sender, System.EventArgs e)
@@ -49,8 +50,11 @@ public class ShieldGeneratorController : PooledObject
         spriteRenderer.color = Color.Lerp(Color.red, Color.white,
             damageComponent.CurrentHealth / (float)damageComponent.MaxHealth);
 
-        // play the damaged animation
-        animator.SetTrigger("OnDamaged");
+        if (animator != null)
+        {
+            // play the damaged animation
+            animator.SetTrigger("OnDamaged");
+        }
     }
 
     private void OnDestroyed(object sender, System.EventArgs e)
