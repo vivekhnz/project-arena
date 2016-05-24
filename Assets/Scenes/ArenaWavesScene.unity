@@ -515,7 +515,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 431991704}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -20, z: -30}
+  m_LocalPosition: {x: 0, y: 0, z: -30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -747,7 +747,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 491340, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 491340, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1223,22 +1223,6 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 11490998, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
-      propertyPath: SpawnersPerWave
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11490998, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
-      propertyPath: WavesPerRound
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11490998, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
-      propertyPath: WaveDuration
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11490998, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
-      propertyPath: RoundIntermissionDuration
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
   m_IsPrefabParent: 0
@@ -1623,7 +1607,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!114 &1244158896
 MonoBehaviour:
   m_ObjectHideFlags: 0
