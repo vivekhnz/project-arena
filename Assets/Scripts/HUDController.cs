@@ -11,6 +11,17 @@ public class HUDController : MonoBehaviour
     public Text CurrentRoundText;
 
     private Animator animator;
+    private Animator Animator
+    {
+        get
+        {
+            if (animator == null)
+            {
+                animator = GetComponent<Animator>();
+            }
+            return animator;
+        }
+    }
 
     void Start()
     {
@@ -19,7 +30,6 @@ public class HUDController : MonoBehaviour
             WaveManager.RoundCompleted += OnRoundCompleted;
             WaveManager.RoundStarted += OnRoundStarted;
         }
-        animator = GetComponent<Animator>();
     }
 
     private void OnRoundCompleted(object sender, System.EventArgs e)
@@ -38,11 +48,22 @@ public class HUDController : MonoBehaviour
         WaveScoresText.text = sbWaveScoresText.ToString();
         CurrentRoundText.text = string.Format("ROUND {0}", WaveManager.CurrentRound);
 
-        animator.SetBool("IsRoundOverlayVisible", true);
+        Animator.SetBool("IsRoundOverlayVisible", true);
     }
 
     private void OnRoundStarted(object sender, System.EventArgs e)
     {
-        animator.SetBool("IsRoundOverlayVisible", false);
+        Animator.SetBool("IsRoundOverlayVisible", false);
+    }
+
+    public void ShowWavesUI()
+    {
+        Animator.SetBool("IsBossFightActive", false);
+    }
+
+    public void ShowBossFightUI()
+    {
+        Animator.SetBool("IsRoundOverlayVisible", false);
+        Animator.SetBool("IsBossFightActive", true);
     }
 }

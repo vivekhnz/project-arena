@@ -12,6 +12,7 @@ public class WaveManager : MonoBehaviour
     public int SpawnersPerWave = 5;
     public int WavesPerRound = 5;
     public float RoundIntermissionDuration = 10.0f;
+    public int NumberOfRounds = 3;
 
     public List<Wave> Waves = new List<Wave>();
     public Wave CurrentWave
@@ -46,6 +47,7 @@ public class WaveManager : MonoBehaviour
     private bool isEndOfRound = false;
     private bool isRoundTransitioning = false;
     private float roundTime;
+    private bool allRoundsComplete = false;
 
     void Start()
     {
@@ -69,15 +71,30 @@ public class WaveManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (allRoundsComplete)
+        {
+            return;
+        }
         if (isEndOfRound)
         {
             if (isRoundTransitioning)
             {
-                // start a new round after the intermission is complete
+                // wait until the intermission is complete
                 if (Time.time - roundTime > RoundIntermissionDuration)
                 {
+                    if (CurrentRound == NumberOfRounds)
+                    {
+                        // start the boss fight
+                        arena.StartBossFight();
 
-                    StartNewRound();
+                        // don't progress to the next wave
+                        allRoundsComplete = true;
+                    }
+                    else
+                    {
+                        // start a new round
+                        StartNewRound();
+                    }
                 }
             }
             else
