@@ -207,6 +207,10 @@ Prefab:
       propertyPath: ShieldBar
       value: 
       objectReference: {fileID: 610991560}
+    - target: {fileID: 113766, guid: 54e803e95d28e034d8cc0b0bb0561478, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 54e803e95d28e034d8cc0b0bb0561478, type: 2}
   m_IsPrefabParent: 0
@@ -1013,7 +1017,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
 --- !u!1 &610991558
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,11 +1205,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 468096, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
       propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 139526, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
-      propertyPath: m_IsActive
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
@@ -2540,6 +2540,10 @@ Prefab:
       propertyPath: ShieldGeneratorManager
       value: 
       objectReference: {fileID: 1254711782}
+    - target: {fileID: 105992, guid: c0f08b8a4d845de479ee1ba8b343c484, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c0f08b8a4d845de479ee1ba8b343c484, type: 2}
   m_IsPrefabParent: 0

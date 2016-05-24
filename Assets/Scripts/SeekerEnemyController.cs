@@ -9,11 +9,11 @@ public class SeekerEnemyController : PooledObject
     public GameObject FollowTarget;
 
     private GameObject player;
-    private DamageableObject damageComponent;
-    private Vector2 velocity;
-
     private WaveManager waveManager;
-    private int wave;
+    private DamageableObject damageComponent;
+    private WaveEnemyController waveEnemyController;
+    private Vector2 velocity;
+    
     private bool isEscaping;
     private float escapeAngle;
     private bool escaped;
@@ -21,9 +21,10 @@ public class SeekerEnemyController : PooledObject
     public void Initialize(Vector3 position, int wave)
     {
         transform.position = position;
-        this.wave = wave;
-
-        waveManager.NotifyEnemyCreated(wave);
+        if (waveEnemyController != null)
+        {
+            waveEnemyController.Initialize(wave);
+        }
     }
 
     public override void ResetInstance()
@@ -41,16 +42,21 @@ public class SeekerEnemyController : PooledObject
             damageComponent.ResetHealth();
             damageComponent.Destroyed += OnDestroyed;
         }
-
-        // subscribe to wave changed event so we are notified when this enemy's wave has ended
+        
         var waveManagerObj = GameObject.FindGameObjectWithTag("WaveManager");
         if (waveManagerObj != null)
         {
             waveManager = waveManagerObj.GetComponent<WaveManager>();
-            if (waveManager != null)
-            {
-                waveManager.WaveChanged += OnWaveChanged;
-            }
+        }
+
+        // subscribe to wave ended event so we are notified when this enemy's wave has ended
+        if (waveEnemyController == null)
+        {
+            waveEnemyController = GetComponent<WaveEnemyController>();
+        }
+        if (waveEnemyController != null)
+        {
+            waveEnemyController.WaveEnded += OnWaveEnded;
         }
 
         RotateToTarget(1.0f);
@@ -61,13 +67,14 @@ public class SeekerEnemyController : PooledObject
     public override void CleanupInstance()
     {
         // unhook from events so we don't get duplicate notifications when this object is pooled
-        if (waveManager != null)
-        {
-            waveManager.WaveChanged -= OnWaveChanged;
-        }
         if (damageComponent != null)
         {
             damageComponent.Destroyed -= OnDestroyed;
+        }
+        if (waveEnemyController != null)
+        {
+            waveEnemyController.WaveEnded -= OnWaveEnded;
+            waveEnemyController.Cleanup();
         }
 
         base.CleanupInstance();
@@ -94,7 +101,10 @@ public class SeekerEnemyController : PooledObject
         {
             if (!escaped && transform.position.magnitude > waveManager.ArenaRadius)
             {
-                waveManager.NotifyEnemyEscaped(wave);
+                if (waveEnemyController != null)
+                {
+                    waveEnemyController.NotifyEnemyEscaped();
+                }
                 Recycle();
                 escaped = true;
             }
@@ -157,10 +167,10 @@ public class SeekerEnemyController : PooledObject
             }
         }
     }
-    
-    private void OnWaveChanged(object sender, WaveManager.WaveChangedEventArgs e)
+
+    private void OnWaveEnded(object sender, System.EventArgs e)
     {
-        if (!isEscaping && e.PreviousWave.WaveNumber >= wave)
+        if (!isEscaping)
         {
             // attempt to escape the arena
             isEscaping = true;
@@ -173,6 +183,9 @@ public class SeekerEnemyController : PooledObject
 
     private void OnDestroyed(object sender, System.EventArgs e)
     {
-        waveManager.NotifyEnemyDestroyed(wave);
+        if (waveEnemyController != null)
+        {
+            waveEnemyController.NotifyEnemyDestroyed();
+        }
     }
 }
