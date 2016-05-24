@@ -6,7 +6,7 @@ using System.Linq;
 
 public class WaveManager : MonoBehaviour
 {
-    public EnemySpawner EnemySpawner;
+    public WaveEnemySpawner EnemySpawner;
     public float WaveDuration = 10.0f;
     public float SpawnerCreationInterval = 1.0f;
     public int SpawnersPerWave = 5;
@@ -170,14 +170,17 @@ public class WaveManager : MonoBehaviour
 
     void CreateSpawner()
     {
-        var spawner = EnemySpawner.Fetch<EnemySpawner>();
+        var enemyController = EnemySpawner.GetComponent<EnemySpawner>();
+        var spawner = enemyController.Fetch<EnemySpawner>();
+        var wes = spawner.GetComponent<WaveEnemySpawner>();
 
         // calculate spawner position around edge of arena
         float angle = UnityEngine.Random.Range(0.0f, 360.0f) * Mathf.Deg2Rad;
         Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
         // create spawner and associate enemies with current wave
-        spawner.Initialize(direction * ArenaRadius, CurrentWave.WaveNumber);
+        spawner.Initialize(direction * ArenaRadius);
+        wes.Initialize(CurrentWave.WaveNumber);
 
         spawnersCreated++;
         spawnerTime = Time.time;

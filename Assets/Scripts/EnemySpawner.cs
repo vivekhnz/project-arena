@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class EnemySpawner : PooledObject
 {
@@ -7,8 +8,17 @@ public class EnemySpawner : PooledObject
     public float EnemySpawnInterval = 1.0f;
     public int EnemiesPerSpawn = 5;
 
-    private WaveEnemySpawner waveEnemySpawner;
-    
+    public class EnemySpawnedEventArgs : EventArgs
+    {
+        public EnemyController Enemy { get; private set; }
+
+        public EnemySpawnedEventArgs(EnemyController enemy)
+        {
+            Enemy = enemy;
+        }
+    }
+    public event EventHandler<EnemySpawnedEventArgs> EnemySpawned;
+
     private float enemySpawnTime;
     private int enemiesSpawned = 0;
 
@@ -17,24 +27,15 @@ public class EnemySpawner : PooledObject
         get { return EnemySpawnInterval * EnemiesPerSpawn; }
     }
 
-    public void Initialize(Vector3 position, int wave)
+    public void Initialize(Vector3 position)
     {
         transform.position = position;
-        if (waveEnemySpawner != null)
-        {
-            waveEnemySpawner.Initialize(wave);
-        }
     }
 
     public override void ResetInstance()
     {
         enemySpawnTime = Time.time;
         enemiesSpawned = 0;
-
-        if (waveEnemySpawner == null)
-        {
-            waveEnemySpawner = GetComponent<WaveEnemySpawner>();
-        }
 
         base.ResetInstance();
     }
@@ -50,10 +51,15 @@ public class EnemySpawner : PooledObject
 
     void SpawnEnemy()
     {
-        // create enemy and associate it with the wave this spawner was created for
+        // create enemy
         var enemy = Enemy.Fetch<EnemyController>();
         enemy.Initialize(transform.position);
-        waveEnemySpawner.AssociateEnemyWithWave(enemy);
+
+        // notify subscribers that a new enemy has been spawned
+        if (EnemySpawned != null)
+        {
+            EnemySpawned(this, new EnemySpawnedEventArgs(enemy));
+        }
 
         enemiesSpawned++;
         enemySpawnTime = Time.time;

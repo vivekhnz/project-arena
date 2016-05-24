@@ -21,14 +21,6 @@ public class EnemyController : PooledObject
         transform.position = position;
     }
 
-    public void AssociateWithWave(int wave)
-    {
-        if (waveEnemyController != null)
-        {
-            waveEnemyController.Initialize(wave);
-        }
-    }
-
     public override void ResetInstance()
     {
         IsEscaping = false;
