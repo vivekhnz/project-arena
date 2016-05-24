@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\ShieldGeneratorManager.cs" />
     <Compile Include="Assets\Scripts\Wave.cs" />
     <Compile Include="Assets\Scripts\WaveEnemyController.cs" />
+    <Compile Include="Assets\Scripts\WaveEnemySpawner.cs" />
     <Compile Include="Assets\Scripts\WaveManager.cs" />
   </ItemGroup>
   <ItemGroup>

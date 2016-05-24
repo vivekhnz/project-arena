@@ -16,9 +16,13 @@ public class EnemyController : PooledObject
     private float escapeAngle;
     private bool escaped;
 
-    public void Initialize(Vector3 position, int wave)
+    public void Initialize(Vector3 position)
     {
         transform.position = position;
+    }
+
+    public void AssociateWithWave(int wave)
+    {
         if (waveEnemyController != null)
         {
             waveEnemyController.Initialize(wave);

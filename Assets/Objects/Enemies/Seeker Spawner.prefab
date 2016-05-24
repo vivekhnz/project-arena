@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 492548}
   - 114: {fileID: 11429122}
+  - 114: {fileID: 11465008}
   m_Layer: 0
   m_Name: Seeker Spawner
   m_TagString: Untagged
@@ -42,6 +43,17 @@ MonoBehaviour:
   Enemy: {fileID: 11432990, guid: aaff9b7fe58e64c458b55df0e856eb18, type: 2}
   EnemySpawnInterval: 0.5
   EnemiesPerSpawn: 5
+--- !u!114 &11465008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8fd32ad121cd244485160896aa92806, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

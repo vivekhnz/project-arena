@@ -6,10 +6,11 @@ public class EnemySpawner : PooledObject
     public EnemyController Enemy;
     public float EnemySpawnInterval = 1.0f;
     public int EnemiesPerSpawn = 5;
+
+    private WaveEnemySpawner waveEnemySpawner;
     
     private float enemySpawnTime;
     private int enemiesSpawned = 0;
-    private int wave;
 
     public float Lifetime
     {
@@ -19,13 +20,21 @@ public class EnemySpawner : PooledObject
     public void Initialize(Vector3 position, int wave)
     {
         transform.position = position;
-        this.wave = wave;
+        if (waveEnemySpawner != null)
+        {
+            waveEnemySpawner.Initialize(wave);
+        }
     }
 
     public override void ResetInstance()
     {
         enemySpawnTime = Time.time;
         enemiesSpawned = 0;
+
+        if (waveEnemySpawner == null)
+        {
+            waveEnemySpawner = GetComponent<WaveEnemySpawner>();
+        }
 
         base.ResetInstance();
     }
@@ -43,7 +52,8 @@ public class EnemySpawner : PooledObject
     {
         // create enemy and associate it with the wave this spawner was created for
         var enemy = Enemy.Fetch<EnemyController>();
-        enemy.Initialize(transform.position, wave);
+        enemy.Initialize(transform.position);
+        waveEnemySpawner.AssociateEnemyWithWave(enemy);
 
         enemiesSpawned++;
         enemySpawnTime = Time.time;

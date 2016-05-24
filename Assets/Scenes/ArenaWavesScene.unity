@@ -1234,6 +1234,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 11490998, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
+      propertyPath: WavesPerRound
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490998, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
+      propertyPath: SpawnersPerWave
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
   m_IsPrefabParent: 0
