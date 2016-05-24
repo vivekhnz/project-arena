@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System;
 
+[RequireComponent(typeof(DamageableObject))]
 public class EnemyController : PooledObject
 {
     public float TurnSpeed = 0.1f;
     public float MovementSpeed = 0.15f;
+
+    public event EventHandler EnemyDestroyed;
+    public event EventHandler EnemyEscaped;
     
     private WaveManager waveManager;
     private DamageableObject damageComponent;
-    private WaveEnemyController waveEnemyController;
     private Vector2 velocity;
 
     public bool IsEscaping { get; private set; }
@@ -26,10 +30,7 @@ public class EnemyController : PooledObject
         IsEscaping = false;
         escaped = false;
 
-        if (damageComponent == null)
-        {
-            damageComponent = GetComponent<DamageableObject>();
-        }
+        damageComponent = GetComponent<DamageableObject>();
         if (damageComponent != null)
         {
             damageComponent.ResetHealth();
@@ -42,16 +43,6 @@ public class EnemyController : PooledObject
             waveManager = waveManagerObj.GetComponent<WaveManager>();
         }
 
-        // subscribe to wave ended event so we are notified when this enemy's wave has ended
-        if (waveEnemyController == null)
-        {
-            waveEnemyController = GetComponent<WaveEnemyController>();
-        }
-        if (waveEnemyController != null)
-        {
-            waveEnemyController.WaveEnded += OnWaveEnded;
-        }
-
         base.ResetInstance();
     }
 
@@ -61,11 +52,6 @@ public class EnemyController : PooledObject
         if (damageComponent != null)
         {
             damageComponent.Destroyed -= OnDestroyed;
-        }
-        if (waveEnemyController != null)
-        {
-            waveEnemyController.WaveEnded -= OnWaveEnded;
-            waveEnemyController.Cleanup();
         }
 
         base.CleanupInstance();
@@ -77,9 +63,9 @@ public class EnemyController : PooledObject
         {
             if (!escaped && transform.position.magnitude > waveManager.ArenaRadius)
             {
-                if (waveEnemyController != null)
+                if (EnemyEscaped != null)
                 {
-                    waveEnemyController.NotifyEnemyEscaped();
+                    EnemyEscaped(this, EventArgs.Empty);
                 }
                 Recycle();
                 escaped = true;
@@ -138,7 +124,7 @@ public class EnemyController : PooledObject
         }
     }
 
-    private void OnWaveEnded(object sender, System.EventArgs e)
+    public void Escape()
     {
         if (!IsEscaping)
         {
@@ -153,9 +139,9 @@ public class EnemyController : PooledObject
 
     private void OnDestroyed(object sender, System.EventArgs e)
     {
-        if (waveEnemyController != null)
+        if (EnemyDestroyed != null)
         {
-            waveEnemyController.NotifyEnemyDestroyed();
+            EnemyDestroyed(this, EventArgs.Empty);
         }
     }
 }

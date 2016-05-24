@@ -22,12 +22,30 @@ public class WaveEnemySpawner : MonoBehaviour
 
     private void OnEnemySpawned(object sender, EnemySpawner.EnemySpawnedEventArgs e)
     {
+        // add a WaveEnemyController component to this enemy if it does not have one already
         var waveEnemyController = e.Enemy.GetComponent<WaveEnemyController>();
-        if (waveEnemyController != null)
+        if (waveEnemyController == null)
         {
-            // associate it with the wave this spawner was created for
-            waveEnemyController.Initialize(wave);
+            waveEnemyController = e.Enemy.gameObject.AddComponent<WaveEnemyController>();
         }
+
+        // associate it with the wave this spawner was created for
+        waveEnemyController.Initialize(wave);
+
+        // remove the WaveEnemyController component from this enemy after it is recycled
+        e.Enemy.InstanceRecycled += OnEnemyRecycled;
+    }
+
+    private void OnEnemyRecycled(object sender, System.EventArgs e)
+    {
+        EnemyController enemy = sender as EnemyController;
+
+        // remove the WaveEnemyController component from the enemy
+        WaveEnemyController wec = enemy.GetComponent<WaveEnemyController>();
+        Destroy(wec);
+
+        // unhook the event
+        enemy.InstanceRecycled -= OnEnemyRecycled;
     }
 
     void OnDestroy()

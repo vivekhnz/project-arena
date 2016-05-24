@@ -2,16 +2,19 @@
 using System.Collections;
 using System;
 
+[RequireComponent(typeof(EnemyController))]
 public class WaveEnemyController : MonoBehaviour
 {
+    private EnemyController enemyController;
+
     private WaveManager waveManager;
     private int wave;
 
-    public event EventHandler WaveEnded;
-
-    public void Initialize(int wave)
+    void Start()
     {
-        this.wave = wave;
+        enemyController = GetComponent<EnemyController>();
+        enemyController.EnemyDestroyed += OnEnemyDestroyed;
+        enemyController.EnemyEscaped += OnEnemyEscaped;
 
         // subscribe to wave changed event so we are notified when this enemy's wave has ended
         var waveManagerObj = GameObject.FindGameObjectWithTag("WaveManager");
@@ -26,25 +29,12 @@ public class WaveEnemyController : MonoBehaviour
         }
     }
 
-    public void Cleanup()
+    public void Initialize(int wave)
     {
-        // unhook from events so we don't get duplicate notifications when this object is pooled
-        if (waveManager != null)
-        {
-            waveManager.WaveChanged -= OnWaveChanged;
-        }
+        this.wave = wave;
     }
 
-    private void OnWaveChanged(object sender, WaveManager.WaveChangedEventArgs e)
-    {
-        // notify subscribers if this enemy's wave has ended
-        if (e.PreviousWave.WaveNumber >= wave && WaveEnded != null)
-        {
-            WaveEnded(this, EventArgs.Empty);
-        }
-    }
-
-    public void NotifyEnemyDestroyed()
+    private void OnEnemyDestroyed(object sender, EventArgs e)
     {
         if (waveManager != null)
         {
@@ -52,11 +42,32 @@ public class WaveEnemyController : MonoBehaviour
         }
     }
 
-    public void NotifyEnemyEscaped()
+    private void OnEnemyEscaped(object sender, EventArgs e)
     {
         if (waveManager != null)
         {
             waveManager.NotifyEnemyEscaped(wave);
+        }
+    }
+
+    private void OnWaveChanged(object sender, WaveManager.WaveChangedEventArgs e)
+    {
+        // tell the enemy controller to escape once it's wave has ended
+        if (e.PreviousWave.WaveNumber >= wave)
+        {
+            enemyController.Escape();
+        }
+    }
+
+    void OnDestroy()
+    {
+        // unhook from events so we don't get duplicate notifications when the enemy is pooled
+        enemyController.EnemyDestroyed -= OnEnemyDestroyed;
+        enemyController.EnemyEscaped -= OnEnemyEscaped;
+
+        if (waveManager != null)
+        {
+            waveManager.WaveChanged -= OnWaveChanged;
         }
     }
 }
