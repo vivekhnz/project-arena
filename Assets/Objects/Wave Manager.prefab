@@ -39,15 +39,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0dabb335dc7020499f7feb64286531b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveDuration: 8
-  SpawnerCreationInterval: 2
-  SpawnersPerWave: 5
-  WavesPerRound: 5
   RoundIntermissionDuration: 5
   Rounds:
   - EnemySpawner: {fileID: 11429122, guid: 0b5772abdd37bf141835c7bc264ffe1e, type: 2}
+    WaveDuration: 8
+    WaveCount: 3
+    SpawnersPerWave: 3
+    SpawnerCreationInterval: 2
+  - EnemySpawner: {fileID: 11429122, guid: 0b5772abdd37bf141835c7bc264ffe1e, type: 2}
+    WaveDuration: 8
+    WaveCount: 3
+    SpawnersPerWave: 5
+    SpawnerCreationInterval: 2
   - EnemySpawner: {fileID: 11429122, guid: c71232b3c5ba2264095cd405393d2953, type: 2}
-  - EnemySpawner: {fileID: 11429122, guid: c71232b3c5ba2264095cd405393d2953, type: 2}
+    WaveDuration: 8
+    WaveCount: 3
+    SpawnersPerWave: 5
+    SpawnerCreationInterval: 2
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -80,7 +88,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[1].EnemySpawner
       value: 
-      objectReference: {fileID: 11429122, guid: c71232b3c5ba2264095cd405393d2953,
+      objectReference: {fileID: 11429122, guid: 0b5772abdd37bf141835c7bc264ffe1e,
         type: 2}
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[2].EnemySpawner
@@ -90,6 +98,22 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: SpawnersPerWave
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[0].SpawnersPerWave
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[0].WaveCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[1].WaveCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[2].WaveCount
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

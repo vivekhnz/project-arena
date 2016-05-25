@@ -6,10 +6,6 @@ using System.Linq;
 
 public class WaveManager : MonoBehaviour
 {
-    public float WaveDuration = 10.0f;
-    public float SpawnerCreationInterval = 1.0f;
-    public int SpawnersPerWave = 5;
-    public int WavesPerRound = 5;
     public float RoundIntermissionDuration = 10.0f;
     public List<Round> Rounds = new List<Round>();
 
@@ -60,7 +56,7 @@ public class WaveManager : MonoBehaviour
             arena = arenaObj.GetComponent<ArenaManager>();
         }
 
-        waveTime = Time.time - WaveDuration;
+        waveTime = Time.time - Rounds[0].WaveDuration;
         spawnerTime = Time.time;
         roundTime = Time.time;
         
@@ -120,27 +116,31 @@ public class WaveManager : MonoBehaviour
                 }
             }
         }
-        else if (Rounds[CurrentRound - 1].EnemySpawner != null)
+        else if (CurrentRound > 0)
         {
-            if (isCurrentlySpawning)
+            Round currentRound = Rounds[CurrentRound - 1];
+            if (currentRound.EnemySpawner != null)
             {
-                // create spawners within wave
-                if (Time.time - spawnerTime > SpawnerCreationInterval)
+                if (isCurrentlySpawning)
                 {
-                    CreateSpawner();
+                    // create spawners within wave
+                    if (Time.time - spawnerTime > currentRound.SpawnerCreationInterval)
+                    {
+                        CreateSpawner();
+                    }
                 }
-            }
-            else if (Time.time - waveTime > WaveDuration)
-            {
-                // if this is the final wave, finish the round
-                if (CurrentWave != null && CurrentWave.WaveNumber >= WavesPerRound)
+                else if (Time.time - waveTime > currentRound.WaveDuration)
                 {
-                    FinishRound();
-                }
-                else
-                {
-                    // otherwise, start a new wave
-                    StartNewWave();
+                    // if this is the final wave, finish the round
+                    if (CurrentWave != null && CurrentWave.WaveNumber >= currentRound.WaveCount)
+                    {
+                        FinishRound();
+                    }
+                    else
+                    {
+                        // otherwise, start a new wave
+                        StartNewWave();
+                    }
                 }
             }
         }
@@ -223,7 +223,7 @@ public class WaveManager : MonoBehaviour
         spawnersCreated++;
         spawnerTime = Time.time;
 
-        if (spawnersCreated == SpawnersPerWave)
+        if (spawnersCreated == Rounds[CurrentRound - 1].SpawnersPerWave)
         {
             // stop creating spawners
             isCurrentlySpawning = false;
