@@ -46,7 +46,7 @@ MonoBehaviour:
     WaveCount: 3
     SpawnersPerWave: 3
     SpawnerCreationInterval: 2
-  - EnemySpawner: {fileID: 11429122, guid: 0b5772abdd37bf141835c7bc264ffe1e, type: 2}
+  - EnemySpawner: {fileID: 11429122, guid: 330e1565976c27d41b55af15843d6ffd, type: 2}
     WaveDuration: 8
     WaveCount: 3
     SpawnersPerWave: 5
@@ -88,7 +88,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[1].EnemySpawner
       value: 
-      objectReference: {fileID: 11429122, guid: 0b5772abdd37bf141835c7bc264ffe1e,
+      objectReference: {fileID: 11429122, guid: 330e1565976c27d41b55af15843d6ffd,
         type: 2}
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[2].EnemySpawner

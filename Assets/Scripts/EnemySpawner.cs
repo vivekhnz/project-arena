@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public class EnemySpawner : PooledObject
 {
-    public EnemyController Enemy;
     public float EnemySpawnInterval = 1.0f;
-    public int EnemiesPerSpawn = 5;
+    public List<EnemySpawn> Spawns = new List<EnemySpawn>();
 
     public class EnemySpawnedEventArgs : EventArgs
     {
@@ -20,11 +21,12 @@ public class EnemySpawner : PooledObject
     public event EventHandler<EnemySpawnedEventArgs> EnemySpawned;
 
     private float enemySpawnTime;
-    private int enemiesSpawned = 0;
+    private int[] enemiesSpawned;
 
     public float Lifetime
     {
-        get { return EnemySpawnInterval * EnemiesPerSpawn; }
+        get { return EnemySpawnInterval
+                * Spawns.Sum(p => p.EnemiesPerSpawn); }
     }
 
     public void Initialize(Vector3 position)
@@ -35,7 +37,7 @@ public class EnemySpawner : PooledObject
     public override void ResetInstance()
     {
         enemySpawnTime = Time.time;
-        enemiesSpawned = 0;
+        enemiesSpawned = new int[Spawns.Count];
 
         base.ResetInstance();
     }
@@ -43,7 +45,7 @@ public class EnemySpawner : PooledObject
     void Update ()
     {
         // spawn enemies
-        if (Enemy != null && Time.time - enemySpawnTime > EnemySpawnInterval)
+        if (Spawns.Count > 0 && Time.time - enemySpawnTime > EnemySpawnInterval)
         {
             SpawnEnemy();
         }
@@ -51,23 +53,42 @@ public class EnemySpawner : PooledObject
 
     void SpawnEnemy()
     {
-        // create enemy
-        var enemy = Enemy.Fetch<EnemyController>();
-        enemy.Initialize(transform.position);
+        // pick an enemy type to spawn
+        int enemyType = PickEnemyTypeToSpawn();
 
-        // notify subscribers that a new enemy has been spawned
-        if (EnemySpawned != null)
+        if (enemyType != -1)
         {
-            EnemySpawned(this, new EnemySpawnedEventArgs(enemy));
+            // create enemy
+            var enemy = Spawns[enemyType].Enemy.Fetch<EnemyController>();
+            enemy.Initialize(transform.position);
+
+            // notify subscribers that a new enemy has been spawned
+            if (EnemySpawned != null)
+            {
+                EnemySpawned(this, new EnemySpawnedEventArgs(enemy));
+            }
+
+            enemiesSpawned[enemyType]++;
+            enemySpawnTime = Time.time;
         }
 
-        enemiesSpawned++;
-        enemySpawnTime = Time.time;
-
-        if (enemiesSpawned >= EnemiesPerSpawn)
+        if (enemiesSpawned.Sum() >= Spawns.Sum(p => p.EnemiesPerSpawn))
         {
             // delete spawner once all enemies have been spawned
             Recycle();
         }
+    }
+
+    private int PickEnemyTypeToSpawn()
+    {
+        for (int i = 0; i < Spawns.Count; i++)
+        {
+            var spawn = Spawns[i];
+            if (enemiesSpawned[i] < spawn.EnemiesPerSpawn)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 }
