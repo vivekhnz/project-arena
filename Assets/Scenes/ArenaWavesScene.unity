@@ -449,10 +449,10 @@ MonoBehaviour:
   Stickiness: 0.05
   Bounds:
     serializedVersion: 2
-    x: -60
-    y: -60
-    width: 120
-    height: 120
+    x: -54
+    y: -54
+    width: 108
+    height: 108
 --- !u!81 &431991706
 AudioListener:
   m_ObjectHideFlags: 0
@@ -2470,7 +2470,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1969057743
 RectTransform:
   m_ObjectHideFlags: 0
