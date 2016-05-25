@@ -6,13 +6,12 @@ using System.Linq;
 
 public class WaveManager : MonoBehaviour
 {
-    public EnemySpawner EnemySpawner;
     public float WaveDuration = 10.0f;
     public float SpawnerCreationInterval = 1.0f;
     public int SpawnersPerWave = 5;
     public int WavesPerRound = 5;
     public float RoundIntermissionDuration = 10.0f;
-    public int NumberOfRounds = 3;
+    public List<Round> Rounds = new List<Round>();
 
     public List<Wave> Waves = new List<Wave>();
     public Wave CurrentWave
@@ -82,7 +81,7 @@ public class WaveManager : MonoBehaviour
                 // wait until the intermission is complete
                 if (Time.time - roundTime > RoundIntermissionDuration)
                 {
-                    if (CurrentRound == NumberOfRounds)
+                    if (CurrentRound == Rounds.Count)
                     {
                         // start the boss fight
                         arena.StartBossFight();
@@ -121,7 +120,7 @@ public class WaveManager : MonoBehaviour
                 }
             }
         }
-        else if (EnemySpawner != null)
+        else if (Rounds[CurrentRound - 1].EnemySpawner != null)
         {
             if (isCurrentlySpawning)
             {
@@ -199,7 +198,8 @@ public class WaveManager : MonoBehaviour
 
     void CreateSpawner()
     {
-        var enemyController = EnemySpawner.GetComponent<EnemySpawner>();
+        var spawnerPrefab = Rounds[CurrentRound - 1].EnemySpawner;
+        var enemyController = spawnerPrefab.GetComponent<EnemySpawner>();
         var spawner = enemyController.Fetch<EnemySpawner>();
 
         // add a WaveEnemySpawner component to this spawner if it does not have one already
