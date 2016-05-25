@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.0f4</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -84,6 +82,7 @@
     <Compile Include="Assets\Scripts\Round.cs" />
     <Compile Include="Assets\Scripts\SeekerEnemyController.cs" />
     <Compile Include="Assets\Scripts\ShieldBossController.cs" />
+    <Compile Include="Assets\Scripts\ShieldBossEncounterController.cs" />
     <Compile Include="Assets\Scripts\ShieldGeneratorController.cs" />
     <Compile Include="Assets\Scripts\ShieldGeneratorManager.cs" />
     <Compile Include="Assets\Scripts\Wave.cs" />
