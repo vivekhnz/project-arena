@@ -133,8 +133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 449b240f4e753904db45e978bc82638a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TurnSpeed: 0.1
-  MovementSpeed: 0.15
+  TurnSpeed: 0.01
+  MovementSpeed: 0.2
 --- !u!114 &11437176
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -218,7 +218,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: MovementSpeed
-      value: 0.15
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_GravityScale
@@ -226,7 +226,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: TurnSpeed
-      value: 0.1
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: FinalTurnSpeed

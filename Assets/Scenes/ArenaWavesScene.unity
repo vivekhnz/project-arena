@@ -117,7 +117,7 @@ Transform:
   - {fileID: 1667127364}
   - {fileID: 506430989}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!1001 &48760302
 Prefab:
   m_ObjectHideFlags: 0
@@ -449,10 +449,10 @@ MonoBehaviour:
   Stickiness: 0.05
   Bounds:
     serializedVersion: 2
-    x: -60
-    y: -60
-    width: 120
-    height: 120
+    x: -54
+    y: -54
+    width: 108
+    height: 108
 --- !u!81 &431991706
 AudioListener:
   m_ObjectHideFlags: 0
