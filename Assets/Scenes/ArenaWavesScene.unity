@@ -2312,6 +2312,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1810624269}
+  - 114: {fileID: 1810624270}
   m_Layer: 0
   m_Name: Boss Encounter
   m_TagString: Untagged
@@ -2334,6 +2335,19 @@ Transform:
   - {fileID: 917635749}
   m_Father: {fileID: 0}
   m_RootOrder: 7
+--- !u!114 &1810624270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1810624268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91964b678cd866741aabcc90fb743865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemySpawner: {fileID: 11429122, guid: abfff12d00e47364ea1b6fbc10de75f1, type: 2}
+  EnemySpawnInterval: 10
 --- !u!1001 &1886234268
 Prefab:
   m_ObjectHideFlags: 0
