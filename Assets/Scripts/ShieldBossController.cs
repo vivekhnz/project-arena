@@ -151,6 +151,11 @@ public class ShieldBossController : MonoBehaviour
             animator.SetBool("IsShielded", isShielded);
         }
         damageComponent.IsInvincible = isShielded;
+        if (isShielded)
+        {
+            // reset the burst time once the shield re-activates so it doesn't instantly fire at the player
+            burstTime = Time.time;
+        }
     }
 
     private void OnShieldDisabled(object sender, System.EventArgs e)
