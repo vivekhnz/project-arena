@@ -26,8 +26,9 @@ public class ShieldBossController : MonoBehaviour
     private int projectileSpawnLocationIndex = 0;
     private bool isShieldDisabled = false;
     private float shieldDisableTime;
+    private bool initialized;
 
-    void Start ()
+    void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         animator = GetComponent<Animator>();
@@ -44,11 +45,19 @@ public class ShieldBossController : MonoBehaviour
         }
         SetShieldState(true);
 
-       burstTime = Time.time;
+        initialized = false;
+        burstTime = Time.time;
     }
 
     void FixedUpdate ()
     {
+        // reset the burst time on the first update so the boss doesn't instantly fire at the player on spawn
+        if (!initialized)
+        {
+            initialized = true;
+            burstTime = Time.time;
+        }
+
         if (isShieldDisabled)
         {
             if (Time.time - shieldDisableTime > DisableShieldDuration)

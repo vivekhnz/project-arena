@@ -1621,8 +1621,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BossEncounter: {fileID: 1810624268}
   WaveManager: {fileID: 745390986}
+  Player: {fileID: 1995564091}
   HUD: {fileID: 553174349}
   ArenaRadius: 50
+  PlayerBossEncounterPosition: {x: 0, y: -20, z: 0}
 --- !u!114 &1254711782 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11443954, guid: 54e803e95d28e034d8cc0b0bb0561478,
@@ -2522,6 +2524,10 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1969057742}
+--- !u!1 &1995564091 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 192622, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
+  m_PrefabInternal: {fileID: 528559323}
 --- !u!1 &2036765347
 GameObject:
   m_ObjectHideFlags: 0
