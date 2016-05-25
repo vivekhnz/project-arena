@@ -6,13 +6,8 @@ using System.Linq;
 
 public class WaveManager : MonoBehaviour
 {
-    public EnemySpawner EnemySpawner;
-    public float WaveDuration = 10.0f;
-    public float SpawnerCreationInterval = 1.0f;
-    public int SpawnersPerWave = 5;
-    public int WavesPerRound = 5;
     public float RoundIntermissionDuration = 10.0f;
-    public int NumberOfRounds = 3;
+    public List<Round> Rounds = new List<Round>();
 
     public List<Wave> Waves = new List<Wave>();
     public Wave CurrentWave
@@ -61,7 +56,7 @@ public class WaveManager : MonoBehaviour
             arena = arenaObj.GetComponent<ArenaManager>();
         }
 
-        waveTime = Time.time - WaveDuration;
+        waveTime = Time.time - Rounds[0].WaveDuration;
         spawnerTime = Time.time;
         roundTime = Time.time;
         
@@ -82,7 +77,7 @@ public class WaveManager : MonoBehaviour
                 // wait until the intermission is complete
                 if (Time.time - roundTime > RoundIntermissionDuration)
                 {
-                    if (CurrentRound == NumberOfRounds)
+                    if (CurrentRound == Rounds.Count)
                     {
                         // start the boss fight
                         arena.StartBossFight();
@@ -121,27 +116,31 @@ public class WaveManager : MonoBehaviour
                 }
             }
         }
-        else if (EnemySpawner != null)
+        else if (CurrentRound > 0)
         {
-            if (isCurrentlySpawning)
+            Round currentRound = Rounds[CurrentRound - 1];
+            if (currentRound.EnemySpawner != null)
             {
-                // create spawners within wave
-                if (Time.time - spawnerTime > SpawnerCreationInterval)
+                if (isCurrentlySpawning)
                 {
-                    CreateSpawner();
+                    // create spawners within wave
+                    if (Time.time - spawnerTime > currentRound.SpawnerCreationInterval)
+                    {
+                        CreateSpawner();
+                    }
                 }
-            }
-            else if (Time.time - waveTime > WaveDuration)
-            {
-                // if this is the final wave, finish the round
-                if (CurrentWave != null && CurrentWave.WaveNumber >= WavesPerRound)
+                else if (Time.time - waveTime > currentRound.WaveDuration)
                 {
-                    FinishRound();
-                }
-                else
-                {
-                    // otherwise, start a new wave
-                    StartNewWave();
+                    // if this is the final wave, finish the round
+                    if (CurrentWave != null && CurrentWave.WaveNumber >= currentRound.WaveCount)
+                    {
+                        FinishRound();
+                    }
+                    else
+                    {
+                        // otherwise, start a new wave
+                        StartNewWave();
+                    }
                 }
             }
         }
@@ -199,7 +198,8 @@ public class WaveManager : MonoBehaviour
 
     void CreateSpawner()
     {
-        var enemyController = EnemySpawner.GetComponent<EnemySpawner>();
+        var spawnerPrefab = Rounds[CurrentRound - 1].EnemySpawner;
+        var enemyController = spawnerPrefab.GetComponent<EnemySpawner>();
         var spawner = enemyController.Fetch<EnemySpawner>();
 
         // add a WaveEnemySpawner component to this spawner if it does not have one already
@@ -223,7 +223,7 @@ public class WaveManager : MonoBehaviour
         spawnersCreated++;
         spawnerTime = Time.time;
 
-        if (spawnersCreated == SpawnersPerWave)
+        if (spawnersCreated == Rounds[CurrentRound - 1].SpawnersPerWave)
         {
             // stop creating spawners
             isCurrentlySpawning = false;
