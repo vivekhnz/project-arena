@@ -17,6 +17,7 @@ public class EnemyController : PooledObject
     private GameStateManager gameStateManager;
 
     private DamageableObject damageComponent;
+    private Animator animator;
     private Vector2 velocity;
 
     public bool IsEscaping { get; private set; }
@@ -37,8 +38,10 @@ public class EnemyController : PooledObject
         if (damageComponent != null)
         {
             damageComponent.ResetHealth();
+            damageComponent.HealthChanged += OnHealthChanged;
             damageComponent.Destroyed += OnDestroyed;
         }
+        animator = GetComponent<Animator>();
 
         var arenaManagerObj = GameObject.FindGameObjectWithTag("ArenaManager");
         if (arenaManagerObj != null)
@@ -60,6 +63,7 @@ public class EnemyController : PooledObject
         // unhook from events so we don't get duplicate notifications when this object is pooled
         if (damageComponent != null)
         {
+            damageComponent.HealthChanged -= OnHealthChanged;
             damageComponent.Destroyed -= OnDestroyed;
         }
 
@@ -143,6 +147,15 @@ public class EnemyController : PooledObject
             // calculate the angle to the nearest point on the edge of the arena
             Vector2 direction = ((Vector2)transform.position).normalized;
             escapeAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        }
+    }
+
+    private void OnHealthChanged(object sender, EventArgs e)
+    {
+        if (animator != null)
+        {
+            // play the damaged animation
+            animator.SetTrigger("OnDamaged");
         }
     }
 
