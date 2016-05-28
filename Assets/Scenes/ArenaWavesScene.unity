@@ -2864,6 +2864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyExplosion: {fileID: 19876690, guid: fdd416e8c80ccce4d8a7f3326cd065f5, type: 2}
+  BulletExplosion: {fileID: 19876690, guid: 0c448e8b3e4c5c14ab903e1c9d06e20a, type: 2}
 --- !u!1 &2036765347
 GameObject:
   m_ObjectHideFlags: 0

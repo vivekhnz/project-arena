@@ -173,9 +173,6 @@ public class EnemyController : PooledObject
             EnemyDestroyed(this, EventArgs.Empty);
         }
         gameStateManager.AddScore(ScoreValue);
-        Vector3 explosionDir = new Vector3(
-            Mathf.Cos(e.DamageAngle * Mathf.Deg2Rad),
-            Mathf.Sin(e.DamageAngle * Mathf.Deg2Rad), 0.0f);
-        explosionManager.CreateExplosion(transform.position, explosionDir);
+        explosionManager.CreateEnemyExplosion(transform.position, e.DamageAngle);
     }
 }

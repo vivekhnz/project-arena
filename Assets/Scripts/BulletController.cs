@@ -9,6 +9,7 @@ public class BulletController : PooledObject
 
     private Rect worldBounds;
     private Bounds spriteBounds;
+    private ExplosionManager explosionManager;
 
     void Start()
     {
@@ -40,6 +41,12 @@ public class BulletController : PooledObject
     {
         transform.position = position;
         transform.rotation = Quaternion.AngleAxis(aim, Vector3.forward);
+
+        var explosionManagerObj = GameObject.FindGameObjectWithTag("ExplosionManager");
+        if (explosionManagerObj != null)
+        {
+            explosionManager = explosionManagerObj.GetComponent<ExplosionManager>();
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -60,6 +67,12 @@ public class BulletController : PooledObject
             switch (tag)
             {
                 case "Solid":
+                    if (explosionManager != null)
+                    {
+                        explosionManager.CreateBulletExplosion(
+                            transform.position,
+                            transform.rotation.eulerAngles.z + 180.0f);
+                    }
                     Recycle();
                     break;
                 case "Player":
