@@ -1761,7 +1761,6 @@ GameObject:
   - 4: {fileID: 1015461960}
   - 198: {fileID: 1015461959}
   - 199: {fileID: 1015461958}
-  - 114: {fileID: 1015461961}
   m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
@@ -1793,7 +1792,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: 643937037
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 0
@@ -3321,17 +3320,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &1015461961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1015461957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1424ff63323d2c647954768bbf5d7c67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1050907718 stripped
 Transform:
   m_PrefabParentObject: {fileID: 433446, guid: 78997097b8bfbfa42abe494319dfe31e, type: 2}
