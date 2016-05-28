@@ -12,6 +12,7 @@ TagManager:
   - EnemyBullet
   - WaveManager
   - ArenaManager
+  - GameStateManager
   layers:
   - Default
   - TransparentFX

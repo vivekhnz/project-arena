@@ -13,6 +13,8 @@ public class EnemyController : PooledObject
     public event EventHandler EnemyEscaped;
     
     private ArenaManager arena;
+    private GameStateManager gameStateManager;
+
     private DamageableObject damageComponent;
     private Vector2 velocity;
 
@@ -41,6 +43,12 @@ public class EnemyController : PooledObject
         if (arenaManagerObj != null)
         {
             arena = arenaManagerObj.GetComponent<ArenaManager>();
+        }
+
+        var gameStateManagerObj = GameObject.FindGameObjectWithTag("GameStateManager");
+        if (gameStateManagerObj != null)
+        {
+            gameStateManager = gameStateManagerObj.GetComponent<GameStateManager>();
         }
 
         base.ResetInstance();
@@ -143,5 +151,6 @@ public class EnemyController : PooledObject
         {
             EnemyDestroyed(this, EventArgs.Empty);
         }
+        gameStateManager.AddScore(100);
     }
 }
