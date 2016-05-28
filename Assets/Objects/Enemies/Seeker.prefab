@@ -31,6 +31,7 @@ GameObject:
   - 114: {fileID: 11405516}
   - 114: {fileID: 11432990}
   - 114: {fileID: 11437176}
+  - 95: {fileID: 9592222}
   m_Layer: 12
   m_Name: Seeker
   m_TagString: Solid|Damageable
@@ -58,7 +59,7 @@ Transform:
   m_GameObject: {fileID: 186406}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 423238}
   m_Father: {fileID: 0}
@@ -108,6 +109,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.5
+--- !u!95 &9592222
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186406}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f03f8a19e88aa364ebffb303ef159d7f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11405516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -135,6 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TurnSpeed: 0.1
   MovementSpeed: 0.15
+  ScoreValue: 100
 --- !u!114 &11437176
 MonoBehaviour:
   m_ObjectHideFlags: 1

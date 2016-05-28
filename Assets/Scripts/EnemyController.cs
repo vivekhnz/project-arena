@@ -15,8 +15,10 @@ public class EnemyController : PooledObject
     
     private ArenaManager arena;
     private GameStateManager gameStateManager;
+    private ExplosionManager explosionManager;
 
     private DamageableObject damageComponent;
+    private Animator animator;
     private Vector2 velocity;
 
     public bool IsEscaping { get; private set; }
@@ -37,8 +39,10 @@ public class EnemyController : PooledObject
         if (damageComponent != null)
         {
             damageComponent.ResetHealth();
+            damageComponent.HealthChanged += OnHealthChanged;
             damageComponent.Destroyed += OnDestroyed;
         }
+        animator = GetComponent<Animator>();
 
         var arenaManagerObj = GameObject.FindGameObjectWithTag("ArenaManager");
         if (arenaManagerObj != null)
@@ -52,6 +56,12 @@ public class EnemyController : PooledObject
             gameStateManager = gameStateManagerObj.GetComponent<GameStateManager>();
         }
 
+        var explosionManagerObj = GameObject.FindGameObjectWithTag("ExplosionManager");
+        if (explosionManagerObj != null)
+        {
+            explosionManager = explosionManagerObj.GetComponent<ExplosionManager>();
+        }
+
         base.ResetInstance();
     }
 
@@ -60,6 +70,7 @@ public class EnemyController : PooledObject
         // unhook from events so we don't get duplicate notifications when this object is pooled
         if (damageComponent != null)
         {
+            damageComponent.HealthChanged -= OnHealthChanged;
             damageComponent.Destroyed -= OnDestroyed;
         }
 
@@ -146,12 +157,22 @@ public class EnemyController : PooledObject
         }
     }
 
-    private void OnDestroyed(object sender, System.EventArgs e)
+    private void OnHealthChanged(object sender, EventArgs e)
+    {
+        if (animator != null)
+        {
+            // play the damaged animation
+            animator.SetTrigger("OnDamaged");
+        }
+    }
+
+    private void OnDestroyed(object sender, DamageableObject.DestroyedEventArgs e)
     {
         if (EnemyDestroyed != null)
         {
             EnemyDestroyed(this, EventArgs.Empty);
         }
         gameStateManager.AddScore(ScoreValue);
+        explosionManager.CreateEnemyExplosion(transform.position, e.DamageAngle);
     }
 }
