@@ -972,6 +972,8 @@ MonoBehaviour:
   GameStateManager: {fileID: 1131421091}
   WaveNamesText: {fileID: 1781895285}
   WaveScoresText: {fileID: 976432906}
+  WavePerfectText: {fileID: 730296247}
+  WaveBonusText: {fileID: 886437943}
   CurrentRoundText: {fileID: 1583064914}
   ScoreText: {fileID: 362036625}
 --- !u!95 &553174350
@@ -1792,6 +1794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6887a14e024dc094b9976f0ff1cb3da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PerfectWaveBonus: 200
 --- !u!1 &1213794512
 GameObject:
   m_ObjectHideFlags: 0

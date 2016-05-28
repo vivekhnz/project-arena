@@ -10,6 +10,8 @@ public class HUDController : MonoBehaviour
 
     public Text WaveNamesText;
     public Text WaveScoresText;
+    public Text WavePerfectText;
+    public Text WaveBonusText;
     public Text CurrentRoundText;
     public Text ScoreText;
 
@@ -59,16 +61,35 @@ public class HUDController : MonoBehaviour
     {
         StringBuilder sbWaveNamesText = new StringBuilder();
         StringBuilder sbWaveScoresText = new StringBuilder();
+        StringBuilder sbWavePerfectText = new StringBuilder();
+        StringBuilder sbWaveBonusText = new StringBuilder();
 
+        int waveBonus = GameStateManager.PerfectWaveBonus;
         foreach (var wave in WaveManager.Waves)
         {
             sbWaveNamesText.AppendLine(string.Format("WAVE {0}", wave.WaveNumber));
             sbWaveScoresText.AppendLine(string.Format("{0} / {1}",
                 wave.EnemiesDestroyed, wave.TotalEnemyCount));
+
+            if (wave.IsPerfect)
+            {
+                sbWavePerfectText.AppendLine("Perfect!");
+                sbWaveBonusText.AppendLine(string.Format("+{0}", waveBonus));
+
+                GameStateManager.AddScore(waveBonus);
+                waveBonus += GameStateManager.PerfectWaveBonus;
+            }
+            else
+            {
+                sbWavePerfectText.AppendLine();
+                sbWaveBonusText.AppendLine();
+            }
         }
 
         WaveNamesText.text = sbWaveNamesText.ToString();
         WaveScoresText.text = sbWaveScoresText.ToString();
+        WavePerfectText.text = sbWavePerfectText.ToString();
+        WaveBonusText.text = sbWaveBonusText.ToString();
         CurrentRoundText.text = string.Format("ROUND {0}", WaveManager.CurrentRound);
 
         Animator.SetBool("IsRoundOverlayVisible", true);

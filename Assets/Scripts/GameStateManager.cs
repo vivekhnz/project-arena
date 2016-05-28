@@ -4,6 +4,7 @@ using System.Collections;
 public class GameStateManager : MonoBehaviour
 {
     public int Score { get; private set; }
+    public int PerfectWaveBonus = 200;
 
 	void Start ()
     {
