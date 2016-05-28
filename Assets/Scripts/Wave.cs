@@ -19,4 +19,8 @@ public class Wave
     {
         get { return EnemiesDestroyed + EnemiesEscaped >= TotalEnemyCount; }
     }
+    public bool IsPerfect
+    {
+        get { return EnemiesDestroyed == TotalEnemyCount; }
+    }
 }
