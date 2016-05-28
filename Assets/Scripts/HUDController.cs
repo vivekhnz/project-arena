@@ -6,9 +6,14 @@ using System.Text;
 public class HUDController : MonoBehaviour
 {
     public WaveManager WaveManager;
+    public GameStateManager GameStateManager;
+
     public Text WaveNamesText;
     public Text WaveScoresText;
     public Text CurrentRoundText;
+    public Text ScoreText;
+
+    private int displayedScore = 0;
 
     private Animator animator;
     private Animator Animator
@@ -29,6 +34,24 @@ public class HUDController : MonoBehaviour
         {
             WaveManager.RoundCompleted += OnRoundCompleted;
             WaveManager.RoundStarted += OnRoundStarted;
+        }
+    }
+
+    void Update()
+    {
+        if (GameStateManager != null)
+        {
+            if (GameStateManager.Score - displayedScore <= 1)
+            {
+                displayedScore = GameStateManager.Score;
+            }
+            else
+            {
+                int increaseAmount = (int)Mathf.Ceil(
+                    (GameStateManager.Score - displayedScore) / 10.0f);
+                displayedScore += increaseAmount;
+            }
+            ScoreText.text = displayedScore.ToString().PadLeft(5, '0');
         }
     }
 

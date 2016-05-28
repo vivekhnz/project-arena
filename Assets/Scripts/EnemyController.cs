@@ -8,11 +8,14 @@ public class EnemyController : PooledObject
 {
     public float TurnSpeed = 0.1f;
     public float MovementSpeed = 0.15f;
+    public int ScoreValue = 100;
 
     public event EventHandler EnemyDestroyed;
     public event EventHandler EnemyEscaped;
     
     private ArenaManager arena;
+    private GameStateManager gameStateManager;
+
     private DamageableObject damageComponent;
     private Vector2 velocity;
 
@@ -41,6 +44,12 @@ public class EnemyController : PooledObject
         if (arenaManagerObj != null)
         {
             arena = arenaManagerObj.GetComponent<ArenaManager>();
+        }
+
+        var gameStateManagerObj = GameObject.FindGameObjectWithTag("GameStateManager");
+        if (gameStateManagerObj != null)
+        {
+            gameStateManager = gameStateManagerObj.GetComponent<GameStateManager>();
         }
 
         base.ResetInstance();
@@ -143,5 +152,6 @@ public class EnemyController : PooledObject
         {
             EnemyDestroyed(this, EventArgs.Empty);
         }
+        gameStateManager.AddScore(ScoreValue);
     }
 }
