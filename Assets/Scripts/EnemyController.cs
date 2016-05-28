@@ -8,6 +8,7 @@ public class EnemyController : PooledObject
 {
     public float TurnSpeed = 0.1f;
     public float MovementSpeed = 0.15f;
+    public int ScoreValue = 100;
 
     public event EventHandler EnemyDestroyed;
     public event EventHandler EnemyEscaped;
@@ -151,6 +152,6 @@ public class EnemyController : PooledObject
         {
             EnemyDestroyed(this, EventArgs.Empty);
         }
-        gameStateManager.AddScore(100);
+        gameStateManager.AddScore(ScoreValue);
     }
 }
