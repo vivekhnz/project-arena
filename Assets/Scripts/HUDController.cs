@@ -6,6 +6,8 @@ using System.Text;
 public class HUDController : MonoBehaviour
 {
     public WaveManager WaveManager;
+    public GameStateManager GameStateManager;
+
     public Text WaveNamesText;
     public Text WaveScoresText;
     public Text CurrentRoundText;
@@ -35,7 +37,10 @@ public class HUDController : MonoBehaviour
 
     void Update()
     {
-        ScoreText.text = Mathf.Ceil(Time.time * 1000).ToString().PadLeft(5, '0');
+        if (GameStateManager != null)
+        {
+            ScoreText.text = GameStateManager.Score.ToString().PadLeft(5, '0');
+        }
     }
 
     private void OnRoundCompleted(object sender, System.EventArgs e)
