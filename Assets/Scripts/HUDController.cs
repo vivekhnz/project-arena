@@ -9,6 +9,7 @@ public class HUDController : MonoBehaviour
     public Text WaveNamesText;
     public Text WaveScoresText;
     public Text CurrentRoundText;
+    public Text ScoreText;
 
     private Animator animator;
     private Animator Animator
@@ -30,6 +31,11 @@ public class HUDController : MonoBehaviour
             WaveManager.RoundCompleted += OnRoundCompleted;
             WaveManager.RoundStarted += OnRoundStarted;
         }
+    }
+
+    void Update()
+    {
+        ScoreText.text = Mathf.Ceil(Time.time * 1000).ToString().PadLeft(5, '0');
     }
 
     private void OnRoundCompleted(object sender, System.EventArgs e)
