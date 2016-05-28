@@ -166,13 +166,16 @@ public class EnemyController : PooledObject
         }
     }
 
-    private void OnDestroyed(object sender, System.EventArgs e)
+    private void OnDestroyed(object sender, DamageableObject.DestroyedEventArgs e)
     {
         if (EnemyDestroyed != null)
         {
             EnemyDestroyed(this, EventArgs.Empty);
         }
         gameStateManager.AddScore(ScoreValue);
-        explosionManager.CreateExplosion(transform.position);
+        Vector3 explosionDir = new Vector3(
+            Mathf.Cos(e.DamageAngle * Mathf.Deg2Rad),
+            Mathf.Sin(e.DamageAngle * Mathf.Deg2Rad), 0.0f);
+        explosionManager.CreateExplosion(transform.position, explosionDir);
     }
 }

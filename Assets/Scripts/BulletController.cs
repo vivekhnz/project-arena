@@ -66,7 +66,8 @@ public class BulletController : PooledObject
                     SceneManager.LoadScene("DefeatScene");
                     break;
                 case "Damageable":
-                    DamageableObject.DamageObject(collision.gameObject, 1);
+                    DamageableObject.DamageObject(collision.gameObject, 1,
+                        transform.rotation.eulerAngles.z);
                     break;
             }
         }
