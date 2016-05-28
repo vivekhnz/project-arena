@@ -13,6 +13,8 @@ public class HUDController : MonoBehaviour
     public Text CurrentRoundText;
     public Text ScoreText;
 
+    private int displayedScore = 0;
+
     private Animator animator;
     private Animator Animator
     {
@@ -39,7 +41,17 @@ public class HUDController : MonoBehaviour
     {
         if (GameStateManager != null)
         {
-            ScoreText.text = GameStateManager.Score.ToString().PadLeft(5, '0');
+            if (GameStateManager.Score - displayedScore <= 1)
+            {
+                displayedScore = GameStateManager.Score;
+            }
+            else
+            {
+                int increaseAmount = (int)Mathf.Ceil(
+                    (GameStateManager.Score - displayedScore) / 10.0f);
+                displayedScore += increaseAmount;
+            }
+            ScoreText.text = displayedScore.ToString().PadLeft(5, '0');
         }
     }
 
