@@ -15,6 +15,7 @@ public class EnemyController : PooledObject
     
     private ArenaManager arena;
     private GameStateManager gameStateManager;
+    private ExplosionManager explosionManager;
 
     private DamageableObject damageComponent;
     private Animator animator;
@@ -53,6 +54,12 @@ public class EnemyController : PooledObject
         if (gameStateManagerObj != null)
         {
             gameStateManager = gameStateManagerObj.GetComponent<GameStateManager>();
+        }
+
+        var explosionManagerObj = GameObject.FindGameObjectWithTag("ExplosionManager");
+        if (explosionManagerObj != null)
+        {
+            explosionManager = explosionManagerObj.GetComponent<ExplosionManager>();
         }
 
         base.ResetInstance();
@@ -166,5 +173,6 @@ public class EnemyController : PooledObject
             EnemyDestroyed(this, EventArgs.Empty);
         }
         gameStateManager.AddScore(ScoreValue);
+        explosionManager.CreateExplosion(transform.position);
     }
 }
