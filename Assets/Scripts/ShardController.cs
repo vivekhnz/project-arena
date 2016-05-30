@@ -7,6 +7,7 @@ public class ShardController : PooledObject
     public float MinSpeed = 0.1f;
     public float FrictionCoefficient = 0.95f;
     public float SuperEnergy = 0.1f;
+    public float MagnetismDistance = 20.0f;
 
     private Rect worldBounds;
     private Bounds spriteBounds;
@@ -56,16 +57,31 @@ public class ShardController : PooledObject
         {
             Recycle();
         }
-
-        // apply velocity
+        
+        // move towards the player if they are close enough
+        // otherwise, drift
         Vector2 velocity = direction * speed;
+        if (player != null)
+        {
+            Vector2 directionTowardsPlayer = (Vector2)player.transform.position - (Vector2)transform.position;
+            if (directionTowardsPlayer.magnitude < MagnetismDistance)
+            {
+                float proximity = (MagnetismDistance - directionTowardsPlayer.magnitude)
+                    / MagnetismDistance;
+                velocity = directionTowardsPlayer.normalized * (MaxSpeed * proximity);
+            }
+        }
+
         transform.position = new Vector3(
             transform.position.x + velocity.x,
             transform.position.y + velocity.y,
             transform.position.z);
 
+        transform.Rotate(0.0f, 0.0f, speed * 10.0f);
+
         // apply friction
         speed = Mathf.Clamp(speed * FrictionCoefficient, MinSpeed, MaxSpeed);
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)

@@ -73,6 +73,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cf40d3e28c0f59408805caccf9978c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxSpeed: 0.3
+  MinSpeed: 0.1
+  FrictionCoefficient: 0.95
+  SuperEnergy: 0.05
 --- !u!212 &21233600
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -113,6 +117,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: SuperEnergy
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
