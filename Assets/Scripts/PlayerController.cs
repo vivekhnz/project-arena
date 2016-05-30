@@ -7,11 +7,14 @@ public class PlayerController : MonoBehaviour
     public BulletController Bullet;
     public float BulletSpread = 10.0f; // degrees
     public float RateOfFire = 60.0f; // bullets per minute
+
+    public float SuperEnergy { get; private set; }
     
     private float bulletFiredTime = 0.0f;
 
     void Start()
     {
+        SuperEnergy = 0.0f;
     }
 
     void FixedUpdate()
@@ -77,6 +80,8 @@ public class PlayerController : MonoBehaviour
         {
             Fire();
         }
+
+        SuperEnergy = (Time.time % 10.0f) / 10.0f;
     }
 
     void Fire()
