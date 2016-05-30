@@ -25,6 +25,7 @@ public class WorldUIController : MonoBehaviour
         if (animator != null)
         {
             animator.SetFloat("SuperEnergy", Player.SuperEnergy);
+            animator.SetBool("IsSuperActive", Player.IsSuperActive);
         }
     }
 }

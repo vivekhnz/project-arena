@@ -7,8 +7,10 @@ public class PlayerController : MonoBehaviour
     public BulletController Bullet;
     public float BulletSpread = 10.0f; // degrees
     public float RateOfFire = 60.0f; // bullets per minute
+    public float SuperDuration = 5.0f; // seconds
 
     public float SuperEnergy { get; private set; }
+    public bool IsSuperActive { get; private set; }
 
     private Animator animator;
     private float bulletFiredTime = 0.0f;
@@ -16,6 +18,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         SuperEnergy = 0.0f;
+        IsSuperActive = false;
         animator = GetComponent<Animator>();
     }
 
@@ -83,21 +86,31 @@ public class PlayerController : MonoBehaviour
             Fire();
         }
         
-        if (Input.GetButtonDown("Super"))
+        if (IsSuperActive)
+        {
+            float decreaseAmount = 1.0f / (60.0f * SuperDuration);
+            SuperEnergy = Mathf.Clamp(SuperEnergy - decreaseAmount, 0.0f, 1.0f);
+            if (SuperEnergy <= 0.0f)
+            {
+                SuperEnergy = 0.0f;
+                IsSuperActive = false;
+            }
+        }
+        else if (Input.GetButtonDown("Super"))
         {
             if (SuperEnergy < 1.0f)
             {
-                SuperEnergy = Mathf.Clamp(SuperEnergy + 0.1f, 0.0f, 1.0f);
+                SuperEnergy = Mathf.Clamp(SuperEnergy + 0.2f, 0.0f, 1.0f);
             }
             else
             {
-                SuperEnergy = 0.0f;
+                IsSuperActive = true;
             }
         }
 
         if (animator != null)
         {
-            animator.SetFloat("SuperEnergy", SuperEnergy);
+            animator.SetBool("IsSuperActive", IsSuperActive);
         }
     }
 
