@@ -6,10 +6,11 @@ public class ShardController : PooledObject
     public float MaxSpeed = 0.3f;
     public float MinSpeed = 0.1f;
     public float FrictionCoefficient = 0.95f;
+    public float SuperEnergy = 0.1f;
 
     private Rect worldBounds;
     private Bounds spriteBounds;
-    private ExplosionManager explosionManager;
+    private PlayerController player;
 
     private Vector2 direction;
     private float speed;
@@ -32,6 +33,17 @@ public class ShardController : PooledObject
         float angle = Random.Range(0.0f, 360.0f) * Mathf.Deg2Rad;
         direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
         speed = MaxSpeed;
+    }
+
+    public override void ResetInstance()
+    {
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+        {
+            player = playerObj.GetComponent<PlayerController>();
+        }
+
+        base.ResetInstance();
     }
 
     void FixedUpdate()
@@ -74,6 +86,7 @@ public class ShardController : PooledObject
             switch (tag)
             {
                 case "Player":
+                    player.AddSuperEnergy(SuperEnergy);
                     Recycle();
                     break;
             }

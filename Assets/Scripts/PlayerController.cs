@@ -91,16 +91,9 @@ public class PlayerController : MonoBehaviour
         {
             DepleteSuper();
         }
-        else if (Input.GetButtonDown("Super"))
+        else if (Input.GetButton("Super") && SuperEnergy >= 1.0f)
         {
-            if (SuperEnergy < 1.0f)
-            {
-                SuperEnergy = Mathf.Clamp(SuperEnergy + 0.2f, 0.0f, 1.0f);
-            }
-            else
-            {
-                ActivateSuper();
-            }
+            ActivateSuper();
         }
 
         if (animator != null)
@@ -155,6 +148,11 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void AddSuperEnergy(float amount)
+    {
+        SuperEnergy = Mathf.Clamp(SuperEnergy + amount, 0.0f, 1.0f);
     }
 
     void OnDrawGizmosSelected()
