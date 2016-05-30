@@ -89,6 +89,7 @@
     <Compile Include="Assets\Scripts\ShieldBossEncounterController.cs" />
     <Compile Include="Assets\Scripts\ShieldGeneratorController.cs" />
     <Compile Include="Assets\Scripts\ShieldGeneratorManager.cs" />
+    <Compile Include="Assets\Scripts\SuperMeterController.cs" />
     <Compile Include="Assets\Scripts\Wave.cs" />
     <Compile Include="Assets\Scripts\WaveEnemyController.cs" />
     <Compile Include="Assets\Scripts\WaveEnemySpawner.cs" />

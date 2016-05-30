@@ -72,3 +72,6 @@ TagManager:
   - name: Terrain
     uniqueID: 642678989
     locked: 0
+  - name: UI
+    uniqueID: 262378247
+    locked: 0
