@@ -85,6 +85,7 @@
     <Compile Include="Assets\Scripts\PooledObject.cs" />
     <Compile Include="Assets\Scripts\Round.cs" />
     <Compile Include="Assets\Scripts\SeekerEnemyController.cs" />
+    <Compile Include="Assets\Scripts\ShardController.cs" />
     <Compile Include="Assets\Scripts\ShieldBossController.cs" />
     <Compile Include="Assets\Scripts\ShieldBossEncounterController.cs" />
     <Compile Include="Assets\Scripts\ShieldGeneratorController.cs" />

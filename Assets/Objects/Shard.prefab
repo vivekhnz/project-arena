@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21233600}
   - 58: {fileID: 5899676}
   - 95: {fileID: 9505634}
+  - 114: {fileID: 11457252}
   m_Layer: 15
   m_Name: Shard
   m_TagString: Untagged
@@ -61,6 +62,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11457252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 125114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cf40d3e28c0f59408805caccf9978c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21233600
 SpriteRenderer:
   m_ObjectHideFlags: 1
