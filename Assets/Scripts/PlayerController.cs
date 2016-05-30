@@ -85,7 +85,14 @@ public class PlayerController : MonoBehaviour
         
         if (Input.GetButtonDown("Super"))
         {
-            SuperEnergy = Mathf.Clamp(SuperEnergy + 0.1f, 0.0f, 1.0f);
+            if (SuperEnergy < 1.0f)
+            {
+                SuperEnergy = Mathf.Clamp(SuperEnergy + 0.1f, 0.0f, 1.0f);
+            }
+            else
+            {
+                SuperEnergy = 0.0f;
+            }
         }
 
         if (animator != null)
