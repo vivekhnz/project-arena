@@ -17,6 +17,6 @@ public class SuperMeterController : MonoBehaviour
         transform.position = Player.transform.position;
         SuperMeterForeground.fillAmount = Mathf.Lerp(
             SuperMeterForeground.fillAmount,
-            Player.SuperEnergy, 0.5f);
+            Player.SuperEnergy, 0.25f);
 	}
 }

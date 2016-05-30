@@ -80,8 +80,11 @@ public class PlayerController : MonoBehaviour
         {
             Fire();
         }
-
-        SuperEnergy = (Time.time % 10.0f) / 10.0f;
+        
+        if (Input.GetButtonDown("Super"))
+        {
+            SuperEnergy = Mathf.Clamp(SuperEnergy + 0.1f, 0.0f, 1.0f);
+        }
     }
 
     void Fire()
