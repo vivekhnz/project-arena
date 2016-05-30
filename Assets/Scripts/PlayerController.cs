@@ -86,18 +86,22 @@ public class PlayerController : MonoBehaviour
             float timeBetweenBullets = 60.0f / RateOfFire;
             if (Time.time - bulletFiredTime > timeBetweenBullets)
             {
-                // fetch a bullet instance from the object pool
-                var bullet = Bullet.Fetch<BulletController>();
-                // calculate aim direction based on bullet spread
-                float aim = transform.rotation.eulerAngles.z + Random.Range(-BulletSpread, BulletSpread);
-                // calculate offset
-                Vector3 offset = new Vector3(
-                    Mathf.Cos(transform.rotation.eulerAngles.z * Mathf.Deg2Rad),
-                    Mathf.Sin(transform.rotation.eulerAngles.z * Mathf.Deg2Rad),
-                    0) * transform.localScale.x;
-                bullet.Initialize(this.transform.position + offset, aim);
-                // store the current time for rate of fire calculation
-                bulletFiredTime = Time.time;
+                int bulletsToFire = (int)Mathf.Ceil(RateOfFire / 3600.0f);
+                for (int i = 0; i < bulletsToFire; i++)
+                {
+                    // fetch a bullet instance from the object pool
+                    var bullet = Bullet.Fetch<BulletController>();
+                    // calculate aim direction based on bullet spread
+                    float aim = transform.rotation.eulerAngles.z + Random.Range(-BulletSpread, BulletSpread);
+                    // calculate offset
+                    Vector3 offset = new Vector3(
+                        Mathf.Cos(transform.rotation.eulerAngles.z * Mathf.Deg2Rad),
+                        Mathf.Sin(transform.rotation.eulerAngles.z * Mathf.Deg2Rad),
+                        0) * transform.localScale.x;
+                    bullet.Initialize(this.transform.position + offset, aim);
+                    // store the current time for rate of fire calculation
+                    bulletFiredTime = Time.time;
+                }
             }
         }
     }
