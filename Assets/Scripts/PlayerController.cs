@@ -9,12 +9,14 @@ public class PlayerController : MonoBehaviour
     public float RateOfFire = 60.0f; // bullets per minute
 
     public float SuperEnergy { get; private set; }
-    
+
+    private Animator animator;
     private float bulletFiredTime = 0.0f;
 
     void Start()
     {
         SuperEnergy = 0.0f;
+        animator = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -84,6 +86,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Super"))
         {
             SuperEnergy = Mathf.Clamp(SuperEnergy + 0.1f, 0.0f, 1.0f);
+        }
+
+        if (animator != null)
+        {
+            animator.SetFloat("SuperEnergy", SuperEnergy);
         }
     }
 
