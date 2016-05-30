@@ -8,10 +8,12 @@ public class ShardController : PooledObject
     public float FrictionCoefficient = 0.95f;
     public float SuperEnergy = 0.1f;
     public float MagnetismDistance = 20.0f;
+    public int ScoreValue = 5;
 
     private Rect worldBounds;
     private Bounds spriteBounds;
     private PlayerController player;
+    private GameStateManager gameStateManager;
 
     private Vector2 direction;
     private float speed;
@@ -42,6 +44,12 @@ public class ShardController : PooledObject
         if (playerObj != null)
         {
             player = playerObj.GetComponent<PlayerController>();
+        }
+
+        var gameStateManagerObj = GameObject.FindGameObjectWithTag("GameStateManager");
+        if (gameStateManagerObj != null)
+        {
+            gameStateManager = gameStateManagerObj.GetComponent<GameStateManager>();
         }
 
         base.ResetInstance();
@@ -103,6 +111,7 @@ public class ShardController : PooledObject
             {
                 case "Player":
                     player.AddSuperEnergy(SuperEnergy);
+                    gameStateManager.AddScore(ScoreValue);
                     Recycle();
                     break;
             }
