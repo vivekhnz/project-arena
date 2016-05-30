@@ -77,7 +77,7 @@ MonoBehaviour:
   Bullet: {fileID: 11458758, guid: cdb8c6cb9a9f59a4bacbc4c351ec1a9b, type: 2}
   BulletSpread: 10
   RateOfFire: 1800
-  SuperDuration: 4
+  SuperDuration: 5
 --- !u!212 &21222648
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -149,8 +149,13 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: SuperDuration
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Bullet
+      value: 
+      objectReference: {fileID: 11458758, guid: cdb8c6cb9a9f59a4bacbc4c351ec1a9b,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 192622}
