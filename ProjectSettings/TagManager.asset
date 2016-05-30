@@ -14,6 +14,7 @@ TagManager:
   - ArenaManager
   - GameStateManager
   - ExplosionManager
+  - Shockwave
   layers:
   - Default
   - TransparentFX
@@ -29,7 +30,7 @@ TagManager:
   - EnemyBullets
   - Enemy
   - EnemyBounds
-  - 
+  - Shockwave
   - 
   - 
   - 

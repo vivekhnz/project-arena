@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     public float MovementSpeed = 0.3f;
     public BulletController Bullet;
+    public ShockwaveController Shockwave;
     public float BulletSpread = 10.0f; // degrees
     public float RateOfFire = 60.0f; // bullets per minute
     public float SuperDuration = 5.0f; // seconds
@@ -88,13 +89,7 @@ public class PlayerController : MonoBehaviour
         
         if (IsSuperActive)
         {
-            float decreaseAmount = 1.0f / (60.0f * SuperDuration);
-            SuperEnergy = Mathf.Clamp(SuperEnergy - decreaseAmount, 0.0f, 1.0f);
-            if (SuperEnergy <= 0.0f)
-            {
-                SuperEnergy = 0.0f;
-                IsSuperActive = false;
-            }
+            DepleteSuper();
         }
         else if (Input.GetButtonDown("Super"))
         {
@@ -104,13 +99,34 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                IsSuperActive = true;
+                ActivateSuper();
             }
         }
 
         if (animator != null)
         {
             animator.SetBool("IsSuperActive", IsSuperActive);
+        }
+    }
+
+    private void ActivateSuper()
+    {
+        IsSuperActive = true;
+        if (Shockwave != null)
+        {
+            var shockwave = Shockwave.Fetch<ShockwaveController>();
+            shockwave.Initialize(transform.position);
+        }
+    }
+
+    private void DepleteSuper()
+    {
+        float decreaseAmount = 1.0f / (60.0f * SuperDuration);
+        SuperEnergy = Mathf.Clamp(SuperEnergy - decreaseAmount, 0.0f, 1.0f);
+        if (SuperEnergy <= 0.0f)
+        {
+            SuperEnergy = 0.0f;
+            IsSuperActive = false;
         }
     }
 
