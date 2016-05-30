@@ -154,6 +154,7 @@ MonoBehaviour:
   TurnSpeed: 0.1
   MovementSpeed: 0.15
   ScoreValue: 100
+  Shard: {fileID: 11457252, guid: 49493089eb229a546b74c943c457cc42, type: 2}
 --- !u!114 &11437176
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -303,6 +304,11 @@ Prefab:
       propertyPath: Parent
       value: 
       objectReference: {fileID: 11432990}
+    - target: {fileID: 0}
+      propertyPath: Shard
+      value: 
+      objectReference: {fileID: 11457252, guid: 49493089eb229a546b74c943c457cc42,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 186406}

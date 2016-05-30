@@ -9,6 +9,7 @@ public class EnemyController : PooledObject
     public float TurnSpeed = 0.1f;
     public float MovementSpeed = 0.15f;
     public int ScoreValue = 100;
+    public ShardController Shard;
 
     public event EventHandler EnemyDestroyed;
     public event EventHandler EnemyEscaped;
@@ -199,5 +200,10 @@ public class EnemyController : PooledObject
         }
         gameStateManager.AddScore(ScoreValue);
         explosionManager.CreateEnemyExplosion(transform.position, e.DamageAngle);
+        if (Shard != null)
+        {
+            var shard = Shard.Fetch<ShardController>();
+            shard.Initialize(transform.position);
+        }
     }
 }
