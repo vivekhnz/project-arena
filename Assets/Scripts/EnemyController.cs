@@ -9,6 +9,7 @@ public class EnemyController : PooledObject
     public float TurnSpeed = 0.1f;
     public float MovementSpeed = 0.15f;
     public int ScoreValue = 100;
+    public ShardController Shard;
 
     public event EventHandler EnemyDestroyed;
     public event EventHandler EnemyEscaped;
@@ -25,6 +26,10 @@ public class EnemyController : PooledObject
     private float escapeAngle;
     private bool escaped;
 
+    private bool canBeShockwaved;
+    private float shockwavedTime;
+    private float ShockwaveImmunityTime = 1.0f;
+
     public void Initialize(Vector3 position)
     {
         transform.position = position;
@@ -34,6 +39,9 @@ public class EnemyController : PooledObject
     {
         IsEscaping = false;
         escaped = false;
+
+        canBeShockwaved = true;
+        shockwavedTime = Time.time;
 
         damageComponent = GetComponent<DamageableObject>();
         if (damageComponent != null)
@@ -79,6 +87,11 @@ public class EnemyController : PooledObject
 
     void FixedUpdate()
     {
+        if (!canBeShockwaved && Time.time - shockwavedTime > ShockwaveImmunityTime)
+        {
+            canBeShockwaved = true;
+        }
+
         if (IsEscaping)
         {
             if (!escaped && transform.position.magnitude > arena.ArenaRadius)
@@ -128,7 +141,7 @@ public class EnemyController : PooledObject
     {
         ManageCollisions(collision);
     }
-
+    
     private void ManageCollisions(Collision2D collision)
     {
         string[] tags = collision.gameObject.tag.Split('|');
@@ -139,6 +152,19 @@ public class EnemyController : PooledObject
                 case "Player":
                     // navigate to the Defeat scene if an enemy collides with the player
                     SceneManager.LoadScene("DefeatScene");
+                    break;
+                case "Shockwave":
+                    if (canBeShockwaved)
+                    {
+                        Vector2 direction = ((Vector2)transform.position
+                            - (Vector2)collision.transform.position).normalized;
+                        AddForce(direction * 100.0f);
+                        DamageableObject.DamageObject(gameObject, 2,
+                            Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
+
+                        canBeShockwaved = false;
+                        shockwavedTime = Time.time;
+                    }
                     break;
             }
         }
@@ -174,5 +200,10 @@ public class EnemyController : PooledObject
         }
         gameStateManager.AddScore(ScoreValue);
         explosionManager.CreateEnemyExplosion(transform.position, e.DamageAngle);
+        if (Shard != null)
+        {
+            var shard = Shard.Fetch<ShardController>();
+            shard.Initialize(transform.position);
+        }
     }
 }
