@@ -67,10 +67,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\ApplicationModel.cs" />
     <Compile Include="Assets\Scripts\ArenaManager.cs" />
     <Compile Include="Assets\Scripts\BulletController.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\DamageableObject.cs" />
+    <Compile Include="Assets\Scripts\DasherEnemyController.cs" />
     <Compile Include="Assets\Scripts\EnemyBoundsController.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\Scripts\EnemySpawn.cs" />
@@ -84,9 +86,9 @@
     <Compile Include="Assets\Scripts\ParallaxScrolling.cs" />
     <Compile Include="Assets\Scripts\ParticleSystemAutoDestroy.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\PlayerPrefValue.cs" />
     <Compile Include="Assets\Scripts\PooledObject.cs" />
     <Compile Include="Assets\Scripts\Round.cs" />
-    <Compile Include="Assets\Scripts\DasherEnemyController.cs" />
     <Compile Include="Assets\Scripts\SeekerEnemyController.cs" />
     <Compile Include="Assets\Scripts\ShardController.cs" />
     <Compile Include="Assets\Scripts\ShieldBossController.cs" />
@@ -94,10 +96,10 @@
     <Compile Include="Assets\Scripts\ShieldGeneratorController.cs" />
     <Compile Include="Assets\Scripts\ShieldGeneratorManager.cs" />
     <Compile Include="Assets\Scripts\ShockwaveController.cs" />
-    <Compile Include="Assets\Scripts\WaveResults.cs" />
     <Compile Include="Assets\Scripts\WaveEnemyController.cs" />
     <Compile Include="Assets\Scripts\WaveEnemySpawner.cs" />
     <Compile Include="Assets\Scripts\WaveManager.cs" />
+    <Compile Include="Assets\Scripts\WaveResults.cs" />
     <Compile Include="Assets\Scripts\WorldUIController.cs" />
   </ItemGroup>
   <ItemGroup>

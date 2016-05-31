@@ -7,6 +7,7 @@ public class ArenaManager : MonoBehaviour
     public GameObject BossEncounter;
     public GameObject WaveManager;
     public GameObject Player;
+    public GameStateManager GameStateManager;
 
     public HUDController HUD;
     public float ArenaRadius = 50.0f;
@@ -22,6 +23,10 @@ public class ArenaManager : MonoBehaviour
 
     public void StartBossFight()
     {
+        if (GameStateManager != null)
+        {
+            ApplicationModel.RegisterGameScore(GameStateManager.Score);
+        }
         SceneManager.LoadScene("VictoryScene");
 
         //BossEncounter.SetActive(true);
