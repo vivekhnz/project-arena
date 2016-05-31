@@ -43,15 +43,16 @@ public class HUDController : MonoBehaviour
     {
         if (GameStateManager != null)
         {
-            if (GameStateManager.Score - displayedScore <= 1)
+            if (Mathf.Abs(GameStateManager.Score - displayedScore) <= 2)
             {
                 displayedScore = GameStateManager.Score;
             }
             else
             {
                 int increaseAmount = (int)Mathf.Ceil(
-                    (GameStateManager.Score - displayedScore) / 10.0f);
-                displayedScore += increaseAmount;
+                    Mathf.Abs(GameStateManager.Score - displayedScore) / 10.0f);
+                int changeDirection = (int)Mathf.Sign(GameStateManager.Score - displayedScore);
+                displayedScore += (increaseAmount * changeDirection);
             }
             ScoreText.text = displayedScore.ToString().PadLeft(5, '0');
         }

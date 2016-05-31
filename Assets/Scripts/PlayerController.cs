@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public double SuperEnergy { get; private set; }
     public bool IsSuperActive { get; private set; }
 
+    private GameStateManager gameStateManager;
     private Animator animator;
     private float bulletFiredTime = 0.0f;
 
@@ -21,6 +22,12 @@ public class PlayerController : MonoBehaviour
         SuperEnergy = 0.0f;
         IsSuperActive = false;
         animator = GetComponent<Animator>();
+
+        var gameStateManagerObj = GameObject.FindGameObjectWithTag("GameStateManager");
+        if (gameStateManagerObj != null)
+        {
+            gameStateManager = gameStateManagerObj.GetComponent<GameStateManager>();
+        }
     }
 
     void FixedUpdate()
@@ -102,14 +109,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void ActivateSuper()
+    private void CreateShockwave()
     {
-        IsSuperActive = true;
         if (Shockwave != null)
         {
             var shockwave = Shockwave.Fetch<ShockwaveController>();
             shockwave.Initialize(transform.position);
         }
+    }
+
+    private void ActivateSuper()
+    {
+        IsSuperActive = true;
+        CreateShockwave();
     }
 
     private void DepleteSuper()
@@ -157,6 +169,19 @@ public class PlayerController : MonoBehaviour
         {
             SuperEnergy = 1.0;
         }
+    }
+
+    public void Kill()
+    {
+        if (gameStateManager != null)
+        {
+            gameStateManager.AddScore(-gameStateManager.DeathScorePenalty);
+        }
+
+        SuperEnergy = 0.0;
+        IsSuperActive = false;
+
+        CreateShockwave();
     }
 
     void OnDrawGizmosSelected()

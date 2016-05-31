@@ -150,8 +150,17 @@ public class EnemyController : PooledObject
             switch (tag)
             {
                 case "Player":
-                    // navigate to the Defeat scene if an enemy collides with the player
-                    SceneManager.LoadScene("DefeatScene");
+                    // kill the player
+                    var player = collision.gameObject.GetComponent<PlayerController>();
+                    if (player != null)
+                    {
+                        player.Kill();
+                    }
+
+                    // destroy this enemy
+                    Vector2 damageDir = (transform.position - player.transform.position).normalized;
+                    DamageableObject.DamageObject(gameObject, damageComponent.MaxHealth,
+                        Mathf.Atan2(damageDir.y, damageDir.x) * Mathf.Rad2Deg);
                     break;
                 case "Shockwave":
                     if (canBeShockwaved)

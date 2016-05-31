@@ -2032,6 +2032,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PerfectWaveBonus: 500
+  DeathScorePenalty: 2000
 --- !u!1 &1213794512
 GameObject:
   m_ObjectHideFlags: 0
