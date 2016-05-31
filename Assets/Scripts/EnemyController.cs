@@ -9,6 +9,7 @@ public class EnemyController : PooledObject
     public float TurnSpeed = 0.1f;
     public float MovementSpeed = 0.15f;
     public int ScoreValue = 100;
+    public int ShardsToDrop = 1;
     public ShardController Shard;
 
     public event EventHandler EnemyDestroyed;
@@ -150,8 +151,17 @@ public class EnemyController : PooledObject
             switch (tag)
             {
                 case "Player":
-                    // navigate to the Defeat scene if an enemy collides with the player
-                    SceneManager.LoadScene("DefeatScene");
+                    // kill the player
+                    var player = collision.gameObject.GetComponent<PlayerController>();
+                    if (player != null)
+                    {
+                        player.Kill();
+                    }
+
+                    // destroy this enemy
+                    Vector2 damageDir = (transform.position - player.transform.position).normalized;
+                    DamageableObject.DamageObject(gameObject, damageComponent.MaxHealth,
+                        Mathf.Atan2(damageDir.y, damageDir.x) * Mathf.Rad2Deg);
                     break;
                 case "Shockwave":
                     if (canBeShockwaved)
@@ -202,8 +212,12 @@ public class EnemyController : PooledObject
         explosionManager.CreateEnemyExplosion(transform.position, e.DamageAngle);
         if (Shard != null)
         {
-            var shard = Shard.Fetch<ShardController>();
-            shard.Initialize(transform.position);
+            for (int i = 0; i < ShardsToDrop; i++)
+            {
+                var shard = Shard.Fetch<ShardController>();
+                shard.Initialize(transform.position,
+                    e.DamageAngle + UnityEngine.Random.Range(-90.0f, 90.0f));
+            }
         }
     }
 }

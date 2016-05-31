@@ -6,7 +6,7 @@ public class ShardController : PooledObject
     public float MaxSpeed = 0.3f;
     public float MinSpeed = 0.1f;
     public float FrictionCoefficient = 0.95f;
-    public float SuperEnergy = 0.1f;
+    public double SuperEnergy = 0.1;
     public float MagnetismDistance = 20.0f;
     public int ScoreValue = 5;
 
@@ -15,8 +15,7 @@ public class ShardController : PooledObject
     private PlayerController player;
     private GameStateManager gameStateManager;
 
-    private Vector2 direction;
-    private float speed;
+    private Vector2 velocity;
 
     void Start()
     {
@@ -29,13 +28,13 @@ public class ShardController : PooledObject
         spriteBounds = renderer.sprite.bounds;
     }
 
-    public void Initialize(Vector3 position)
+    public void Initialize(Vector3 position, float angle)
     {
         transform.position = position;
 
-        float angle = Random.Range(0.0f, 360.0f) * Mathf.Deg2Rad;
-        direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-        speed = MaxSpeed;
+        velocity = new Vector2(
+            Mathf.Cos(angle * Mathf.Deg2Rad),
+            Mathf.Sin(angle * Mathf.Deg2Rad)) * MaxSpeed;
     }
 
     public override void ResetInstance()
@@ -68,7 +67,6 @@ public class ShardController : PooledObject
         
         // move towards the player if they are close enough
         // otherwise, drift
-        Vector2 velocity = direction * speed;
         if (player != null && !player.IsSuperActive && player.SuperEnergy < 1.0f)
         {
             Vector2 directionTowardsPlayer = (Vector2)player.transform.position - (Vector2)transform.position;
@@ -76,7 +74,7 @@ public class ShardController : PooledObject
             {
                 float proximity = (MagnetismDistance - directionTowardsPlayer.magnitude)
                     / MagnetismDistance;
-                velocity = directionTowardsPlayer.normalized * (MaxSpeed * proximity);
+                velocity += directionTowardsPlayer.normalized * (MinSpeed * proximity);
             }
         }
 
@@ -85,10 +83,11 @@ public class ShardController : PooledObject
             transform.position.y + velocity.y,
             transform.position.z);
 
-        transform.Rotate(0.0f, 0.0f, speed * 10.0f);
+        transform.Rotate(0.0f, 0.0f, velocity.magnitude * 10.0f);
 
         // apply friction
-        speed = Mathf.Clamp(speed * FrictionCoefficient, MinSpeed, MaxSpeed);
+        float speed = Mathf.Clamp(velocity.magnitude * FrictionCoefficient, MinSpeed, MaxSpeed);
+        velocity = velocity.normalized * speed;
 
     }
 

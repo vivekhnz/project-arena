@@ -31,9 +31,9 @@ GameObject:
   - 114: {fileID: 11405516}
   - 114: {fileID: 11432990}
   - 114: {fileID: 11437176}
-  - 95: {fileID: 9549890}
+  - 95: {fileID: 9592222}
   m_Layer: 12
-  m_Name: Wanderer
+  m_Name: SeekerElite
   m_TagString: Solid|Damageable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,8 +108,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
---- !u!95 &9549890
+  m_Radius: 1.5
+--- !u!95 &9592222
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d94d0db5b651c469eed74920a59dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 5
+  MaxHealth: 25
   DestroyObjectOnDeath: 1
   IsInvincible: 0
 --- !u!114 &11432990
@@ -151,10 +151,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 449b240f4e753904db45e978bc82638a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TurnSpeed: 0.01
-  MovementSpeed: 0.2
-  ScoreValue: 50
-  ShardsToDrop: 1
+  TurnSpeed: 0.2
+  MovementSpeed: 0.15
+  ScoreValue: 250
+  ShardsToDrop: 4
   Shard: {fileID: 11457252, guid: 49493089eb229a546b74c943c457cc42, type: 2}
 --- !u!114 &11437176
 MonoBehaviour:
@@ -206,7 +206,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 767199795
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6e93a69019addec49872a58452232058, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9a019e47dceb4bf48b18975c9ae963e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -227,19 +227,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: MaxHealth
-      value: 5
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.x
-      value: 1.5
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: MovementSpeed
-      value: 0.2
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_GravityScale
@@ -247,7 +247,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: TurnSpeed
-      value: 0.01
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: FinalTurnSpeed
@@ -279,7 +279,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Radius
-      value: 1
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_IsKinematic
@@ -299,30 +299,30 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Name
-      value: Bounds
+      value: SeekerElite
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Parent
       value: 
       objectReference: {fileID: 11432990}
     - target: {fileID: 0}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 6e93a69019addec49872a58452232058,
-        type: 3}
-    - target: {fileID: 0}
-      propertyPath: ScoreValue
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
       propertyPath: Shard
       value: 
       objectReference: {fileID: 11457252, guid: 49493089eb229a546b74c943c457cc42,
         type: 2}
     - target: {fileID: 0}
-      propertyPath: m_Controller
+      propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 9100000, guid: f03f8a19e88aa364ebffb303ef159d7f, type: 2}
+      objectReference: {fileID: 21300000, guid: 9a019e47dceb4bf48b18975c9ae963e2,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: ScoreValue
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ShardsToDrop
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 186406}

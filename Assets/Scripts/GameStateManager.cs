@@ -5,6 +5,7 @@ public class GameStateManager : MonoBehaviour
 {
     public int Score { get; private set; }
     public int PerfectWaveBonus = 200;
+    public int DeathScorePenalty = 1000;
 
 	void Start ()
     {
@@ -18,5 +19,9 @@ public class GameStateManager : MonoBehaviour
     public void AddScore(int score)
     {
         Score += score;
+        if (Score < 0)
+        {
+            Score = 0;
+        }
     }
 }

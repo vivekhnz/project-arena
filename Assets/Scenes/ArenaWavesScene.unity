@@ -1091,6 +1091,10 @@ Prefab:
       propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 21222648, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c1f3ba366555ed04c80937d3c223ec00, type: 2}
   m_IsPrefabParent: 0
@@ -1615,10 +1619,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 139526, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
   m_IsPrefabParent: 0
@@ -2018,8 +2018,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 2014407430}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
 --- !u!114 &1131421091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2031,7 +2031,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6887a14e024dc094b9976f0ff1cb3da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PerfectWaveBonus: 200
+  PerfectWaveBonus: 500
+  DeathScorePenalty: 2000
 --- !u!1 &1213794512
 GameObject:
   m_ObjectHideFlags: 0
@@ -3176,10 +3177,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1131421090}
+  m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
 --- !u!114 &2014407431
 MonoBehaviour:
   m_ObjectHideFlags: 0

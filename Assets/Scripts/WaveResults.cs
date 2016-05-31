@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Wave
+public class WaveResults
 {
-    public Wave(int wave)
+    public WaveResults(int wave)
     {
         WaveNumber = wave;
     }

@@ -33,7 +33,7 @@ GameObject:
   - 114: {fileID: 11437176}
   - 95: {fileID: 9549890}
   m_Layer: 12
-  m_Name: Wanderer
+  m_Name: WandererElite
   m_TagString: Solid|Damageable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d94d0db5b651c469eed74920a59dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 5
+  MaxHealth: 15
   DestroyObjectOnDeath: 1
   IsInvincible: 0
 --- !u!114 &11432990
@@ -151,10 +151,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 449b240f4e753904db45e978bc82638a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TurnSpeed: 0.01
+  TurnSpeed: 0.02
   MovementSpeed: 0.2
-  ScoreValue: 50
-  ShardsToDrop: 1
+  ScoreValue: 150
+  ShardsToDrop: 3
   Shard: {fileID: 11457252, guid: 49493089eb229a546b74c943c457cc42, type: 2}
 --- !u!114 &11437176
 MonoBehaviour:
@@ -206,7 +206,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 767199795
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6e93a69019addec49872a58452232058, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d90f11dccf04e72468e2f858b48b13fe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -227,15 +227,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: MaxHealth
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.x
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: MovementSpeed
@@ -247,7 +247,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: TurnSpeed
-      value: 0.01
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: FinalTurnSpeed
@@ -308,17 +308,21 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 6e93a69019addec49872a58452232058,
+      objectReference: {fileID: 21300000, guid: d90f11dccf04e72468e2f858b48b13fe,
         type: 3}
     - target: {fileID: 0}
       propertyPath: ScoreValue
-      value: 50
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Shard
       value: 
       objectReference: {fileID: 11457252, guid: 49493089eb229a546b74c943c457cc42,
         type: 2}
+    - target: {fileID: 0}
+      propertyPath: ShardsToDrop
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Controller
       value: 
