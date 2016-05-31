@@ -6,9 +6,14 @@ using System.Text;
 [Serializable]
 public class Round
 {
+    public List<WaveSpawns> Waves = new List<WaveSpawns>();
+}
+
+[Serializable]
+public class WaveSpawns
+{
+    public int SpawnerCount = 3;
     public EnemySpawner EnemySpawner;
-    public float WaveDuration = 8.0f;
-    public int WaveCount = 5;
-    public int SpawnersPerWave = 5;
+    public float WaveDuration = 10.0f;
     public float SpawnerCreationInterval = 2.0f;
 }

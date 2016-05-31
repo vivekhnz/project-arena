@@ -66,7 +66,7 @@ public class HUDController : MonoBehaviour
         StringBuilder sbWaveBonusText = new StringBuilder();
 
         int waveBonus = GameStateManager.PerfectWaveBonus;
-        foreach (var wave in WaveManager.Waves)
+        foreach (var wave in WaveManager.WaveResults)
         {
             sbWaveNamesText.AppendLine(string.Format("WAVE {0}", wave.WaveNumber));
             sbWaveScoresText.AppendLine(string.Format("{0} / {1}",
