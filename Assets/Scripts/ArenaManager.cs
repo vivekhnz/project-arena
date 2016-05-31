@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class ArenaManager : MonoBehaviour
 {
@@ -21,13 +22,15 @@ public class ArenaManager : MonoBehaviour
 
     public void StartBossFight()
     {
-        BossEncounter.SetActive(true);
-        WaveManager.SetActive(false);
+        SceneManager.LoadScene("VictoryScene");
 
-        // move the player to a safe location when the boss spawns
-        Player.transform.position = PlayerBossEncounterPosition;
+        //BossEncounter.SetActive(true);
+        //WaveManager.SetActive(false);
 
-        HUD.ShowBossFightUI();
+        //// move the player to a safe location when the boss spawns
+        //Player.transform.position = PlayerBossEncounterPosition;
+
+        //HUD.ShowBossFightUI();
     }
 
     void OnDrawGizmosSelected()
