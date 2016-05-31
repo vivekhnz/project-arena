@@ -69,7 +69,7 @@ public class ShardController : PooledObject
         // move towards the player if they are close enough
         // otherwise, drift
         Vector2 velocity = direction * speed;
-        if (player != null)
+        if (player != null && !player.IsSuperActive && player.SuperEnergy < 1.0f)
         {
             Vector2 directionTowardsPlayer = (Vector2)player.transform.position - (Vector2)transform.position;
             if (directionTowardsPlayer.magnitude < MagnetismDistance)
@@ -110,9 +110,12 @@ public class ShardController : PooledObject
             switch (tag)
             {
                 case "Player":
-                    player.AddSuperEnergy(SuperEnergy);
-                    gameStateManager.AddScore(ScoreValue);
-                    Recycle();
+                    if (!player.IsSuperActive && player.SuperEnergy < 1.0f)
+                    {
+                        player.AddSuperEnergy(SuperEnergy);
+                        gameStateManager.AddScore(ScoreValue);
+                        Recycle();
+                    }
                     break;
             }
         }
