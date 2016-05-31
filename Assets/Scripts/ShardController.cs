@@ -6,7 +6,7 @@ public class ShardController : PooledObject
     public float MaxSpeed = 0.3f;
     public float MinSpeed = 0.1f;
     public float FrictionCoefficient = 0.95f;
-    public float SuperEnergy = 0.1f;
+    public double SuperEnergy = 0.1;
     public float MagnetismDistance = 20.0f;
     public int ScoreValue = 5;
 

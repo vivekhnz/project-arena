@@ -42,9 +42,9 @@ MonoBehaviour:
   EnemySpawnInterval: 0.5
   Spawns:
   - Enemy: {fileID: 11432990, guid: d5238aaa6b62f9c44bef54c58c2d4b65, type: 2}
-    EnemiesPerSpawn: 3
+    EnemiesPerSpawn: 4
   - Enemy: {fileID: 11432990, guid: aaff9b7fe58e64c458b55df0e856eb18, type: 2}
-    EnemiesPerSpawn: 2
+    EnemiesPerSpawn: 4
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -75,7 +75,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Spawns.Array.data[0].EnemiesPerSpawn
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Spawns.Array.data[0].Enemy
@@ -93,7 +93,7 @@ Prefab:
         type: 2}
     - target: {fileID: 0}
       propertyPath: Spawns.Array.data[1].EnemiesPerSpawn
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

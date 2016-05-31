@@ -76,7 +76,9 @@ MonoBehaviour:
   MaxSpeed: 0.3
   MinSpeed: 0.1
   FrictionCoefficient: 0.95
-  SuperEnergy: 0.05
+  SuperEnergy: 0.025
+  MagnetismDistance: 20
+  ScoreValue: 5
 --- !u!212 &21233600
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -120,7 +122,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: SuperEnergy
-      value: 0.05
+      value: 0.025
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

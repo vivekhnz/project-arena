@@ -20,11 +20,11 @@ public class WorldUIController : MonoBehaviour
         SuperMeter.transform.position = Player.transform.position;
         SuperMeterForeground.fillAmount = Mathf.Lerp(
             SuperMeterForeground.fillAmount,
-            Player.SuperEnergy, 0.25f);
+            (float)Player.SuperEnergy, 0.25f);
 
         if (animator != null)
         {
-            animator.SetFloat("SuperEnergy", Player.SuperEnergy);
+            animator.SetFloat("SuperEnergy", (float)Player.SuperEnergy);
             animator.SetBool("IsSuperActive", Player.IsSuperActive);
         }
     }

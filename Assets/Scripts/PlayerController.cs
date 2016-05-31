@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public float RateOfFire = 60.0f; // bullets per minute
     public float SuperDuration = 5.0f; // seconds
 
-    public float SuperEnergy { get; private set; }
+    public double SuperEnergy { get; private set; }
     public bool IsSuperActive { get; private set; }
 
     private Animator animator;
@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
         {
             DepleteSuper();
         }
-        else if (Input.GetButton("Super") && SuperEnergy >= 1.0f)
+        else if (Input.GetButton("Super") && SuperEnergy >= 1.0)
         {
             ActivateSuper();
         }
@@ -115,10 +115,10 @@ public class PlayerController : MonoBehaviour
     private void DepleteSuper()
     {
         float decreaseAmount = 1.0f / (60.0f * SuperDuration);
-        SuperEnergy = Mathf.Clamp(SuperEnergy - decreaseAmount, 0.0f, 1.0f);
-        if (SuperEnergy <= 0.0f)
+        SuperEnergy = Mathf.Clamp((float)SuperEnergy - decreaseAmount, 0.0f, 1.0f);
+        if (SuperEnergy <= 0.0)
         {
-            SuperEnergy = 0.0f;
+            SuperEnergy = 0.0;
             IsSuperActive = false;
         }
     }
@@ -150,9 +150,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void AddSuperEnergy(float amount)
+    public void AddSuperEnergy(double amount)
     {
-        SuperEnergy = Mathf.Clamp(SuperEnergy + amount, 0.0f, 1.0f);
+        SuperEnergy += amount;
+        if (SuperEnergy > 1.0)
+        {
+            SuperEnergy = 1.0;
+        }
     }
 
     void OnDrawGizmosSelected()

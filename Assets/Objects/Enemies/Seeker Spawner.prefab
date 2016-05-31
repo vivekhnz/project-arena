@@ -42,7 +42,7 @@ MonoBehaviour:
   EnemySpawnInterval: 0.5
   Spawns:
   - Enemy: {fileID: 11432990, guid: aaff9b7fe58e64c458b55df0e856eb18, type: 2}
-    EnemiesPerSpawn: 5
+    EnemiesPerSpawn: 8
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -77,7 +77,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Spawns.Array.data[0].EnemiesPerSpawn
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Spawns.Array.data[0].Enemy
