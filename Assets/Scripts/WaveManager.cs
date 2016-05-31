@@ -6,6 +6,7 @@ using System.Linq;
 
 public class WaveManager : MonoBehaviour
 {
+    public EnemySpawner EnemySpawner;
     public float RoundIntermissionDuration = 10.0f;
     public List<Round> Rounds = new List<Round>();
 
@@ -120,7 +121,7 @@ public class WaveManager : MonoBehaviour
         {
             Round currentRound = Rounds[CurrentRound - 1];
             WaveSpawns currentWave = currentRound.Waves[CurrentWave - 1];
-            if (currentWave.EnemySpawner != null)
+            if (currentWave.Spawns != null)
             {
                 if (isCurrentlySpawning)
                 {
@@ -202,10 +203,8 @@ public class WaveManager : MonoBehaviour
     void CreateSpawner()
     {
         var currentWaveSpawns = Rounds[CurrentRound - 1].Waves[CurrentWave - 1];
-
-        var spawnerPrefab = currentWaveSpawns.EnemySpawner;
-        var enemyController = spawnerPrefab.GetComponent<EnemySpawner>();
-        var spawner = enemyController.Fetch<EnemySpawner>();
+        
+        var spawner = EnemySpawner.Fetch<EnemySpawner>();
 
         // add a WaveEnemySpawner component to this spawner if it does not have one already
         var wes = spawner.GetComponent<WaveEnemySpawner>();
@@ -222,7 +221,8 @@ public class WaveManager : MonoBehaviour
         Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
         // create spawner and associate enemies with current wave
-        spawner.Initialize(direction * arena.ArenaRadius);
+        spawner.Initialize(direction * arena.ArenaRadius,
+            currentWaveSpawns.EnemySpawnInterval, currentWaveSpawns.Spawns);
         wes.Initialize(CurrentWave);
 
         spawnersCreated++;

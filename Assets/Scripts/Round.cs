@@ -13,7 +13,9 @@ public class Round
 public class WaveSpawns
 {
     public int SpawnerCount = 3;
-    public EnemySpawner EnemySpawner;
     public float WaveDuration = 10.0f;
     public float SpawnerCreationInterval = 2.0f;
+
+    public float EnemySpawnInterval = 0.5f;
+    public List<EnemySpawn> Spawns = new List<EnemySpawn>();
 }
