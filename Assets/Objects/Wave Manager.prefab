@@ -128,19 +128,19 @@ MonoBehaviour:
         EnemiesPerSpawn: 5
   - Waves:
     - SpawnerCount: 5
-      WaveDuration: 10
-      SpawnerCreationInterval: 2
+      WaveDuration: 8
+      SpawnerCreationInterval: 1.5
       EnemySpawnInterval: 0.5
       Spawns:
-      - Enemy: {fileID: 11432990, guid: d5238aaa6b62f9c44bef54c58c2d4b65, type: 2}
-        EnemiesPerSpawn: 5
+      - Enemy: {fileID: 11432990, guid: 122b0c67f753a7543956fea3e1755072, type: 2}
+        EnemiesPerSpawn: 1
     - SpawnerCount: 5
-      WaveDuration: 10
-      SpawnerCreationInterval: 2
-      EnemySpawnInterval: 0.5
+      WaveDuration: 20
+      SpawnerCreationInterval: 1
+      EnemySpawnInterval: 0.1
       Spawns:
-      - Enemy: {fileID: 11432990, guid: d5238aaa6b62f9c44bef54c58c2d4b65, type: 2}
-        EnemiesPerSpawn: 8
+      - Enemy: {fileID: 11432990, guid: 122b0c67f753a7543956fea3e1755072, type: 2}
+        EnemiesPerSpawn: 10
     - SpawnerCount: 5
       WaveDuration: 10
       SpawnerCreationInterval: 2
@@ -148,24 +148,26 @@ MonoBehaviour:
       Spawns:
       - Enemy: {fileID: 11432990, guid: e5959cb6f93438a45ae87f64112c9fc9, type: 2}
         EnemiesPerSpawn: 1
-      - Enemy: {fileID: 11432990, guid: d5238aaa6b62f9c44bef54c58c2d4b65, type: 2}
-        EnemiesPerSpawn: 3
-    - SpawnerCount: 5
-      WaveDuration: 10
-      SpawnerCreationInterval: 2
-      EnemySpawnInterval: 0.5
-      Spawns:
-      - Enemy: {fileID: 11432990, guid: e5959cb6f93438a45ae87f64112c9fc9, type: 2}
+      - Enemy: {fileID: 11432990, guid: 122b0c67f753a7543956fea3e1755072, type: 2}
+        EnemiesPerSpawn: 10
+      - Enemy: {fileID: 11432990, guid: e7f566fa1e89b924e9eb0a677d9e446a, type: 2}
         EnemiesPerSpawn: 1
+    - SpawnerCount: 10
+      WaveDuration: 20
+      SpawnerCreationInterval: 1
+      EnemySpawnInterval: 0.1
+      Spawns:
       - Enemy: {fileID: 11432990, guid: d5238aaa6b62f9c44bef54c58c2d4b65, type: 2}
-        EnemiesPerSpawn: 5
+        EnemiesPerSpawn: 10
     - SpawnerCount: 10
       WaveDuration: 15
       SpawnerCreationInterval: 0.75
       EnemySpawnInterval: 0.5
       Spawns:
-      - Enemy: {fileID: 11432990, guid: e5959cb6f93438a45ae87f64112c9fc9, type: 2}
+      - Enemy: {fileID: 11432990, guid: e7f566fa1e89b924e9eb0a677d9e446a, type: 2}
         EnemiesPerSpawn: 1
+      - Enemy: {fileID: 11432990, guid: 122b0c67f753a7543956fea3e1755072, type: 2}
+        EnemiesPerSpawn: 3
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -216,6 +218,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[1].Waves.Array.data[4].Spawns.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[2].Waves.Array.data[2].Spawns.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[2].Waves.Array.data[3].Spawns.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[2].Waves.Array.data[4].Spawns.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_TagString
@@ -415,7 +429,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[1].Waves.Array.data[0].SpawnerCount
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[1].Waves.Array.data[0].WaveDuration
@@ -427,7 +441,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[1].Waves.Array.data[0].EnemySpawnInterval
-      value: 0.5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[1].Waves.Array.data[1].SpawnerCount
@@ -499,11 +513,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[2].Waves.Array.data[0].WaveDuration
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[2].Waves.Array.data[0].SpawnerCreationInterval
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[2].Waves.Array.data[0].EnemySpawnInterval
@@ -515,15 +529,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[2].Waves.Array.data[1].WaveDuration
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[2].Waves.Array.data[1].SpawnerCreationInterval
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[2].Waves.Array.data[1].EnemySpawnInterval
-      value: 0.5
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[2].Waves.Array.data[2].SpawnerCount
@@ -543,19 +557,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[2].Waves.Array.data[3].SpawnerCount
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: Rounds.Array.data[2].Waves.Array.data[3].WaveDuration
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[2].Waves.Array.data[3].WaveDuration
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: Rounds.Array.data[2].Waves.Array.data[3].SpawnerCreationInterval
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[2].Waves.Array.data[3].EnemySpawnInterval
-      value: 0.5
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[2].Waves.Array.data[4].SpawnerCount
@@ -654,6 +668,74 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[1].Waves.Array.data[4].Spawns.Array.data[2].EnemiesPerSpawn
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[2].Waves.Array.data[0].Spawns.Array.data[0].Enemy
+      value: 
+      objectReference: {fileID: 11432990, guid: 122b0c67f753a7543956fea3e1755072,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[2].Waves.Array.data[0].Spawns.Array.data[0].EnemiesPerSpawn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[2].Waves.Array.data[1].Spawns.Array.data[0].Enemy
+      value: 
+      objectReference: {fileID: 11432990, guid: 122b0c67f753a7543956fea3e1755072,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[2].Waves.Array.data[1].Spawns.Array.data[0].EnemiesPerSpawn
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[2].Waves.Array.data[2].Spawns.Array.data[1].Enemy
+      value: 
+      objectReference: {fileID: 11432990, guid: 122b0c67f753a7543956fea3e1755072,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[2].Waves.Array.data[2].Spawns.Array.data[1].EnemiesPerSpawn
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[2].Waves.Array.data[2].Spawns.Array.data[2].Enemy
+      value: 
+      objectReference: {fileID: 11432990, guid: e7f566fa1e89b924e9eb0a677d9e446a,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[2].Waves.Array.data[2].Spawns.Array.data[2].EnemiesPerSpawn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[2].Waves.Array.data[3].Spawns.Array.data[1].Enemy
+      value: 
+      objectReference: {fileID: 11432990, guid: d5238aaa6b62f9c44bef54c58c2d4b65,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[2].Waves.Array.data[3].Spawns.Array.data[1].EnemiesPerSpawn
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[2].Waves.Array.data[3].Spawns.Array.data[0].Enemy
+      value: 
+      objectReference: {fileID: 11432990, guid: d5238aaa6b62f9c44bef54c58c2d4b65,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[2].Waves.Array.data[3].Spawns.Array.data[0].EnemiesPerSpawn
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[2].Waves.Array.data[4].Spawns.Array.data[0].Enemy
+      value: 
+      objectReference: {fileID: 11432990, guid: e7f566fa1e89b924e9eb0a677d9e446a,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[2].Waves.Array.data[4].Spawns.Array.data[1].Enemy
+      value: 
+      objectReference: {fileID: 11432990, guid: 122b0c67f753a7543956fea3e1755072,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: Rounds.Array.data[2].Waves.Array.data[4].Spawns.Array.data[1].EnemiesPerSpawn
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
