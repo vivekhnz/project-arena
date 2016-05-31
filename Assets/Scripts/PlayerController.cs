@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float BulletSpread = 10.0f; // degrees
     public float RateOfFire = 60.0f; // bullets per minute
     public float SuperDuration = 5.0f; // seconds
+    public float InvincibilityDuration = 2.0f; // seconds
 
     public double SuperEnergy { get; private set; }
     public bool IsSuperActive { get; private set; }
@@ -16,12 +17,17 @@ public class PlayerController : MonoBehaviour
     private GameStateManager gameStateManager;
     private Animator animator;
     private float bulletFiredTime = 0.0f;
+    private float invincibilityTime;
+    private bool isInvincible = false;
 
     void Start()
     {
         SuperEnergy = 0.0f;
         IsSuperActive = false;
         animator = GetComponent<Animator>();
+
+        isInvincible = true;
+        invincibilityTime = Time.time;
 
         var gameStateManagerObj = GameObject.FindGameObjectWithTag("GameStateManager");
         if (gameStateManagerObj != null)
@@ -103,9 +109,15 @@ public class PlayerController : MonoBehaviour
             ActivateSuper();
         }
 
+        if (isInvincible && Time.time - invincibilityTime > InvincibilityDuration)
+        {
+            isInvincible = false;
+        }
+
         if (animator != null)
         {
             animator.SetBool("IsSuperActive", IsSuperActive);
+            animator.SetBool("IsInvincible", isInvincible);
         }
     }
 
@@ -173,15 +185,21 @@ public class PlayerController : MonoBehaviour
 
     public void Kill()
     {
-        if (gameStateManager != null)
+        if (!isInvincible)
         {
-            gameStateManager.AddScore(-gameStateManager.DeathScorePenalty);
+            if (gameStateManager != null)
+            {
+                gameStateManager.AddScore(-gameStateManager.DeathScorePenalty);
+            }
+
+            SuperEnergy = 0.0;
+            IsSuperActive = false;
+
+            CreateShockwave();
+
+            isInvincible = true;
+            invincibilityTime = Time.time;
         }
-
-        SuperEnergy = 0.0;
-        IsSuperActive = false;
-
-        CreateShockwave();
     }
 
     void OnDrawGizmosSelected()
