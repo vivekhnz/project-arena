@@ -23,4 +23,26 @@ public static class ApplicationModel
     {
         GameScore = 0;
     }
+
+    public static int GetValue(string name, bool isPersisted)
+    {
+        if (isPersisted)
+        {
+            return PlayerPrefs.GetInt("High Score", 0);
+        }
+        else
+        {
+            return GetSessionValue(name);
+        }
+    }
+
+    private static int GetSessionValue(string name)
+    {
+        switch (name)
+        {
+            case "GameScore":
+                return GameScore;
+        }
+        return 0;
+    }
 }

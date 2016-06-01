@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class PlayerPrefValue : MonoBehaviour
 {
     public string PreferenceName;
+    public bool IsPersisted = false;
 
     private Text text;
 
@@ -19,7 +20,7 @@ public class PlayerPrefValue : MonoBehaviour
     {
         if (text != null && !string.IsNullOrEmpty(PreferenceName))
         {
-            text.text = PlayerPrefs.GetInt(PreferenceName, 0).ToString();
+            text.text = ApplicationModel.GetValue(PreferenceName, IsPersisted).ToString();
         }
 	}
 }

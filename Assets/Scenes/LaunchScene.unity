@@ -244,6 +244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PreferenceName: High Score
+  IsPersisted: 1
 --- !u!1 &364119034
 GameObject:
   m_ObjectHideFlags: 0
