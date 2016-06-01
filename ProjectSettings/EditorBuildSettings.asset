@@ -11,7 +11,7 @@ EditorBuildSettings:
     path: Assets/Scenes/ArenaWavesScene.unity
   - enabled: 0
     path: Assets/Scenes/ShieldBossScene.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DefeatScene.unity
   - enabled: 1
     path: Assets/Scenes/VictoryScene.unity
