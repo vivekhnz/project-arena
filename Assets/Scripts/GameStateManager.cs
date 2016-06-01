@@ -10,6 +10,7 @@ public class GameStateManager : MonoBehaviour
 	void Start ()
     {
         Score = 0;
+        ApplicationModel.ResetGameScore();
 	}
 
 	void Update ()

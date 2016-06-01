@@ -2142,6 +2142,7 @@ MonoBehaviour:
   BossEncounter: {fileID: 1810624268}
   WaveManager: {fileID: 745390986}
   Player: {fileID: 1995564091}
+  GameStateManager: {fileID: 1131421091}
   HUD: {fileID: 553174349}
   ArenaRadius: 50
   PlayerBossEncounterPosition: {x: 0, y: -20, z: 0}
