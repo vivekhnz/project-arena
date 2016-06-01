@@ -57,7 +57,7 @@ public class ShieldGeneratorController : PooledObject
         }
     }
 
-    private void OnDestroyed(object sender, System.EventArgs e)
+    private void OnDestroyed(object sender, DamageableObject.DestroyedEventArgs e)
     {
         if (Destroyed != null)
         {

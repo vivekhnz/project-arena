@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class ArenaManager : MonoBehaviour
 {
     public GameObject BossEncounter;
     public GameObject WaveManager;
     public GameObject Player;
+    public GameStateManager GameStateManager;
 
     public HUDController HUD;
     public float ArenaRadius = 50.0f;
@@ -21,13 +23,19 @@ public class ArenaManager : MonoBehaviour
 
     public void StartBossFight()
     {
-        BossEncounter.SetActive(true);
-        WaveManager.SetActive(false);
+        if (GameStateManager != null)
+        {
+            ApplicationModel.RegisterGameScore(GameStateManager.Score);
+        }
+        SceneManager.LoadScene("VictoryScene");
 
-        // move the player to a safe location when the boss spawns
-        Player.transform.position = PlayerBossEncounterPosition;
+        //BossEncounter.SetActive(true);
+        //WaveManager.SetActive(false);
 
-        HUD.ShowBossFightUI();
+        //// move the player to a safe location when the boss spawns
+        //Player.transform.position = PlayerBossEncounterPosition;
+
+        //HUD.ShowBossFightUI();
     }
 
     void OnDrawGizmosSelected()

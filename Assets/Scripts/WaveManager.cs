@@ -6,22 +6,20 @@ using System.Linq;
 
 public class WaveManager : MonoBehaviour
 {
+    public EnemySpawner EnemySpawner;
     public float RoundIntermissionDuration = 10.0f;
     public List<Round> Rounds = new List<Round>();
 
-    public List<Wave> Waves = new List<Wave>();
-    public Wave CurrentWave
-    {
-        get { return Waves.LastOrDefault(); }
-    }
+    public List<WaveResults> WaveResults = new List<WaveResults>();
     public int CurrentRound { get; private set; }
+    public int CurrentWave { get; private set; }
 
     public class WaveChangedEventArgs : EventArgs
     {
-        public Wave PreviousWave { get; private set; }
-        public Wave NewWave { get; private set; }
+        public WaveResults PreviousWave { get; private set; }
+        public WaveResults NewWave { get; private set; }
 
-        public WaveChangedEventArgs(Wave prevWave, Wave newWave)
+        public WaveChangedEventArgs(WaveResults prevWave, WaveResults newWave)
         {
             PreviousWave = prevWave;
             NewWave = newWave;
@@ -56,12 +54,15 @@ public class WaveManager : MonoBehaviour
             arena = arenaObj.GetComponent<ArenaManager>();
         }
 
-        waveTime = Time.time - Rounds[0].WaveDuration;
+        waveTime = Time.time - Rounds[0].Waves[0].WaveDuration;
         spawnerTime = Time.time;
         roundTime = Time.time;
         
-        Waves = new List<Wave>();
-        CurrentRound = 1;
+        WaveResults = new List<WaveResults>();
+        CurrentRound = 0;
+        CurrentWave = 0;
+
+        StartNewRound();
     }
 
     void FixedUpdate()
@@ -96,7 +97,7 @@ public class WaveManager : MonoBehaviour
             {
                 // wait until all enemies are destroyed before starting the intermission
                 bool allEnemiesInactive = true;
-                foreach (var wave in Waves)
+                foreach (var wave in WaveResults)
                 {
                     if (!wave.AllEnemiesInactive)
                     {
@@ -119,20 +120,21 @@ public class WaveManager : MonoBehaviour
         else if (CurrentRound > 0)
         {
             Round currentRound = Rounds[CurrentRound - 1];
-            if (currentRound.EnemySpawner != null)
+            WaveSpawns currentWave = currentRound.Waves[CurrentWave - 1];
+            if (currentWave.Spawns != null)
             {
                 if (isCurrentlySpawning)
                 {
                     // create spawners within wave
-                    if (Time.time - spawnerTime > currentRound.SpawnerCreationInterval)
+                    if (Time.time - spawnerTime > currentWave.SpawnerCreationInterval)
                     {
                         CreateSpawner();
                     }
                 }
-                else if (Time.time - waveTime > currentRound.WaveDuration)
+                else if (Time.time - waveTime > currentWave.WaveDuration)
                 {
                     // if this is the final wave, finish the round
-                    if (CurrentWave != null && CurrentWave.WaveNumber >= currentRound.WaveCount)
+                    if (CurrentWave >= currentRound.Waves.Count)
                     {
                         FinishRound();
                     }
@@ -152,14 +154,14 @@ public class WaveManager : MonoBehaviour
         isRoundTransitioning = false;
         if (WaveChanged != null)
         {
-            WaveChanged(this, new WaveChangedEventArgs(CurrentWave, null));
+            WaveChanged(this, new WaveChangedEventArgs(WaveResults[CurrentWave - 1], null));
         }
     }
 
     private void StartNewRound()
     {
         // clear existing waves and notify the UI that a new round has started
-        Waves.Clear();
+        WaveResults.Clear();
         if (RoundStarted != null)
         {
             RoundStarted(this, EventArgs.Empty);
@@ -169,10 +171,11 @@ public class WaveManager : MonoBehaviour
         isEndOfRound = false;
         if (WaveChanged != null)
         {
-            WaveChanged(this, new WaveChangedEventArgs(CurrentWave, null));
+            WaveChanged(this, new WaveChangedEventArgs(WaveResults[CurrentWave - 1], null));
         }
 
         CurrentRound++;
+        CurrentWave = 0;
 
         // start a new wave
         StartNewWave();
@@ -185,12 +188,13 @@ public class WaveManager : MonoBehaviour
         spawnersCreated = 0;
 
         // create a new wave
-        Wave newWave = new Wave(CurrentWave == null ? 1 : CurrentWave.WaveNumber + 1);
+        WaveResults newWave = new WaveResults(CurrentWave + 1);
         if (WaveChanged != null)
         {
-            WaveChanged(this, new WaveChangedEventArgs(CurrentWave, newWave));
+            WaveChanged(this, new WaveChangedEventArgs(WaveResults[CurrentWave - 1], newWave));
         }
-        Waves.Add(newWave);
+        WaveResults.Add(newWave);
+        CurrentWave++;
 
         // create the first spawner
         CreateSpawner();
@@ -198,9 +202,9 @@ public class WaveManager : MonoBehaviour
 
     void CreateSpawner()
     {
-        var spawnerPrefab = Rounds[CurrentRound - 1].EnemySpawner;
-        var enemyController = spawnerPrefab.GetComponent<EnemySpawner>();
-        var spawner = enemyController.Fetch<EnemySpawner>();
+        var currentWaveSpawns = Rounds[CurrentRound - 1].Waves[CurrentWave - 1];
+        
+        var spawner = EnemySpawner.Fetch<EnemySpawner>();
 
         // add a WaveEnemySpawner component to this spawner if it does not have one already
         var wes = spawner.GetComponent<WaveEnemySpawner>();
@@ -217,13 +221,14 @@ public class WaveManager : MonoBehaviour
         Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
         // create spawner and associate enemies with current wave
-        spawner.Initialize(direction * arena.ArenaRadius);
-        wes.Initialize(CurrentWave.WaveNumber);
+        spawner.Initialize(direction * arena.ArenaRadius,
+            currentWaveSpawns.EnemySpawnInterval, currentWaveSpawns.Spawns);
+        wes.Initialize(CurrentWave);
 
         spawnersCreated++;
         spawnerTime = Time.time;
 
-        if (spawnersCreated == Rounds[CurrentRound - 1].SpawnersPerWave)
+        if (spawnersCreated == currentWaveSpawns.SpawnerCount)
         {
             // stop creating spawners
             isCurrentlySpawning = false;
@@ -245,16 +250,16 @@ public class WaveManager : MonoBehaviour
 
     public void NotifyEnemyCreated(int wave)
     {
-        Waves[wave - 1].TotalEnemyCount++;
+        WaveResults[wave - 1].TotalEnemyCount++;
     }
 
     public void NotifyEnemyDestroyed(int wave)
     {
-        Waves[wave - 1].EnemiesDestroyed++;
+        WaveResults[wave - 1].EnemiesDestroyed++;
     }
 
     public void NotifyEnemyEscaped(int wave)
     {
-        Waves[wave - 1].EnemiesEscaped++;
+        WaveResults[wave - 1].EnemiesEscaped++;
     }
 }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Wave
+public class WaveResults
 {
-    public Wave(int wave)
+    public WaveResults(int wave)
     {
         WaveNumber = wave;
     }
@@ -18,5 +18,9 @@ public class Wave
     public bool AllEnemiesInactive
     {
         get { return EnemiesDestroyed + EnemiesEscaped >= TotalEnemyCount; }
+    }
+    public bool IsPerfect
+    {
+        get { return EnemiesDestroyed == TotalEnemyCount; }
     }
 }

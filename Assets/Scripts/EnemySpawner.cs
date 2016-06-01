@@ -6,9 +6,6 @@ using System.Linq;
 
 public class EnemySpawner : PooledObject
 {
-    public float EnemySpawnInterval = 1.0f;
-    public List<EnemySpawn> Spawns = new List<EnemySpawn>();
-
     public class EnemySpawnedEventArgs : EventArgs
     {
         public EnemyController Enemy { get; private set; }
@@ -20,24 +17,28 @@ public class EnemySpawner : PooledObject
     }
     public event EventHandler<EnemySpawnedEventArgs> EnemySpawned;
 
+    private float enemySpawnInterval = 1.0f;
+    private List<EnemySpawn> spawns = new List<EnemySpawn>();
     private float enemySpawnTime;
     private int[] enemiesSpawned;
 
     public float Lifetime
     {
-        get { return EnemySpawnInterval
-                * Spawns.Sum(p => p.EnemiesPerSpawn); }
+        get { return enemySpawnInterval * spawns.Sum(p => p.EnemiesPerSpawn); }
     }
 
-    public void Initialize(Vector3 position)
+    public void Initialize(Vector3 position, float enemySpawnInterval, List<EnemySpawn> spawns)
     {
         transform.position = position;
+        this.enemySpawnInterval = enemySpawnInterval;
+        this.spawns = spawns;
+
+        enemiesSpawned = new int[spawns.Count];
     }
 
     public override void ResetInstance()
     {
         enemySpawnTime = Time.time;
-        enemiesSpawned = new int[Spawns.Count];
 
         base.ResetInstance();
     }
@@ -45,7 +46,7 @@ public class EnemySpawner : PooledObject
     void Update ()
     {
         // spawn enemies
-        if (Spawns.Count > 0 && Time.time - enemySpawnTime > EnemySpawnInterval)
+        if (spawns.Count > 0 && Time.time - enemySpawnTime > enemySpawnInterval)
         {
             SpawnEnemy();
         }
@@ -59,7 +60,7 @@ public class EnemySpawner : PooledObject
         if (enemyType != -1)
         {
             // create enemy
-            var enemy = Spawns[enemyType].Enemy.Fetch<EnemyController>();
+            var enemy = spawns[enemyType].Enemy.Fetch<EnemyController>();
             enemy.Initialize(transform.position);
 
             // notify subscribers that a new enemy has been spawned
@@ -72,7 +73,7 @@ public class EnemySpawner : PooledObject
             enemySpawnTime = Time.time;
         }
 
-        if (enemiesSpawned.Sum() >= Spawns.Sum(p => p.EnemiesPerSpawn))
+        if (enemiesSpawned.Sum() >= spawns.Sum(p => p.EnemiesPerSpawn))
         {
             // delete spawner once all enemies have been spawned
             Recycle();
@@ -81,9 +82,9 @@ public class EnemySpawner : PooledObject
 
     private int PickEnemyTypeToSpawn()
     {
-        for (int i = 0; i < Spawns.Count; i++)
+        for (int i = 0; i < spawns.Count; i++)
         {
-            var spawn = Spawns[i];
+            var spawn = spawns[i];
             if (enemiesSpawned[i] < spawn.EnemiesPerSpawn)
             {
                 return i;

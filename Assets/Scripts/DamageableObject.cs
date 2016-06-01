@@ -7,7 +7,17 @@ public class DamageableObject : MonoBehaviour
     public int MaxHealth = 100;
     public bool DestroyObjectOnDeath = true;
     public bool IsInvincible = false;
-    public event EventHandler Destroyed;
+
+    public class DestroyedEventArgs : EventArgs
+    {
+        public float DamageAngle { get; private set; }
+
+        public DestroyedEventArgs(float damageAngle)
+        {
+            DamageAngle = damageAngle;
+        }
+    }
+    public event EventHandler<DestroyedEventArgs> Destroyed;
     public event EventHandler HealthChanged;
 
     private bool isDestroyed = false;
@@ -42,16 +52,20 @@ public class DamageableObject : MonoBehaviour
 
     public static void DamageObject(GameObject obj, int damage)
     {
+        DamageObject(obj, damage, obj.transform.rotation.eulerAngles.z);
+    }
+    public static void DamageObject(GameObject obj, int damage, float damageAngle)
+    {
         // retrieve the damageable object component for the object if it exists
         var damageComponent = obj.GetComponent<DamageableObject>();
         if (damageComponent != null)
         {
             // apply damage
-            damageComponent.Damage(damage);
+            damageComponent.Damage(damage, damageAngle);
         }
     }
 
-    private void Damage(int damage)
+    private void Damage(int damage, float damageAngle)
     {
         if (!IsInvincible)
         {
@@ -62,7 +76,7 @@ public class DamageableObject : MonoBehaviour
                 // notify subscribers that the object has been destroyed
                 if (Destroyed != null)
                 {
-                    Destroyed(this, EventArgs.Empty);
+                    Destroyed(this, new DestroyedEventArgs(damageAngle));
                 }
 
                 if (DestroyObjectOnDeath)

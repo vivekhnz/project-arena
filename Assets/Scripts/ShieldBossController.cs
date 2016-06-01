@@ -148,7 +148,7 @@ public class ShieldBossController : MonoBehaviour
         }
     }
 
-    private void OnDestroyed(object sender, System.EventArgs e)
+    private void OnDestroyed(object sender, DamageableObject.DestroyedEventArgs e)
     {
         SceneManager.LoadScene("VictoryScene");
     }

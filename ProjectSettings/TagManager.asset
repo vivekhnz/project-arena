@@ -12,6 +12,9 @@ TagManager:
   - EnemyBullet
   - WaveManager
   - ArenaManager
+  - GameStateManager
+  - ExplosionManager
+  - Shockwave
   layers:
   - Default
   - TransparentFX
@@ -27,8 +30,8 @@ TagManager:
   - EnemyBullets
   - Enemy
   - EnemyBounds
-  - 
-  - 
+  - Shockwave
+  - Collectibles
   - 
   - 
   - 
@@ -64,6 +67,12 @@ TagManager:
   - name: Player
     uniqueID: 1696760447
     locked: 0
+  - name: Particles
+    uniqueID: 643937037
+    locked: 0
   - name: Terrain
     uniqueID: 642678989
+    locked: 0
+  - name: UI
+    uniqueID: 262378247
     locked: 0

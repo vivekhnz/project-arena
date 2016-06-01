@@ -12,6 +12,7 @@ GameObject:
   - 114: {fileID: 11497410}
   - 50: {fileID: 5035510}
   - 58: {fileID: 5802608}
+  - 95: {fileID: 9556256}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -62,6 +63,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!95 &9556256
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 192622}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f707565da91471645ab056a540ae4a4b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11497410
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -75,8 +93,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeed: 0.2
   Bullet: {fileID: 11458758, guid: cdb8c6cb9a9f59a4bacbc4c351ec1a9b, type: 2}
+  Shockwave: {fileID: 11498696, guid: 2f8f02610b5bd0e4da5f76d06de0d70b, type: 2}
   BulletSpread: 10
   RateOfFire: 1800
+  SuperDuration: 5
 --- !u!212 &21222648
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -104,7 +124,7 @@ SpriteRenderer:
   m_SortingLayerID: 1696760447
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b0dddb88bcecac44ebba449625b2940e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!1001 &100100000
@@ -134,6 +154,32 @@ Prefab:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: SuperDuration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Bullet
+      value: 
+      objectReference: {fileID: 11458758, guid: cdb8c6cb9a9f59a4bacbc4c351ec1a9b,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: Shockwave
+      value: 
+      objectReference: {fileID: 11498696, guid: 2f8f02610b5bd0e4da5f76d06de0d70b,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 192622}

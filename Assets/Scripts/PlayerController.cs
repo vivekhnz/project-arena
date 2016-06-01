@@ -5,13 +5,35 @@ public class PlayerController : MonoBehaviour
 {
     public float MovementSpeed = 0.3f;
     public BulletController Bullet;
+    public ShockwaveController Shockwave;
     public float BulletSpread = 10.0f; // degrees
     public float RateOfFire = 60.0f; // bullets per minute
-    
+    public float SuperDuration = 5.0f; // seconds
+    public float InvincibilityDuration = 2.0f; // seconds
+
+    public double SuperEnergy { get; private set; }
+    public bool IsSuperActive { get; private set; }
+
+    private GameStateManager gameStateManager;
+    private Animator animator;
     private float bulletFiredTime = 0.0f;
+    private float invincibilityTime;
+    private bool isInvincible = false;
 
     void Start()
     {
+        SuperEnergy = 0.0f;
+        IsSuperActive = false;
+        animator = GetComponent<Animator>();
+
+        isInvincible = true;
+        invincibilityTime = Time.time;
+
+        var gameStateManagerObj = GameObject.FindGameObjectWithTag("GameStateManager");
+        if (gameStateManagerObj != null)
+        {
+            gameStateManager = gameStateManagerObj.GetComponent<GameStateManager>();
+        }
     }
 
     void FixedUpdate()
@@ -77,6 +99,52 @@ public class PlayerController : MonoBehaviour
         {
             Fire();
         }
+        
+        if (IsSuperActive)
+        {
+            DepleteSuper();
+        }
+        else if (Input.GetButton("Super") && SuperEnergy >= 1.0)
+        {
+            ActivateSuper();
+        }
+
+        if (isInvincible && Time.time - invincibilityTime > InvincibilityDuration)
+        {
+            isInvincible = false;
+        }
+
+        if (animator != null)
+        {
+            animator.SetBool("IsSuperActive", IsSuperActive);
+            animator.SetBool("IsInvincible", isInvincible);
+        }
+    }
+
+    private void CreateShockwave()
+    {
+        if (Shockwave != null)
+        {
+            var shockwave = Shockwave.Fetch<ShockwaveController>();
+            shockwave.Initialize(transform.position);
+        }
+    }
+
+    private void ActivateSuper()
+    {
+        IsSuperActive = true;
+        CreateShockwave();
+    }
+
+    private void DepleteSuper()
+    {
+        float decreaseAmount = 1.0f / (60.0f * SuperDuration);
+        SuperEnergy = Mathf.Clamp((float)SuperEnergy - decreaseAmount, 0.0f, 1.0f);
+        if (SuperEnergy <= 0.0)
+        {
+            SuperEnergy = 0.0;
+            IsSuperActive = false;
+        }
     }
 
     void Fire()
@@ -86,19 +154,51 @@ public class PlayerController : MonoBehaviour
             float timeBetweenBullets = 60.0f / RateOfFire;
             if (Time.time - bulletFiredTime > timeBetweenBullets)
             {
-                // fetch a bullet instance from the object pool
-                var bullet = Bullet.Fetch<BulletController>();
-                // calculate aim direction based on bullet spread
-                float aim = transform.rotation.eulerAngles.z + Random.Range(-BulletSpread, BulletSpread);
-                // calculate offset
-                Vector3 offset = new Vector3(
-                    Mathf.Cos(transform.rotation.eulerAngles.z * Mathf.Deg2Rad),
-                    Mathf.Sin(transform.rotation.eulerAngles.z * Mathf.Deg2Rad),
-                    0) * transform.localScale.x;
-                bullet.Initialize(this.transform.position + offset, aim);
-                // store the current time for rate of fire calculation
-                bulletFiredTime = Time.time;
+                int bulletsToFire = (int)Mathf.Ceil(RateOfFire / 3600.0f);
+                for (int i = 0; i < bulletsToFire; i++)
+                {
+                    // fetch a bullet instance from the object pool
+                    var bullet = Bullet.Fetch<BulletController>();
+                    // calculate aim direction based on bullet spread
+                    float aim = transform.rotation.eulerAngles.z + Random.Range(-BulletSpread, BulletSpread);
+                    // calculate offset
+                    Vector3 offset = new Vector3(
+                        Mathf.Cos(transform.rotation.eulerAngles.z * Mathf.Deg2Rad),
+                        Mathf.Sin(transform.rotation.eulerAngles.z * Mathf.Deg2Rad),
+                        0) * transform.localScale.x;
+                    bullet.Initialize(this.transform.position + offset, aim);
+                    // store the current time for rate of fire calculation
+                    bulletFiredTime = Time.time;
+                }
             }
+        }
+    }
+
+    public void AddSuperEnergy(double amount)
+    {
+        SuperEnergy += amount;
+        if (SuperEnergy > 1.0)
+        {
+            SuperEnergy = 1.0;
+        }
+    }
+
+    public void Kill()
+    {
+        if (!isInvincible)
+        {
+            if (gameStateManager != null)
+            {
+                gameStateManager.AddScore(-gameStateManager.DeathScorePenalty);
+            }
+
+            SuperEnergy = 0.0;
+            IsSuperActive = false;
+
+            CreateShockwave();
+
+            isInvincible = true;
+            invincibilityTime = Time.time;
         }
     }
 

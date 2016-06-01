@@ -8,17 +8,28 @@ public class EnemyController : PooledObject
 {
     public float TurnSpeed = 0.1f;
     public float MovementSpeed = 0.15f;
+    public int ScoreValue = 100;
+    public int ShardsToDrop = 1;
+    public ShardController Shard;
 
     public event EventHandler EnemyDestroyed;
     public event EventHandler EnemyEscaped;
     
     private ArenaManager arena;
+    private GameStateManager gameStateManager;
+    private ExplosionManager explosionManager;
+
     private DamageableObject damageComponent;
+    private Animator animator;
     private Vector2 velocity;
 
     public bool IsEscaping { get; private set; }
     private float escapeAngle;
     private bool escaped;
+
+    private bool canBeShockwaved;
+    private float shockwavedTime;
+    private float ShockwaveImmunityTime = 1.0f;
 
     public void Initialize(Vector3 position)
     {
@@ -30,17 +41,34 @@ public class EnemyController : PooledObject
         IsEscaping = false;
         escaped = false;
 
+        canBeShockwaved = true;
+        shockwavedTime = Time.time;
+
         damageComponent = GetComponent<DamageableObject>();
         if (damageComponent != null)
         {
             damageComponent.ResetHealth();
+            damageComponent.HealthChanged += OnHealthChanged;
             damageComponent.Destroyed += OnDestroyed;
         }
+        animator = GetComponent<Animator>();
 
         var arenaManagerObj = GameObject.FindGameObjectWithTag("ArenaManager");
         if (arenaManagerObj != null)
         {
             arena = arenaManagerObj.GetComponent<ArenaManager>();
+        }
+
+        var gameStateManagerObj = GameObject.FindGameObjectWithTag("GameStateManager");
+        if (gameStateManagerObj != null)
+        {
+            gameStateManager = gameStateManagerObj.GetComponent<GameStateManager>();
+        }
+
+        var explosionManagerObj = GameObject.FindGameObjectWithTag("ExplosionManager");
+        if (explosionManagerObj != null)
+        {
+            explosionManager = explosionManagerObj.GetComponent<ExplosionManager>();
         }
 
         base.ResetInstance();
@@ -51,6 +79,7 @@ public class EnemyController : PooledObject
         // unhook from events so we don't get duplicate notifications when this object is pooled
         if (damageComponent != null)
         {
+            damageComponent.HealthChanged -= OnHealthChanged;
             damageComponent.Destroyed -= OnDestroyed;
         }
 
@@ -59,6 +88,11 @@ public class EnemyController : PooledObject
 
     void FixedUpdate()
     {
+        if (!canBeShockwaved && Time.time - shockwavedTime > ShockwaveImmunityTime)
+        {
+            canBeShockwaved = true;
+        }
+
         if (IsEscaping)
         {
             if (!escaped && transform.position.magnitude > arena.ArenaRadius)
@@ -108,7 +142,7 @@ public class EnemyController : PooledObject
     {
         ManageCollisions(collision);
     }
-
+    
     private void ManageCollisions(Collision2D collision)
     {
         string[] tags = collision.gameObject.tag.Split('|');
@@ -117,8 +151,30 @@ public class EnemyController : PooledObject
             switch (tag)
             {
                 case "Player":
-                    // navigate to the Defeat scene if an enemy collides with the player
-                    SceneManager.LoadScene("DefeatScene");
+                    // kill the player
+                    var player = collision.gameObject.GetComponent<PlayerController>();
+                    if (player != null)
+                    {
+                        player.Kill();
+                    }
+
+                    // destroy this enemy
+                    Vector2 damageDir = (transform.position - player.transform.position).normalized;
+                    DamageableObject.DamageObject(gameObject, damageComponent.MaxHealth,
+                        Mathf.Atan2(damageDir.y, damageDir.x) * Mathf.Rad2Deg);
+                    break;
+                case "Shockwave":
+                    if (canBeShockwaved)
+                    {
+                        Vector2 direction = ((Vector2)transform.position
+                            - (Vector2)collision.transform.position).normalized;
+                        AddForce(direction * 100.0f);
+                        DamageableObject.DamageObject(gameObject, 2,
+                            Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
+
+                        canBeShockwaved = false;
+                        shockwavedTime = Time.time;
+                    }
                     break;
             }
         }
@@ -137,11 +193,31 @@ public class EnemyController : PooledObject
         }
     }
 
-    private void OnDestroyed(object sender, System.EventArgs e)
+    private void OnHealthChanged(object sender, EventArgs e)
+    {
+        if (animator != null)
+        {
+            // play the damaged animation
+            animator.SetTrigger("OnDamaged");
+        }
+    }
+
+    private void OnDestroyed(object sender, DamageableObject.DestroyedEventArgs e)
     {
         if (EnemyDestroyed != null)
         {
             EnemyDestroyed(this, EventArgs.Empty);
+        }
+        gameStateManager.AddScore(ScoreValue);
+        explosionManager.CreateEnemyExplosion(transform.position, e.DamageAngle);
+        if (Shard != null)
+        {
+            for (int i = 0; i < ShardsToDrop; i++)
+            {
+                var shard = Shard.Fetch<ShardController>();
+                shard.Initialize(transform.position,
+                    e.DamageAngle + UnityEngine.Random.Range(-90.0f, 90.0f));
+            }
         }
     }
 }
