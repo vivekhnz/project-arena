@@ -23,12 +23,12 @@ public class AudioIntensityController : MonoBehaviour
         {
             Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, 28.0f,
                 (intensity - 0.06f) * 2.0f);
-            Background.color = Color.Lerp(Background.color, Color.white,
+            Background.color = Color.Lerp(Background.color, new Color(0.4f, 0.4f, 0.4f),
                 (intensity - 0.06f) * 3.0f);
         }
         else
         {
-            Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, 23.0f, 0.05f);
+            Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, 25.0f, 0.05f);
             Background.color = Color.Lerp(Background.color, new Color(0.1f, 0.1f, 0.1f), 0.1f);
         }
     }
