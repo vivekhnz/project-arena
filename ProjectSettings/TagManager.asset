@@ -15,6 +15,7 @@ TagManager:
   - GameStateManager
   - ExplosionManager
   - Shockwave
+  - AudioController
   layers:
   - Default
   - TransparentFX
