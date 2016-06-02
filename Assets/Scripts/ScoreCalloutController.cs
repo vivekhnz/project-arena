@@ -16,6 +16,11 @@ public class ScoreCalloutController : PooledObject
         calloutText.text = string.Format("{0}{1}",
             scoreValue < 0 ? "-" : "+", scoreValue);
 
+        int scoreCap = 250;
+        float amount = Mathf.Clamp((float)scoreValue / (float)scoreCap, 0.0f, 1.0f);
+        float scale = Mathf.Lerp(0.04f, 0.1f, amount);
+        transform.localScale = new Vector3(scale, scale);
+
         this.velocity = velocity;
     }
 
