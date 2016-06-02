@@ -9,15 +9,18 @@ public class ScoreCalloutController : PooledObject
     public void Initialize(Transform parent,
         Vector3 position, int scoreValue, Vector2 velocity)
     {
+        bool isNegative = scoreValue < 0;
+
         transform.position = position;
         transform.SetParent(parent);
 
         var calloutText = GetComponent<Text>();
         calloutText.text = string.Format("{0}{1}",
-            scoreValue < 0 ? "-" : "+", scoreValue);
+            isNegative ? string.Empty : "+", scoreValue);
+        calloutText.color = isNegative ? Color.red : Color.white;
 
         int scoreCap = 250;
-        float amount = Mathf.Clamp((float)scoreValue / (float)scoreCap, 0.0f, 1.0f);
+        float amount = Mathf.Clamp(Mathf.Abs((float)scoreValue) / (float)scoreCap, 0.0f, 1.0f);
         float scale = Mathf.Lerp(0.04f, 0.1f, amount);
         transform.localScale = new Vector3(scale, scale);
 
