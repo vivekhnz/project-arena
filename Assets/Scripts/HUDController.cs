@@ -7,6 +7,7 @@ public class HUDController : MonoBehaviour
 {
     public WaveManager WaveManager;
     public GameStateManager GameStateManager;
+    public PlayerController Player;
 
     public Text WaveNamesText;
     public Text WaveScoresText;
@@ -56,6 +57,8 @@ public class HUDController : MonoBehaviour
             }
             ScoreText.text = displayedScore.ToString().PadLeft(5, '0');
         }
+
+        Animator.SetFloat("SuperEnergy", (float)Player.SuperEnergy);
     }
 
     private void OnRoundCompleted(object sender, System.EventArgs e)

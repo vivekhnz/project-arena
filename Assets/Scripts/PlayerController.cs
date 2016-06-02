@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public bool IsSuperActive { get; private set; }
 
     private GameStateManager gameStateManager;
+    private WorldUIController worldUIController;
     private Animator animator;
     private float bulletFiredTime = 0.0f;
     private float invincibilityTime;
@@ -33,6 +34,12 @@ public class PlayerController : MonoBehaviour
         if (gameStateManagerObj != null)
         {
             gameStateManager = gameStateManagerObj.GetComponent<GameStateManager>();
+        }
+
+        var worldUIControllerObj = GameObject.FindGameObjectWithTag("WorldUIController");
+        if (worldUIControllerObj != null)
+        {
+            worldUIController = worldUIControllerObj.GetComponent<WorldUIController>();
         }
     }
 
@@ -177,7 +184,7 @@ public class PlayerController : MonoBehaviour
     public void AddSuperEnergy(double amount)
     {
         SuperEnergy += amount;
-        if (SuperEnergy > 1.0)
+        if (SuperEnergy >= 1.0)
         {
             SuperEnergy = 1.0;
         }
@@ -191,6 +198,9 @@ public class PlayerController : MonoBehaviour
             {
                 gameStateManager.AddScore(-gameStateManager.DeathScorePenalty);
             }
+
+            worldUIController.CreateScoreCallout(-gameStateManager.DeathScorePenalty, transform.position,
+                new Vector2(0, 0.1f));
 
             SuperEnergy = 0.0;
             IsSuperActive = false;

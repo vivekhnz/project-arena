@@ -18,6 +18,7 @@ public class EnemyController : PooledObject
     private ArenaManager arena;
     private GameStateManager gameStateManager;
     private ExplosionManager explosionManager;
+    private WorldUIController worldUIController;
 
     private DamageableObject damageComponent;
     private Animator animator;
@@ -69,6 +70,12 @@ public class EnemyController : PooledObject
         if (explosionManagerObj != null)
         {
             explosionManager = explosionManagerObj.GetComponent<ExplosionManager>();
+        }
+
+        var worldUIControllerObj = GameObject.FindGameObjectWithTag("WorldUIController");
+        if (worldUIControllerObj != null)
+        {
+            worldUIController = worldUIControllerObj.GetComponent<WorldUIController>();
         }
 
         base.ResetInstance();
@@ -209,6 +216,13 @@ public class EnemyController : PooledObject
             EnemyDestroyed(this, EventArgs.Empty);
         }
         gameStateManager.AddScore(ScoreValue);
+        
+        Vector2 calloutDirection = new Vector2(
+            Mathf.Cos(e.DamageAngle * Mathf.Deg2Rad),
+            Mathf.Sin(e.DamageAngle * Mathf.Deg2Rad));
+        worldUIController.CreateScoreCallout(ScoreValue, transform.position,
+            calloutDirection * 0.1f);
+
         explosionManager.CreateEnemyExplosion(transform.position, e.DamageAngle);
         if (Shard != null)
         {
