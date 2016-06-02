@@ -31,9 +31,9 @@ public class WorldUIController : MonoBehaviour
         }
     }
 
-    public void CreateScoreCallout(int scoreValue, Vector3 position)
+    public void CreateScoreCallout(int scoreValue, Vector3 position, Vector2 velocity)
     {
         var callout = ScoreCallout.Fetch<ScoreCalloutController>();
-        callout.Initialize(transform, position, scoreValue);
+        callout.Initialize(transform, position, scoreValue, velocity);
     }
 }

@@ -216,7 +216,13 @@ public class EnemyController : PooledObject
             EnemyDestroyed(this, EventArgs.Empty);
         }
         gameStateManager.AddScore(ScoreValue);
-        worldUIController.CreateScoreCallout(ScoreValue, transform.position);
+        
+        Vector2 calloutDirection = new Vector2(
+            Mathf.Cos(e.DamageAngle * Mathf.Deg2Rad),
+            Mathf.Sin(e.DamageAngle * Mathf.Deg2Rad));
+        worldUIController.CreateScoreCallout(ScoreValue, transform.position,
+            calloutDirection * 0.1f);
+
         explosionManager.CreateEnemyExplosion(transform.position, e.DamageAngle);
         if (Shard != null)
         {
