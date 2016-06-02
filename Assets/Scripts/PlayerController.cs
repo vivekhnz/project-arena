@@ -19,10 +19,12 @@ public class PlayerController : MonoBehaviour
     private float bulletFiredTime = 0.0f;
     private float invincibilityTime;
     private bool isInvincible = false;
+    private bool superchargedNotified = false;
 
     void Start()
     {
         SuperEnergy = 0.0f;
+        superchargedNotified = false;
         IsSuperActive = false;
         animator = GetComponent<Animator>();
 
@@ -138,6 +140,8 @@ public class PlayerController : MonoBehaviour
 
     private void DepleteSuper()
     {
+        superchargedNotified = false;
+
         float decreaseAmount = 1.0f / (60.0f * SuperDuration);
         SuperEnergy = Mathf.Clamp((float)SuperEnergy - decreaseAmount, 0.0f, 1.0f);
         if (SuperEnergy <= 0.0)
@@ -177,8 +181,13 @@ public class PlayerController : MonoBehaviour
     public void AddSuperEnergy(double amount)
     {
         SuperEnergy += amount;
-        if (SuperEnergy > 1.0)
+        if (SuperEnergy >= 1.0)
         {
+            if (gameStateManager != null && !superchargedNotified)
+            {
+                gameStateManager.NotifySupercharged();
+                superchargedNotified = true;
+            }
             SuperEnergy = 1.0;
         }
     }
@@ -194,6 +203,7 @@ public class PlayerController : MonoBehaviour
 
             SuperEnergy = 0.0;
             IsSuperActive = false;
+            superchargedNotified = false;
 
             CreateShockwave();
 

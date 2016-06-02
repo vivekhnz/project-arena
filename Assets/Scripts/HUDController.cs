@@ -37,6 +37,11 @@ public class HUDController : MonoBehaviour
             WaveManager.RoundCompleted += OnRoundCompleted;
             WaveManager.RoundStarted += OnRoundStarted;
         }
+
+        if (GameStateManager != null)
+        {
+            GameStateManager.Supercharged += OnSupercharged;
+        }
     }
 
     void Update()
@@ -110,5 +115,18 @@ public class HUDController : MonoBehaviour
     {
         Animator.SetBool("IsRoundOverlayVisible", false);
         Animator.SetBool("IsBossFightActive", true);
+    }
+
+    private void OnSupercharged(object sender, System.EventArgs e)
+    {
+        Animator.SetTrigger("OnSupercharged");
+    }
+
+    void OnDestroy()
+    {
+        if (GameStateManager != null)
+        {
+            GameStateManager.Supercharged -= OnSupercharged;
+        }
     }
 }
