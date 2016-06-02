@@ -2109,6 +2109,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1225412233}
   - 82: {fileID: 1225412232}
+  - 114: {fileID: 1225412234}
   m_Layer: 0
   m_Name: Audio Controller
   m_TagString: Untagged
@@ -2202,6 +2203,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 11
+--- !u!114 &1225412234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1225412231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 776a09db177c4854797a8ce9410493b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Background: {fileID: 1667127365}
 --- !u!1 &1244158894
 GameObject:
   m_ObjectHideFlags: 0
@@ -3009,7 +3022,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1810624269
 Transform:
   m_ObjectHideFlags: 0
