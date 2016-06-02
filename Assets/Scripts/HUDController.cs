@@ -7,6 +7,7 @@ public class HUDController : MonoBehaviour
 {
     public WaveManager WaveManager;
     public GameStateManager GameStateManager;
+    public PlayerController Player;
 
     public Text WaveNamesText;
     public Text WaveScoresText;
@@ -37,11 +38,6 @@ public class HUDController : MonoBehaviour
             WaveManager.RoundCompleted += OnRoundCompleted;
             WaveManager.RoundStarted += OnRoundStarted;
         }
-
-        if (GameStateManager != null)
-        {
-            GameStateManager.Supercharged += OnSupercharged;
-        }
     }
 
     void Update()
@@ -61,6 +57,8 @@ public class HUDController : MonoBehaviour
             }
             ScoreText.text = displayedScore.ToString().PadLeft(5, '0');
         }
+
+        Animator.SetFloat("SuperEnergy", (float)Player.SuperEnergy);
     }
 
     private void OnRoundCompleted(object sender, System.EventArgs e)
@@ -115,18 +113,5 @@ public class HUDController : MonoBehaviour
     {
         Animator.SetBool("IsRoundOverlayVisible", false);
         Animator.SetBool("IsBossFightActive", true);
-    }
-
-    private void OnSupercharged(object sender, System.EventArgs e)
-    {
-        Animator.SetTrigger("OnSupercharged");
-    }
-
-    void OnDestroy()
-    {
-        if (GameStateManager != null)
-        {
-            GameStateManager.Supercharged -= OnSupercharged;
-        }
     }
 }

@@ -8,8 +8,6 @@ public class GameStateManager : MonoBehaviour
     public int PerfectWaveBonus = 200;
     public int DeathScorePenalty = 1000;
 
-    public event EventHandler Supercharged;
-
 	void Start ()
     {
         Score = 0;
@@ -26,14 +24,6 @@ public class GameStateManager : MonoBehaviour
         if (Score < 0)
         {
             Score = 0;
-        }
-    }
-
-    public void NotifySupercharged()
-    {
-        if (Supercharged != null)
-        {
-            Supercharged(this, EventArgs.Empty);
         }
     }
 }

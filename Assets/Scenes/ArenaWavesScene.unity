@@ -1474,6 +1474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WaveManager: {fileID: 447777599}
   GameStateManager: {fileID: 1131421091}
+  Player: {fileID: 1995564094}
   WaveNamesText: {fileID: 1781895285}
   WaveScoresText: {fileID: 976432906}
   WavePerfectText: {fileID: 730296247}
