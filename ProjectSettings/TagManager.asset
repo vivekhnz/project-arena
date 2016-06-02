@@ -16,6 +16,7 @@ TagManager:
   - ExplosionManager
   - Shockwave
   - AudioController
+  - WorldUIController
   layers:
   - Default
   - TransparentFX

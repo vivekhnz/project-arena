@@ -657,7 +657,7 @@ GameObject:
   - 114: {fileID: 382193867}
   m_Layer: 5
   m_Name: WorldUICanvas
-  m_TagString: Untagged
+  m_TagString: WorldUIController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -766,6 +766,7 @@ MonoBehaviour:
   Player: {fileID: 1995564094}
   SuperMeter: {fileID: 341247337}
   SuperMeterForeground: {fileID: 449391464}
+  ScoreCallout: {fileID: 11490330, guid: ce0fe333c3c972144af3e4ed825495f7, type: 2}
 --- !u!1 &385978530
 GameObject:
   m_ObjectHideFlags: 0

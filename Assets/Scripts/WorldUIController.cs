@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System;
 
 public class WorldUIController : MonoBehaviour
 {
     public PlayerController Player;
     public GameObject SuperMeter;
     public Image SuperMeterForeground;
+    public ScoreCalloutController ScoreCallout;
 
     private Animator animator;
 
@@ -27,5 +29,11 @@ public class WorldUIController : MonoBehaviour
             animator.SetFloat("SuperEnergy", (float)Player.SuperEnergy);
             animator.SetBool("IsSuperActive", Player.IsSuperActive);
         }
+    }
+
+    public void CreateScoreCallout(int scoreValue, Vector3 position)
+    {
+        var callout = ScoreCallout.Fetch<ScoreCalloutController>();
+        callout.Initialize(transform, position, scoreValue);
     }
 }
