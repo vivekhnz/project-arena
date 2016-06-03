@@ -18,6 +18,7 @@ public class HUDController : MonoBehaviour
     public Text ScoreText;
     public Text CurrentRoundText;
     public Text CurrentWaveText;
+    public Text HighscoreText;
 
     private int displayedScore = 0;
 
@@ -41,6 +42,8 @@ public class HUDController : MonoBehaviour
             WaveManager.RoundCompleted += OnRoundCompleted;
             WaveManager.RoundStarted += OnRoundStarted;
         }
+        HighscoreText.text =
+            ApplicationModel.GetValue("High Score", true).ToString();
     }
 
     void Update()

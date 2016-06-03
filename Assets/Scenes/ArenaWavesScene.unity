@@ -775,7 +775,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 70000
+  m_Text: 0
 --- !u!222 &370883785
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1631,6 +1631,7 @@ MonoBehaviour:
   ScoreText: {fileID: 362036625}
   CurrentRoundText: {fileID: 1390756131}
   CurrentWaveText: {fileID: 1640028375}
+  HighscoreText: {fileID: 370883784}
 --- !u!95 &553174350
 Animator:
   serializedVersion: 3
