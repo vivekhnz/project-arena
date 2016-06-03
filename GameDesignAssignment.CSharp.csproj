@@ -102,6 +102,7 @@
     <Compile Include="Assets\Scripts\ShieldGeneratorController.cs" />
     <Compile Include="Assets\Scripts\ShieldGeneratorManager.cs" />
     <Compile Include="Assets\Scripts\ShockwaveController.cs" />
+    <Compile Include="Assets\Scripts\SwarmEnemyController.cs" />
     <Compile Include="Assets\Scripts\TerrainController.cs" />
     <Compile Include="Assets\Scripts\WaveEnemyController.cs" />
     <Compile Include="Assets\Scripts\WaveEnemySpawner.cs" />
