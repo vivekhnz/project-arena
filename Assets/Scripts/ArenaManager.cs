@@ -53,20 +53,12 @@ public class ArenaManager : MonoBehaviour
         }
     }
 
-    public void StartBossFight()
+    public void Finish()
     {
         AudioController.FadeOut();
         HUD.HideRoundOverlay();
         hasFinished = true;
         finishTime = Time.time;
-
-        //BossEncounter.SetActive(true);
-        //WaveManager.SetActive(false);
-
-        //// move the player to a safe location when the boss spawns
-        //Player.transform.position = PlayerBossEncounterPosition;
-
-        //HUD.ShowBossFightUI();
     }
 
     void OnDrawGizmosSelected()
