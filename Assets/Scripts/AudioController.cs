@@ -16,7 +16,7 @@ public class AudioController : MonoBehaviour
         lowpass = GetComponent<AudioLowPassFilter>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         audioSource.GetSpectrumData(spectrum, 0, FFTWindow.BlackmanHarris);
         Intensity = spectrum[2];
