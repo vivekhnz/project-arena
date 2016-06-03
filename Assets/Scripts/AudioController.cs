@@ -7,6 +7,7 @@ public class AudioController : MonoBehaviour
     AudioSource audioSource;
     AudioLowPassFilter lowpass;
     float[] spectrum = new float[256];
+    private bool isFadingOut = false;
 
     public float Intensity { get; private set; }
 
@@ -14,6 +15,7 @@ public class AudioController : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         lowpass = GetComponent<AudioLowPassFilter>();
+        isFadingOut = false;
     }
 
     void FixedUpdate()
@@ -21,7 +23,11 @@ public class AudioController : MonoBehaviour
         audioSource.GetSpectrumData(spectrum, 0, FFTWindow.BlackmanHarris);
         Intensity = spectrum[2];
 
-        if (lowpass.cutoffFrequency < 5000)
+        if (isFadingOut)
+        {
+            lowpass.cutoffFrequency = Mathf.Lerp(lowpass.cutoffFrequency, 0, 0.02f);
+        }
+        else if (lowpass.cutoffFrequency < 5000)
         {
             lowpass.cutoffFrequency = Mathf.Lerp(lowpass.cutoffFrequency, 5000, 0.02f);
             if (lowpass.cutoffFrequency > 4995)
@@ -33,6 +39,14 @@ public class AudioController : MonoBehaviour
 
     public void ApplyShockwaveEffect()
     {
-        lowpass.cutoffFrequency = 50;
+        if (!isFadingOut)
+        {
+            lowpass.cutoffFrequency = 50;
+        }
+    }
+
+    public void FadeOut()
+    {
+        isFadingOut = true;
     }
 }

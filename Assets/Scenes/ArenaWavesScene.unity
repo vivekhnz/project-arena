@@ -2149,10 +2149,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 139526, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
   m_IsPrefabParent: 0
@@ -3038,11 +3034,12 @@ MonoBehaviour:
   WaveManager: {fileID: 745390986}
   Player: {fileID: 1995564091}
   GameStateManager: {fileID: 1131421091}
-  AudioController: {fileID: 1225412231}
+  AudioController: {fileID: 1225412234}
   HUD: {fileID: 553174349}
   ArenaRadius: 50
   PlayerBossEncounterPosition: {x: 0, y: -20, z: 0}
   DelayDuration: 6
+  FinishDuration: 5
 --- !u!114 &1254711782 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11443954, guid: 54e803e95d28e034d8cc0b0bb0561478,

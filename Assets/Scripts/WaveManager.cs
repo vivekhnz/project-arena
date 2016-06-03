@@ -42,6 +42,11 @@ public class WaveManager : MonoBehaviour
     private float roundTime;
     private bool allRoundsComplete = false;
 
+    public bool AllRoundsComplete
+    {
+        get { return allRoundsComplete; }
+    }
+
     void Start()
     {
         var arenaObj = GameObject.FindGameObjectWithTag("ArenaManager");
