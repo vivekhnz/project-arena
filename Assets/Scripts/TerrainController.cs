@@ -8,16 +8,20 @@ public class TerrainController : MonoBehaviour
     public SpriteRenderer MidLayer1;
     public SpriteRenderer MidLayer2;
     public SpriteRenderer FrontLayer;
+
     public AudioController AudioController;
+    public WaveManager WaveManager;
 
     public Color LowIntensityBackground = new Color(0.1f, 0.1f, 0.1f);
     public Color HighIntensityBackground = new Color(0.4f, 0.4f, 0.4f);
     public Color ForegroundColor = new Color(0.0f, 0.0f, 0.0f, 1.0f);
     public Sprite ForegroundSprite;
 
+    private Animator animator;
+
     void Start ()
     {
-	
+        animator = GetComponent<Animator>();
 	}
 	
 	void FixedUpdate ()
@@ -56,5 +60,7 @@ public class TerrainController : MonoBehaviour
         MidLayer1.sprite = ForegroundSprite;
         MidLayer2.sprite = ForegroundSprite;
         FrontLayer.sprite = ForegroundSprite;
+
+        animator.SetInteger("CurrentRound", WaveManager.CurrentRound);
     }
 }

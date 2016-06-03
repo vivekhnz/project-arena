@@ -137,6 +137,7 @@ MonoBehaviour:
   MidLayer2: {fileID: 1604061293}
   FrontLayer: {fileID: 1963165111}
   AudioController: {fileID: 1225412234}
+  WaveManager: {fileID: 447777599}
   LowIntensityBackground: {r: 0.101960786, g: 0.101960786, b: 0.101960786, a: 1}
   HighIntensityBackground: {r: 0.4, g: 0.4, b: 0.4, a: 1}
   ForegroundColor: {r: 0, g: 0, b: 0, a: 1}
