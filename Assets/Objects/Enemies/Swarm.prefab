@@ -165,7 +165,7 @@ MonoBehaviour:
   TurnSpeed: 0.01
   MovementSpeed: 0.2
   ScoreValue: 10
-  ShardsToDrop: 1
+  ShardsToDrop: 0.25
   Shard: {fileID: 11457252, guid: 49493089eb229a546b74c943c457cc42, type: 2}
 --- !u!114 &11480564
 MonoBehaviour:
@@ -322,6 +322,10 @@ Prefab:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: f03f8a19e88aa364ebffb303ef159d7f, type: 2}
+    - target: {fileID: 0}
+      propertyPath: ShardsToDrop
+      value: 0.25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 186406}

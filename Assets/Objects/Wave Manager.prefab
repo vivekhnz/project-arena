@@ -67,7 +67,7 @@ MonoBehaviour:
       - Enemy: {fileID: 11432990, guid: 653ace7cc05272145866dcca8542a263, type: 2}
         EnemiesPerSpawn: 5
     - SpawnerCount: 5
-      WaveDuration: 15
+      WaveDuration: 10
       SpawnerCreationInterval: 1
       EnemySpawnInterval: 0.5
       Spawns:
@@ -403,7 +403,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[0].Waves.Array.data[3].WaveDuration
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[0].Waves.Array.data[0].Spawns.Array.data[0].Enemy
@@ -522,7 +522,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[1].Waves.Array.data[3].WaveDuration
-      value: 15
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Rounds.Array.data[1].Waves.Array.data[3].SpawnerCreationInterval
