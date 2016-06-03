@@ -1548,12 +1548,14 @@ MonoBehaviour:
   WaveManager: {fileID: 447777599}
   GameStateManager: {fileID: 1131421091}
   Player: {fileID: 1995564094}
-  WaveNamesText: {fileID: 1781895285}
-  WaveScoresText: {fileID: 976432906}
-  WavePerfectText: {fileID: 730296247}
-  WaveBonusText: {fileID: 886437943}
-  CurrentRoundText: {fileID: 1583064914}
+  RoundOverlayWaveNamesText: {fileID: 1781895285}
+  RoundOverlayWaveScoresText: {fileID: 976432906}
+  RoundOverlayWavePerfectText: {fileID: 730296247}
+  RoundOverlayWaveBonusText: {fileID: 886437943}
+  RoundOverlayCurrentRoundText: {fileID: 1583064914}
   ScoreText: {fileID: 362036625}
+  CurrentRoundText: {fileID: 1390756131}
+  CurrentWaveText: {fileID: 1640028375}
 --- !u!95 &553174350
 Animator:
   serializedVersion: 3
@@ -2841,7 +2843,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 2/3
+  m_Text: 1/5
 --- !u!222 &1390756132
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3159,7 +3161,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 4/5
+  m_Text: 1/4
 --- !u!222 &1640028376
 CanvasRenderer:
   m_ObjectHideFlags: 0

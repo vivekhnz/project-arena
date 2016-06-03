@@ -9,12 +9,15 @@ public class HUDController : MonoBehaviour
     public GameStateManager GameStateManager;
     public PlayerController Player;
 
-    public Text WaveNamesText;
-    public Text WaveScoresText;
-    public Text WavePerfectText;
-    public Text WaveBonusText;
-    public Text CurrentRoundText;
+    public Text RoundOverlayWaveNamesText;
+    public Text RoundOverlayWaveScoresText;
+    public Text RoundOverlayWavePerfectText;
+    public Text RoundOverlayWaveBonusText;
+    public Text RoundOverlayCurrentRoundText;
+
     public Text ScoreText;
+    public Text CurrentRoundText;
+    public Text CurrentWaveText;
 
     private int displayedScore = 0;
 
@@ -56,6 +59,12 @@ public class HUDController : MonoBehaviour
                 displayedScore += (increaseAmount * changeDirection);
             }
             ScoreText.text = displayedScore.ToString().PadLeft(5, '0');
+
+            CurrentRoundText.text = string.Format("{0}/{1}",
+                WaveManager.CurrentRound, WaveManager.Rounds.Count);
+            var round = WaveManager.Rounds[WaveManager.CurrentRound - 1];
+            CurrentWaveText.text = string.Format("{0}/{1}",
+                WaveManager.CurrentWave, round.Waves.Count);
         }
 
         Animator.SetFloat("SuperEnergy", (float)Player.SuperEnergy);
@@ -90,11 +99,11 @@ public class HUDController : MonoBehaviour
             }
         }
 
-        WaveNamesText.text = sbWaveNamesText.ToString();
-        WaveScoresText.text = sbWaveScoresText.ToString();
-        WavePerfectText.text = sbWavePerfectText.ToString();
-        WaveBonusText.text = sbWaveBonusText.ToString();
-        CurrentRoundText.text = string.Format("ROUND {0}", WaveManager.CurrentRound);
+        RoundOverlayWaveNamesText.text = sbWaveNamesText.ToString();
+        RoundOverlayWaveScoresText.text = sbWaveScoresText.ToString();
+        RoundOverlayWavePerfectText.text = sbWavePerfectText.ToString();
+        RoundOverlayWaveBonusText.text = sbWaveBonusText.ToString();
+        RoundOverlayCurrentRoundText.text = string.Format("ROUND {0}", WaveManager.CurrentRound);
 
         Animator.SetBool("IsRoundOverlayVisible", true);
     }
