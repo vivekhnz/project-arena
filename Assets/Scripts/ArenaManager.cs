@@ -8,17 +8,36 @@ public class ArenaManager : MonoBehaviour
     public GameObject WaveManager;
     public GameObject Player;
     public GameStateManager GameStateManager;
+    public GameObject AudioController;
 
     public HUDController HUD;
     public float ArenaRadius = 50.0f;
     public Vector3 PlayerBossEncounterPosition;
+    public float DelayDuration = 10.0f;
+
+    private float startTime;
+    private bool hasStarted;
 
     void Start()
     {
+        startTime = Time.time;
+        hasStarted = false;
+
         BossEncounter.SetActive(false);
-        WaveManager.SetActive(true);
+        WaveManager.SetActive(false);
+        AudioController.SetActive(false);
 
         HUD.ShowWavesUI();
+    }
+
+    void FixedUpdate()
+    {
+        if (!hasStarted && Time.time - startTime > DelayDuration)
+        {
+            WaveManager.SetActive(true);
+            AudioController.SetActive(true);
+            hasStarted = true;
+        }
     }
 
     public void StartBossFight()

@@ -63,11 +63,14 @@ public class HUDController : MonoBehaviour
             }
             ScoreText.text = displayedScore.ToString().PadLeft(5, '0');
 
+            int roundIndex = WaveManager.CurrentRound == 0 ? 1 : WaveManager.CurrentRound;
             CurrentRoundText.text = string.Format("{0}/{1}",
-                WaveManager.CurrentRound, WaveManager.Rounds.Count);
-            var round = WaveManager.Rounds[WaveManager.CurrentRound - 1];
+                roundIndex, WaveManager.Rounds.Count);
+            var round = WaveManager.Rounds[roundIndex - 1];
+
+            int wave = WaveManager.CurrentWave == 0 ? 1 : WaveManager.CurrentWave;
             CurrentWaveText.text = string.Format("{0}/{1}",
-                WaveManager.CurrentWave, round.Waves.Count);
+                wave, round.Waves.Count);
         }
 
         Animator.SetFloat("SuperEnergy", (float)Player.SuperEnergy);
