@@ -61,6 +61,6 @@ public class TerrainController : MonoBehaviour
         MidLayer2.sprite = ForegroundSprite;
         FrontLayer.sprite = ForegroundSprite;
 
-        animator.SetInteger("CurrentRound", WaveManager.CurrentRound);
+        animator.SetInteger("CurrentRound", WaveManager.AllRoundsComplete ? 6 : WaveManager.CurrentRound);
     }
 }

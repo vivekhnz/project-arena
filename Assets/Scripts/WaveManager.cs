@@ -42,6 +42,11 @@ public class WaveManager : MonoBehaviour
     private float roundTime;
     private bool allRoundsComplete = false;
 
+    public bool AllRoundsComplete
+    {
+        get { return allRoundsComplete; }
+    }
+
     void Start()
     {
         var arenaObj = GameObject.FindGameObjectWithTag("ArenaManager");
@@ -80,8 +85,8 @@ public class WaveManager : MonoBehaviour
                 {
                     if (CurrentRound == Rounds.Count)
                     {
-                        // start the boss fight
-                        arena.StartBossFight();
+                        // finish
+                        arena.Finish();
 
                         // don't progress to the next wave
                         allRoundsComplete = true;
