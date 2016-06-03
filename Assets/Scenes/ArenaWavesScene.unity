@@ -2148,6 +2148,27 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 11490998, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
+      propertyPath: Rounds.Array.data[0].Waves.Array.data[0].Spawns.Array.data[0].Enemy
+      value: 
+      objectReference: {fileID: 11432990, guid: 653ace7cc05272145866dcca8542a263,
+        type: 2}
+    - target: {fileID: 11490998, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
+      propertyPath: Rounds.Array.data[0].Waves.Array.data[0].Spawns.Array.data[0].EnemiesPerSpawn
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490998, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
+      propertyPath: Rounds.Array.data[0].Waves.Array.data[0].SpawnerCount
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490998, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
+      propertyPath: Rounds.Array.data[0].Waves.Array.data[0].EnemySpawnInterval
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490998, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
+      propertyPath: Rounds.Array.data[0].Waves.Array.data[0].SpawnerCreationInterval
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1c42dc07c27b23e408d0db7f5520481d, type: 2}
   m_IsPrefabParent: 0
