@@ -119,19 +119,8 @@ public class HUDController : MonoBehaviour
         Animator.SetBool("IsRoundOverlayVisible", false);
     }
 
-    public void ShowWavesUI()
-    {
-        Animator.SetBool("IsBossFightActive", false);
-    }
-
     public void HideRoundOverlay()
     {
         Animator.SetBool("IsRoundOverlayVisible", false);
-    }
-
-    public void ShowBossFightUI()
-    {
-        Animator.SetBool("IsRoundOverlayVisible", false);
-        Animator.SetBool("IsBossFightActive", true);
     }
 }
