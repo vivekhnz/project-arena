@@ -159,6 +159,58 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!1 &41768969
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 41768970}
+  - 222: {fileID: 41768972}
+  - 114: {fileID: 41768973}
+  m_Layer: 5
+  m_Name: Reticle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &41768970
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 41768969}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 553174348}
+  m_RootOrder: 15
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 32, y: 32}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &41768972
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 41768969}
+--- !u!114 &41768973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 41768969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb68ae5f0113eaa4bb5c9a1b8a56befb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ReticleTexture: {fileID: 2800000, guid: 7c9ece94566fa294b90f5644d441e586, type: 3}
 --- !u!1 &57065401
 GameObject:
   m_ObjectHideFlags: 0
@@ -1448,6 +1500,7 @@ RectTransform:
   - {fileID: 603077680}
   - {fileID: 370883783}
   - {fileID: 1188667944}
+  - {fileID: 41768970}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_AnchorMin: {x: 0, y: 0}
@@ -2237,7 +2290,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
 --- !u!114 &1131421091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2574,7 +2627,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
 --- !u!114 &1225412234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2645,14 +2698,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d38a61d8b9e666c419b7cc337d7310f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BossEncounter: {fileID: 1810624268}
   WaveManager: {fileID: 745390986}
   Player: {fileID: 1995564091}
   GameStateManager: {fileID: 1131421091}
   AudioController: {fileID: 1225412234}
   HUD: {fileID: 553174349}
   ArenaRadius: 50
-  PlayerBossEncounterPosition: {x: 0, y: -20, z: 0}
   DelayDuration: 6
   FinishDuration: 5
 --- !u!1 &1390756129
@@ -3560,33 +3611,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1795821691}
---- !u!1 &1810624268
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1810624269}
-  m_Layer: 0
-  m_Name: Boss Encounter
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1810624269
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1810624268}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
 --- !u!1 &1963165109
 GameObject:
   m_ObjectHideFlags: 0
@@ -3781,7 +3805,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
 --- !u!114 &2014407431
 MonoBehaviour:
   m_ObjectHideFlags: 0

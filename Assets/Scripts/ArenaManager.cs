@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class ArenaManager : MonoBehaviour
 {
-    public GameObject BossEncounter;
     public GameObject WaveManager;
     public GameObject Player;
     public GameStateManager GameStateManager;
@@ -12,7 +11,6 @@ public class ArenaManager : MonoBehaviour
 
     public HUDController HUD;
     public float ArenaRadius = 50.0f;
-    public Vector3 PlayerBossEncounterPosition;
     public float DelayDuration = 10.0f;
     public float FinishDuration = 5.0f;
 
@@ -28,11 +26,8 @@ public class ArenaManager : MonoBehaviour
         hasStarted = false;
         hasFinished = false;
 
-        BossEncounter.SetActive(false);
         WaveManager.SetActive(false);
         AudioController.gameObject.SetActive(false);
-
-        HUD.ShowWavesUI();
     }
 
     void FixedUpdate()
@@ -66,9 +61,5 @@ public class ArenaManager : MonoBehaviour
         // draw arena radius in the Unity editor
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(Vector3.zero, ArenaRadius);
-
-        // draw player boss encounter position
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(PlayerBossEncounterPosition, 2.0f);
     }
 }
