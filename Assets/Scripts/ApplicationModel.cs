@@ -28,7 +28,7 @@ public static class ApplicationModel
     {
         if (isPersisted)
         {
-            return PlayerPrefs.GetInt("High Score", 0);
+            return PlayerPrefs.GetInt(name, 0);
         }
         else
         {

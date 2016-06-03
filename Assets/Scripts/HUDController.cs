@@ -7,13 +7,18 @@ public class HUDController : MonoBehaviour
 {
     public WaveManager WaveManager;
     public GameStateManager GameStateManager;
+    public PlayerController Player;
 
-    public Text WaveNamesText;
-    public Text WaveScoresText;
-    public Text WavePerfectText;
-    public Text WaveBonusText;
-    public Text CurrentRoundText;
+    public Text RoundOverlayWaveNamesText;
+    public Text RoundOverlayWaveScoresText;
+    public Text RoundOverlayWavePerfectText;
+    public Text RoundOverlayWaveBonusText;
+    public Text RoundOverlayCurrentRoundText;
+
     public Text ScoreText;
+    public Text CurrentRoundText;
+    public Text CurrentWaveText;
+    public Text HighscoreText;
 
     private int displayedScore = 0;
 
@@ -37,6 +42,8 @@ public class HUDController : MonoBehaviour
             WaveManager.RoundCompleted += OnRoundCompleted;
             WaveManager.RoundStarted += OnRoundStarted;
         }
+        HighscoreText.text =
+            ApplicationModel.GetValue("High Score", true).ToString();
     }
 
     void Update()
@@ -55,7 +62,18 @@ public class HUDController : MonoBehaviour
                 displayedScore += (increaseAmount * changeDirection);
             }
             ScoreText.text = displayedScore.ToString().PadLeft(5, '0');
+
+            int roundIndex = WaveManager.CurrentRound == 0 ? 1 : WaveManager.CurrentRound;
+            CurrentRoundText.text = string.Format("{0}/{1}",
+                roundIndex, WaveManager.Rounds.Count);
+            var round = WaveManager.Rounds[roundIndex - 1];
+
+            int wave = WaveManager.CurrentWave == 0 ? 1 : WaveManager.CurrentWave;
+            CurrentWaveText.text = string.Format("{0}/{1}",
+                wave, round.Waves.Count);
         }
+
+        Animator.SetFloat("SuperEnergy", (float)Player.SuperEnergy);
     }
 
     private void OnRoundCompleted(object sender, System.EventArgs e)
@@ -87,11 +105,11 @@ public class HUDController : MonoBehaviour
             }
         }
 
-        WaveNamesText.text = sbWaveNamesText.ToString();
-        WaveScoresText.text = sbWaveScoresText.ToString();
-        WavePerfectText.text = sbWavePerfectText.ToString();
-        WaveBonusText.text = sbWaveBonusText.ToString();
-        CurrentRoundText.text = string.Format("ROUND {0}", WaveManager.CurrentRound);
+        RoundOverlayWaveNamesText.text = sbWaveNamesText.ToString();
+        RoundOverlayWaveScoresText.text = sbWaveScoresText.ToString();
+        RoundOverlayWavePerfectText.text = sbWavePerfectText.ToString();
+        RoundOverlayWaveBonusText.text = sbWaveBonusText.ToString();
+        RoundOverlayCurrentRoundText.text = string.Format("ROUND {0}", WaveManager.CurrentRound);
 
         Animator.SetBool("IsRoundOverlayVisible", true);
     }
@@ -104,6 +122,11 @@ public class HUDController : MonoBehaviour
     public void ShowWavesUI()
     {
         Animator.SetBool("IsBossFightActive", false);
+    }
+
+    public void HideRoundOverlay()
+    {
+        Animator.SetBool("IsRoundOverlayVisible", false);
     }
 
     public void ShowBossFightUI()

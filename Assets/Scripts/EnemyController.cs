@@ -9,7 +9,7 @@ public class EnemyController : PooledObject
     public float TurnSpeed = 0.1f;
     public float MovementSpeed = 0.15f;
     public int ScoreValue = 100;
-    public int ShardsToDrop = 1;
+    public float ShardsToDrop = 1.0f;
     public ShardController Shard;
 
     public event EventHandler EnemyDestroyed;
@@ -18,6 +18,7 @@ public class EnemyController : PooledObject
     private ArenaManager arena;
     private GameStateManager gameStateManager;
     private ExplosionManager explosionManager;
+    private WorldUIController worldUIController;
 
     private DamageableObject damageComponent;
     private Animator animator;
@@ -69,6 +70,12 @@ public class EnemyController : PooledObject
         if (explosionManagerObj != null)
         {
             explosionManager = explosionManagerObj.GetComponent<ExplosionManager>();
+        }
+
+        var worldUIControllerObj = GameObject.FindGameObjectWithTag("WorldUIController");
+        if (worldUIControllerObj != null)
+        {
+            worldUIController = worldUIControllerObj.GetComponent<WorldUIController>();
         }
 
         base.ResetInstance();
@@ -209,10 +216,23 @@ public class EnemyController : PooledObject
             EnemyDestroyed(this, EventArgs.Empty);
         }
         gameStateManager.AddScore(ScoreValue);
+        
+        Vector2 calloutDirection = new Vector2(
+            Mathf.Cos(e.DamageAngle * Mathf.Deg2Rad),
+            Mathf.Sin(e.DamageAngle * Mathf.Deg2Rad));
+        worldUIController.CreateScoreCallout(ScoreValue, transform.position,
+            calloutDirection * 0.1f);
+
         explosionManager.CreateEnemyExplosion(transform.position, e.DamageAngle);
         if (Shard != null)
         {
-            for (int i = 0; i < ShardsToDrop; i++)
+            int guaranteedDrops = Mathf.FloorToInt(ShardsToDrop);
+
+            float probabilityOfExtraShard = ShardsToDrop - guaranteedDrops;
+            bool createExtraShard = UnityEngine.Random.Range(0.0f, 1.0f) < probabilityOfExtraShard;
+
+            int totalShards = guaranteedDrops + (createExtraShard ? 1 : 0);
+            for (int i = 0; i < totalShards; i++)
             {
                 var shard = Shard.Fetch<ShardController>();
                 shard.Initialize(transform.position,

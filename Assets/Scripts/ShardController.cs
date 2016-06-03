@@ -14,6 +14,7 @@ public class ShardController : PooledObject
     private Bounds spriteBounds;
     private PlayerController player;
     private GameStateManager gameStateManager;
+    private WorldUIController worldUIController;
 
     private Vector2 velocity;
 
@@ -49,6 +50,12 @@ public class ShardController : PooledObject
         if (gameStateManagerObj != null)
         {
             gameStateManager = gameStateManagerObj.GetComponent<GameStateManager>();
+        }
+
+        var worldUIControllerObj = GameObject.FindGameObjectWithTag("WorldUIController");
+        if (worldUIControllerObj != null)
+        {
+            worldUIController = worldUIControllerObj.GetComponent<WorldUIController>();
         }
 
         base.ResetInstance();
@@ -113,6 +120,8 @@ public class ShardController : PooledObject
                     {
                         player.AddSuperEnergy(SuperEnergy);
                         gameStateManager.AddScore(ScoreValue);
+                        worldUIController.CreateScoreCallout(ScoreValue, transform.position,
+                            (transform.position - player.transform.position).normalized * 0.1f);
                         Recycle();
                     }
                     break;
