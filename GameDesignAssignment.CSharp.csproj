@@ -78,6 +78,7 @@
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\DamageableObject.cs" />
     <Compile Include="Assets\Scripts\DasherEnemyController.cs" />
+    <Compile Include="Assets\Scripts\DisableAfterTimePeriod.cs" />
     <Compile Include="Assets\Scripts\EnemyBoundsController.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\Scripts\EnemySpawn.cs" />

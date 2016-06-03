@@ -51,6 +51,9 @@ public class WaveEnemySpawner : MonoBehaviour
     void OnDestroy()
     {
         // unhook from the enemy spawn event so we don't get duplicate notifications when the spawner is pooled
-        Spawner.EnemySpawned -= OnEnemySpawned;
+        if (Spawner != null)
+        {
+            Spawner.EnemySpawned -= OnEnemySpawned;
+        }
     }
 }
