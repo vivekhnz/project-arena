@@ -39,6 +39,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04288ae2c5554694ab2f867003d2e693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Hazard: {fileID: 11472696, guid: 7fb863d7124aa004fbe1f12307dda0e6, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -89,6 +90,20 @@ Prefab:
       propertyPath: Spawns.Array.data[1].EnemiesPerSpawn
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7dc0be0696156d748a66e2681c32d57a,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_SortingLayerID
+      value: 262378247
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Hazard
+      value: 
+      objectReference: {fileID: 11472696, guid: 7fb863d7124aa004fbe1f12307dda0e6,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 140422}

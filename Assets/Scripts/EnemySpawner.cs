@@ -17,6 +17,8 @@ public class EnemySpawner : PooledObject
     }
     public event EventHandler<EnemySpawnedEventArgs> EnemySpawned;
 
+    public HazardController Hazard;
+
     private float enemySpawnInterval = 1.0f;
     private List<EnemySpawn> spawns = new List<EnemySpawn>();
     private float enemySpawnTime;
@@ -34,6 +36,9 @@ public class EnemySpawner : PooledObject
         this.spawns = spawns;
 
         enemiesSpawned = new int[spawns.Count];
+
+        var hazard = Hazard.Fetch<HazardController>();
+        hazard.Initialize(transform.position);
     }
 
     public override void ResetInstance()
