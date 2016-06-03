@@ -93,6 +93,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 11268882}
+  - 114: {fileID: 11268883}
+  - 95: {fileID: 11268884}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -117,7 +119,46 @@ Transform:
   - {fileID: 1667127364}
   - {fileID: 506430989}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
+--- !u!114 &11268883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 11268881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 482e51913202e7d488bbab23300d8b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Background: {fileID: 1667127365}
+  BackLayer: {fileID: 1743798758}
+  MidLayer1: {fileID: 2036765349}
+  MidLayer2: {fileID: 1604061293}
+  FrontLayer: {fileID: 1963165111}
+  AudioController: {fileID: 1225412234}
+  WaveManager: {fileID: 447777599}
+  LowIntensityBackground: {r: 0.101960786, g: 0.101960786, b: 0.101960786, a: 1}
+  HighIntensityBackground: {r: 0.4, g: 0.4, b: 0.4, a: 1}
+  ForegroundColor: {r: 0, g: 0, b: 0, a: 1}
+  ForegroundSprite: {fileID: 21300000, guid: e26030a2a42a3454a9449c0a9c43bd2d, type: 3}
+--- !u!95 &11268884
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 11268881}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 209f771f59808a74e9832888690a83ff, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &48760302
 Prefab:
   m_ObjectHideFlags: 0
@@ -2849,7 +2890,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 776a09db177c4854797a8ce9410493b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Background: {fileID: 1667127365}
 --- !u!169 &1225412235
 AudioLowPassFilter:
   m_ObjectHideFlags: 0
@@ -3372,7 +3412,7 @@ SpriteRenderer:
   m_SortingLayerID: -1984418133
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 92d64aa0faf5f2445b3af9e0d06cd797, type: 3}
-  m_Color: {r: 0.17647058, g: 0.17647058, b: 0.17647058, a: 1}
+  m_Color: {r: 0.101960786, g: 0.101960786, b: 0.101960786, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!1001 &1689517661
