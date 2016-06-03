@@ -93,6 +93,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 11268882}
+  - 114: {fileID: 11268883}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -118,6 +119,26 @@ Transform:
   - {fileID: 506430989}
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!114 &11268883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 11268881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 482e51913202e7d488bbab23300d8b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Background: {fileID: 1667127365}
+  BackLayer: {fileID: 1743798758}
+  MidLayer1: {fileID: 2036765349}
+  MidLayer2: {fileID: 1604061293}
+  FrontLayer: {fileID: 1963165111}
+  AudioController: {fileID: 1225412234}
+  LowIntensityBackground: {r: 0.047058824, g: 0.047058824, b: 0.047058824, a: 1}
+  HighIntensityBackground: {r: 0.101960786, g: 0.2, b: 0.101960786, a: 1}
+  ForegroundColor: {r: 0, g: 1, b: 0, a: 0.5019608}
 --- !u!1001 &48760302
 Prefab:
   m_ObjectHideFlags: 0
@@ -2553,7 +2574,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 776a09db177c4854797a8ce9410493b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Background: {fileID: 1667127365}
 --- !u!169 &1225412235
 AudioLowPassFilter:
   m_ObjectHideFlags: 0
@@ -2805,7 +2825,7 @@ SpriteRenderer:
   m_SortingLayerID: -1984418133
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: e26030a2a42a3454a9449c0a9c43bd2d, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
+  m_Color: {r: 0, g: 1, b: 0, a: 0.2509804}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!1 &1605522984
@@ -3215,7 +3235,7 @@ SpriteRenderer:
   m_SortingLayerID: -1984418133
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e26030a2a42a3454a9449c0a9c43bd2d, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 0.5019608}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!1 &1762647166
@@ -3516,7 +3536,7 @@ SpriteRenderer:
   m_SortingLayerID: -1984418133
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: e26030a2a42a3454a9449c0a9c43bd2d, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.2509804}
+  m_Color: {r: 0, g: 1, b: 0, a: 0.1254902}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!114 &1963165112
@@ -3724,7 +3744,7 @@ SpriteRenderer:
   m_SortingLayerID: -1984418133
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: e26030a2a42a3454a9449c0a9c43bd2d, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
+  m_Color: {r: 0, g: 1, b: 0, a: 0.2509804}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!114 &2036765350
