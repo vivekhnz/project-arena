@@ -139,6 +139,7 @@ MonoBehaviour:
   LowIntensityBackground: {r: 0.047058824, g: 0.047058824, b: 0.047058824, a: 1}
   HighIntensityBackground: {r: 0.101960786, g: 0.2, b: 0.101960786, a: 1}
   ForegroundColor: {r: 0, g: 1, b: 0, a: 0.5019608}
+  ForegroundSprite: {fileID: 21300000, guid: 117c3f9eb10ab374ab5f8ccd7a34bc4f, type: 3}
 --- !u!1001 &48760302
 Prefab:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ public class TerrainController : MonoBehaviour
     public Color LowIntensityBackground = new Color(0.1f, 0.1f, 0.1f);
     public Color HighIntensityBackground = new Color(0.4f, 0.4f, 0.4f);
     public Color ForegroundColor = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+    public Sprite ForegroundSprite;
 
     void Start ()
     {
@@ -21,11 +22,6 @@ public class TerrainController : MonoBehaviour
 	
 	void FixedUpdate ()
     {
-        //Color bgStart = new Color(0.1f, 0.1f, 0.1f);
-        //Color bgEnd = new Color(0.4f, 0.4f, 0.4f);
-        //Color bgStart = new Color(0.05f, 0.05f, 0.05f);
-        //Color bgEnd = new Color(0.1f, 0.2f, 0.1f);
-
         if (AudioController.Intensity > 0.06f)
         {
             Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, 28.0f,
@@ -55,5 +51,10 @@ public class TerrainController : MonoBehaviour
         MidLayer1.color = midLayer;
         MidLayer2.color = midLayer;
         FrontLayer.color = frontLayer;
+
+        BackLayer.sprite = ForegroundSprite;
+        MidLayer1.sprite = ForegroundSprite;
+        MidLayer2.sprite = ForegroundSprite;
+        FrontLayer.sprite = ForegroundSprite;
     }
 }
