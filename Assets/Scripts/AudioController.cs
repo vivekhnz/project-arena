@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Linq;
 
 public class AudioController : MonoBehaviour
 {
     AudioSource audioSource;
     AudioLowPassFilter lowpass;
-    float[] spectrum = new float[256];
+    private MusicSpectrum spectrum;
     private bool isFadingOut = false;
 
     public float Intensity { get; private set; }
@@ -16,12 +14,13 @@ public class AudioController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         lowpass = GetComponent<AudioLowPassFilter>();
         isFadingOut = false;
+
+        spectrum = new MusicSpectrum(audioSource);
     }
 
     void FixedUpdate()
     {
-        audioSource.GetSpectrumData(spectrum, 0, FFTWindow.BlackmanHarris);
-        Intensity = spectrum[2];
+        Intensity = spectrum.GetIntensity();
 
         if (isFadingOut)
         {
